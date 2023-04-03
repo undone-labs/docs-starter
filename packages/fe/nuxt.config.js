@@ -30,7 +30,7 @@ export default {
     githubOAuthLink: `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_OAUTH_CLIENT_ID}&scope=user:email,public_repo`,
     serverFlag: env,
     seo: {
-      siteName: 'Fil+'
+      siteName: 'Zero Docs'
     },
     socketOptions: {
       withCredentials: true
@@ -52,11 +52,11 @@ export default {
   // /////////////////////////////////////////////////////// Headers of the Page
   // ---------------------------------------------------------------------------
   head: {
-    title: 'Fil+',
+    title: 'Zero Docs',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Fil+' }
+      { hid: 'description', name: 'description', content: 'Zero Docs' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon-96x96.png' }
@@ -151,7 +151,7 @@ export default {
   // /////////////////////////////////////////////////////////////// [Module] ls
   // ---------------------------------------------------------------------------
   ls: {
-    prefix: 'filplus__'
+    prefix: 'zerodocs__'
   },
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options

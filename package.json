@@ -1,7 +1,7 @@
 {
-  "name": "filplus",
+  "name": "zero-docs",
   "version": "1.0.0",
-  "description": "Fil+",
+  "description": "Zero Docs",
   "author": {
     "name": "Agency Undone",
     "email": "hello@agencyundone.com"
@@ -13,22 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:data-preservation-programs/filplus.git"
+    "url": "git@github.com:undone-labs/zero-docs.git"
   },
   "engines": {
     "node": ">=16.18.0"
   },
   "keywords": [
-    "filecoin",
-    "filecoin plus",
-    "fil+",
-    "filplus",
-    "fil plus"
+    "Zero Docs",
+    "zero-docs",
+    "zerodocs"
   ],
   "bugs": {
-    "url": "https://github.com/data-preservation-programs/filplus/issues"
+    "url": "https://github.com/undone-labs/zero-docs/issues"
   },
-  "homepage": "https://github.com/data-preservation-programs/filplus#readme",
+  "homepage": "https://github.com/undone-labs/zero-docs#readme",
   "workspaces": [
     "packages/fe",
     "packages/be"

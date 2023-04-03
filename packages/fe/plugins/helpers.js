@@ -419,8 +419,8 @@ const FormatDatacapSize = (ctx, transformField, transformSourceField, args) => {
     return parseFloat(FormatBytes(value, 'array').value)
   } else if (action === 'bytes') {
     const options = store.getters['general/siteContent'].apply.page_content.form.scaffold.total_datacap_size_unit.options
-    const unitField = ctx.$field(`${args.unit_from_field}|filplus_application`).get()
-    const valueField = ctx.$field(`${args.value_from_field}|filplus_application`).get()
+    const unitField = ctx.$field(`${args.unit_from_field}|zerodocs_application`).get()
+    const valueField = ctx.$field(`${args.value_from_field}|zerodocs_application`).get()
     if (!unitField || !valueField || unitField.value === -1) { return value }
     if (valueField) { value = valueField.value }
     const unit = options[unitField.value].label
@@ -442,7 +442,7 @@ const ReactDatasizeRangeToUnit = (ctx, transformField, transformSourceField, arg
   const unitValue = transformSourceField.value
   const store = ctx.store
   const options = store.getters['general/siteContent'].apply.page_content.form.scaffold.total_datacap_size_unit.options
-  const inputField = ctx.$field(`${args.value_from_field}|filplus_application`).get()
+  const inputField = ctx.$field(`${args.value_from_field}|zerodocs_application`).get()
   if (unitValue === -1) { return originalValue }
   const unit = options[unitValue].label
   const size = inputField.value
