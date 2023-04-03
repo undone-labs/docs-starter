@@ -1,12 +1,12 @@
 {
   "seo": {
-    "title": "Static — Filecoin Plus",
-    "description": "Filecoin Plus is a social layer mechanism that incentivizes all participants to make Filecoin more useful."
+    "title": "Static — Zero Docs",
+    "description": "Zero Docs! But static!"
   },
   "og": {
-    "site_name": "Static — Filecoin Plus",
+    "site_name": "Static — Zero Docs",
     "url": "",
     "type": "website",
-    "image": "/open-graph-image.png"
+    "image": ""
   }
 }
