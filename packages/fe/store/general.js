@@ -10,8 +10,6 @@ const state = () => ({
   siteContent: {},
   staticFiles: {},
   clipboard: false,
-  networkStorageCapacity: false,
-  applyFormHighlighted: false
 })
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -19,9 +17,7 @@ const state = () => ({
 const getters = {
   siteContent: state => state.siteContent,
   staticFiles: state => state.staticFiles,
-  clipboard: state => state.clipboard,
-  networkStorageCapacity: state => state.networkStorageCapacity,
-  applyFormHighlighted: state => state.applyFormHighlighted
+  clipboard: state => state.clipboard
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -87,20 +83,6 @@ const actions = {
   setClipboard ({ commit }, text) {
     this.$addTextToClipboard(text)
     commit('SET_CLIPBOARD', text)
-  },
-  // ///////////////////////////////////////////////// getNetworkStorageCapacity
-  async getNetworkStorageCapacity ({ commit, dispatch }) {
-    try {
-      const file = await dispatch('getCachedFile', 'network-storage-capacity.json')
-      commit('SET_NETWORK_STORAGE_CAPACITY', this.$formatBytes(file[0].total_raw_bytes_power))
-    } catch (e) {
-      console.log('========= [Store Action: general/getNetworkStorageCapacity]')
-      console.log(e)
-    }
-  },
-  // ///////////////////////////////////////////// setApplyFormHighlightedStatus
-  setApplyFormHighlightedStatus ({ commit }, status) {
-    commit('SET_APPLY_FORM_HIGHLIGHTED_STATUS', status)
   }
 }
 
@@ -115,12 +97,6 @@ const mutations = {
   },
   SET_CLIPBOARD (state, text) {
     state.clipboard = text
-  },
-  SET_NETWORK_STORAGE_CAPACITY (state, capacity) {
-    state.networkStorageCapacity = capacity
-  },
-  SET_APPLY_FORM_HIGHLIGHTED_STATUS (state, status) {
-    state.applyFormHighlighted = status
   }
 }
 

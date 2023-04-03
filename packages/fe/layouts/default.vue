@@ -83,21 +83,10 @@ export default {
         clearTimeout(timeout)
       }, 2000)
     })
-    // Check to see if saved form exists in localStorage
-    if (this.$ls.get('form__filplus_application')) {
-      this.setSavedFormExistsStatus(true)
-    }
-  },
-
-  methods: {
-    ...mapActions({
-      setSavedFormExistsStatus: 'form/setSavedFormExistsStatus'
-    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.main-container {}
 </style>
