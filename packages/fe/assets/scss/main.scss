@@ -7,83 +7,62 @@ $fontAssetPath: '~assets/fonts';
 
 // -------------------------------------------------------- Suisse International
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-Light.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-Regular.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-RegularItalic.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
   font-weight: 400;
-  font-style: italic;
+  font-variation-settings: "slnt" -10;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-Medium.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: bold;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-MediumItalic.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
   font-weight: 500;
-  font-style: italic;
+  font-variation-settings: "slnt" -10;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-SemiBold.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: bold;
 }
 
 @font-face {
-  font-family: 'SuisseIntl';
-  src: url('#{$fontAssetPath}/suisse-intl/SuisseIntl-Bold.otf') format('opentype');
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: bold;
 }
 
-// --------------------------------------------------- Suisse International Mono
+// ----------------------------------------------------------------------- Menlo
 @font-face {
-  font-family: 'SuisseIntlMono';
-  src: url('#{$fontAssetPath}/suisse-intl-mono/SuisseIntlMono-Regular.otf') format('opentype');
+  font-family: 'Menlo';
+  src: url('#{$fontAssetPath}/menlo/Menlo-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
-// -------------------------------------------------------------- Helvetica Neue
-@font-face {
-  font-family: 'HelveticaNeue';
-  src: url('#{$fontAssetPath}/helvetica-neue/HelveticaNeue-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'HelveticaNeue';
-  src: url('#{$fontAssetPath}/helvetica-neue/HelveticaNeue-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-// ----------------------------------------------------------------- Inconsolata
-@font-face {
-  font-family: 'Inconsolata';
-  src: url('#{$fontAssetPath}/inconsolata/Inconsolata-Variable.ttf') format('truetype');
-  font-weight: 200 900;
-}
 
 //////////////////////////////////////////////////////////////////////// General
 //------------------------------------------------------------------------------
@@ -103,7 +82,7 @@ body {
   margin: 0;
   height: auto;
   color: $titanWhite;
-  font-family: $fontSuisseIntl;
+  font-family: $fontInter;
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: 0px;
@@ -586,7 +565,7 @@ span.error {
   }
   pre,
   code {
-    font-family: $fontSuisseIntlMono;
+    font-family: $fontMenlo;
     background-color: $aztec;
     color: white;
     padding: 0.3125rem 0.625rem;
