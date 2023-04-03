@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "About — Filecoin Plus",
+    "description": "An introduction to what the Filecoin Plus program is, how it works, and why it exists."
+  },
+  "og": {
+    "site_name": "About — Filecoin Plus",
+    "url": "",
+    "type": "website",
+    "image": "/open-graph-image.png"
+  },
+  "page_content": {
+    "heading": "What is<span class='bubble right'>Filecoin+?</span>",
+    "cta_card": {
+      "title": "Do you have data to store?",
+      "description": "The Fil+ program provides a network block reward subsidy. <i>Apply today</i> to get started.",
+      "link": "https://example.com"
+    }
+  }
+}
