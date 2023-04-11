@@ -107,14 +107,14 @@ export default {
     opacity: 1;
   }
   :deep(.dot) {
-    background-color: blueviolet;
+    background-color: var(--secondary-text-color);
   }
 }
 
 .button-content {
    :deep(.text) {
-    font-size: toRem(20);
-    font-weight: 500;
+    // font-size: toRem(20);
+    // font-weight: 500;
   }
   transition: 150ms ease-out;
   &.hide {
@@ -123,57 +123,21 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////////// Themes
-.theme__pink {
-  display: inline-block;
-  color: pink;
+.theme__nav {
   .button-content {
     display: flex;
     align-items: center;
   }
   :deep(.text) {
-    @include h5;
-  }
-  :deep(.icon-chevron) {
-    transform: rotate(90deg);
-    transition: 150ms ease-in;
-    width: toRem(12);
-    margin-right: toRem(8);
+    color: var(--primary-text-color);
+    @include navigation;
   }
   &:hover {
-    color: pink;
-    :deep(.icon-chevron) {
-      transform: rotate(90deg) translateY(1rem);
-      transition: 150ms ease-out;
+    :deep(.text) {
+      color: var(--brand-color);
+      transition: color .25s ease;
     }
   }
 }
 
-.theme__green {
-  color: aqua;
-  :deep(.text) {
-    // @include p2;
-  }
-  &:hover {
-    color: aqua;
-  }
-}
-
-.theme__mineral-green {
-  background-color: rgba(salmon, 0.5);
-  border-radius: toRem(3);
-  .button-content{
-    // @include p3;
-    line-height: 1.8;
-    font-weight: 500;
-    padding: 0 toRem(13);
-  }
-  &:not([disabled]) {
-    &:hover {
-      background-color: rgba(salmon, 1);
-      :deep(.button-content) {
-        text-decoration: none;
-      }
-    }
-  }
-}
 </style>

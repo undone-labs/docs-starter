@@ -16,14 +16,11 @@
             <!-- <Logo class="logo" /> -->
           </nuxt-link>
 
-          <div class="nav-detail" />
-
           <nav id="site-nav">
             <!-- =============================================== Nav links -->
             <div
               ref="buttonList"
-              class="button-list"
-              @mouseleave.self="mouseLeaveNav">
+              class="button-list">
               <ButtonX
                 v-for="(link, index) in links"
                 :key="index"
@@ -32,8 +29,8 @@
                 :selected="$isRouteCurrent($route, link.href)"
                 :tag="link.type"
                 :target="link.target"
-                class="site-nav-link"
-                @mouseover.native="mouseOverLink(index)">
+                theme="nav"
+                class="site-nav-link">
                 <div class="text" v-html="link.label" />
               </ButtonX>
               <ButtonA
@@ -72,36 +69,6 @@ import ButtonA from '@/components/buttons/button-a'
 import ButtonX from '@/components/buttons/button-x'
 // import MobileNav from '@/components/mobile-nav'
 
-// =================================================================== Functions
-const resizeHandler = (instance) => {
-  instance.squiggleOffsetLeft = 0
-  if (window.matchMedia('(max-width: 64rem)').matches) {
-    if (instance.breakpoint !== 'medium') {
-      instance.breakpoint = 'medium'
-    }
-  } else if (window.matchMedia('(max-width: 75rem)').matches) {
-    if (instance.breakpoint !== 'large') {
-      instance.breakpoint = 'large'
-    }
-  } else if (window.matchMedia('(max-width: 90rem)').matches) {
-    if (instance.breakpoint !== 'xlarge') {
-      instance.breakpoint = 'xlarge'
-    }
-  } else {
-    if (instance.breakpoint !== 'default') {
-      instance.breakpoint = 'default'
-    }
-  }
-  if (instance.$refs.buttonList) {
-    const children = instance.$refs.buttonList.children
-    const lastButton = children[children.length - 1]
-    const offset = lastButton.offsetLeft - instance.navWidth
-    const offXlarge = instance.breakpoint === 'xlarge' ? 28 : instance.breakpoint === 'large' ? 24 : 0
-    instance.bottomSquiggleOffset = offset - offXlarge
-    instance.squiggleContainerLength = lastButton.offsetLeft + lastButton.clientWidth
-  }
-}
-
 // ====================================================================== Export
 export default {
   name: 'SiteHeader',
@@ -113,35 +80,10 @@ export default {
     // MobileNav
   },
 
-  data () {
-    return {
-      mini: false,
-      scroll: false,
-      resize: false,
-      squiggleWidth: 80,
-      squiggleOffsetLeft: 0,
-      pathKey: 0,
-      path: 'M 0 2 H 892 C 893 2 893 2 893 2 C 895 2 901 1 906 2 C 918 4 918 22 931 22 C 944 22 945 4 958 2 C 962 1 968 2 970 2 C 971 2 971 2 971 2 H 1862',
-      breakpoint: 'default',
-      bottomSquiggleOffset: -182,
-      squiggleContainerLength: 0
-    }
-  },
-
   computed: {
     ...mapGetters({
-      siteContent: 'general/siteContent',
-      account: 'auth/account'
+      siteContent: 'general/siteContent'
     }),
-    navWidth () {
-      if (this.breakpoint !== 'default') {
-        return this.breakpoint === 'xlarge' ? 930 : 760
-      }
-      return 960
-    },
-    squiggleDefaultOffset () {
-      return this.breakpoint === 'large' ? 532 : 436
-    },
     navigationContent () {
       return this.siteContent.general.navigation
     },
@@ -153,56 +95,7 @@ export default {
     }
   },
 
-  watch: {
-    squiggleOffsetLeft () {
-      this.pathKey++
-    },
-    account () {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          resizeHandler(this)
-        }, 100)
-      })
-    }
-  },
-
-  mounted () {
-    this.$nextTick(() => {
-      const scrollHandler = () => {
-        const y = window.pageYOffset || document.documentElement.scrollTop
-        const mini = this.mini
-        if (y > 0) {
-          if (!mini) { this.mini = true }
-        } else {
-          if (mini) { this.mini = false }
-        }
-      }; scrollHandler()
-      this.scroll = this.$throttle(scrollHandler, 1)
-      window.addEventListener('scroll', this.scroll)
-      resizeHandler(this)
-      this.resize = this.$throttle(() => { resizeHandler(this) }, 1)
-      window.addEventListener('resize', this.resize)
-    })
-  },
-
-  beforeDestroy () {
-    if (this.scroll) { window.removeEventListener('scroll', this.scroll) }
-  },
-
   methods: {
-    mouseOverLink (index) {
-      if (this.$refs.navItems) {
-        const element = this.$refs.navItems[index].$el
-        const elemCenter = element.offsetLeft + (element.clientWidth / 2)
-        // svgScalar is needed to account for the difference between the
-        // length of the flat portion of the svg and the nav length
-        const svgScalar = 892 - this.navWidth
-        this.squiggleOffsetLeft = elemCenter - this.navWidth + this.squiggleDefaultOffset - (this.squiggleWidth / 2) - svgScalar
-      }
-    },
-    mouseLeaveNav () {
-      this.squiggleOffsetLeft = 0
-    },
     closeNav () {
       const mobileNav = this.$refs.mobileNav
       if (mobileNav && mobileNav.modal) {
@@ -221,16 +114,13 @@ export default {
   left: 0;
   width: 100%;
   height: $siteHeaderHeight;
-  background: hotpink;
   z-index: 1000;
-  transition: background-color 150ms ease-out, height 150ms ease-out;
-  &.mini {
-    transition: background-color 150ms ease-in, height 150ms ease-in;
-    height: $siteHeaderHeightMini;
-    @include mini {
-      height: $siteHeaderHeight;
-    }
-  }
+  // &.mini {
+  //   height: $siteHeaderHeightMini;
+  //   @include mini {
+  //     height: $siteHeaderHeight;
+  //   }
+  // }
 }
 
 [class~="grid"],
@@ -253,38 +143,6 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////// Navigation
-.nav-wrapper {
-  --squiggle-container-length: 100%;
-  --right-squiggle-offset: 0px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: toRem(82);
-  width: toRem(828);
-  &:before {
-    content: '';
-    position: absolute;
-    right: var(--right-squiggle-offset);
-    top: 1px;
-    transform: translateX(calc(100% - 0.5rem));
-    width: 129px;
-    height: calc(100% - 4px);
-    border-bottom: solid 2px white;
-    background-repeat: no-repeat;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='129' height='24' viewBox='0 0 129 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M 0 1.0005 H -0.826 C 2.212 0.7544 8.396 0.2395 12.5 1.0005 C 24.944 3.3076 25.346 20.7652 38 21.0005 C 50.963 21.2415 51.745 3.3262 64.5 1.0005 C 68.789 0.2185 75.256 0.7542 77.187 0.9423 C 77.563 0.9789 77.939 1.0005 78.317 1.0005 H 129' stroke='white' stroke-width='2'/%3e%3c/svg%3e ");
-    @include large {
-      display: none;
-    }
-  }
-  .squiggle-container {
-    width: var(--squiggle-container-length);
-    @include large {
-      width: calc(100% + 20rem);
-    }
-  }
-}
-
 #site-nav {
   display: flex;
   justify-content: space-between;
@@ -305,17 +163,12 @@ export default {
 }
 
 .site-nav-link {
-  font-size: toRem(18);
   &:not(:last-child) {
     margin-right: 3.125rem;
   }
   @include large {
-    font-size: 1rem;
     &:not(:last-child) {
       margin-right: 2rem;
-    }
-    :deep(.button-content) {
-      font-size: 1rem;
     }
   }
 }
@@ -337,14 +190,6 @@ export default {
   }
 }
 
-:deep(.auth-button) {
-  .button {
-    @include large {
-      padding: 0.625rem 1rem;
-    }
-  }
-}
-
 .button.site-nav-cta {
   padding: 0.375rem 1.5rem;
   margin-left: 3.125rem;
@@ -357,81 +202,4 @@ export default {
   }
 }
 
-// /////////////////////////////////////////////////////////////// Nav Detailing
-$squiggleAnimationDuration: 500ms;
-
-@keyframes wave {
-  0%, 100%{
-    d:path('M 0 2 H 892 C 893 2 893 2 893 2 C 895 2 901 1 906 2 C 918 4 918 22 931 22 C 944 22 945 4 958 2 C 962 1 968 2 970 2 C 971 2 971 2 971 2 H 1862');
-  }
-  50%{
-    d:path('M 0 2 H 892 C 893 2 893 2 893 2 C 895 2 901 2 906 4 C 918 8 918 17 931 17 C 944 17 946 6 958 3 C 962 2 968 2 970 2 C 971 2 971 2 971 2 H 1862')
-  }
-}
-
-.nav-detail {
-  position: absolute;
-  left: -1.25rem;
-  top: 1px;
-  width: 1rem;
-  height: calc(100% - 2px);
-  border-top: 2px solid white;
-  border-bottom: 2px solid white;
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    height: 100%;
-    border: inherit;
-  }
-  &:before {
-    width: 0.5rem;
-    left: -0.75rem;
-  }
-  &:after {
-    width: 0.25rem;
-    left: -1.25rem;
-  }
-}
-
-.squiggle-container {
-  position: absolute;
-  max-width: toRem(904);
-  height: 100%;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-  @include containerMaxMQ {
-    width: calc(100% + 100vw * 0.041665);
-  }
-}
-
-.squiggle {
-  position: absolute;
-  left: 0;
-  top: 0;
-  fill: none;
-  path {
-    d:path('M 0 2 H 892 C 893 2 893 2 893 2 C 895 2 901 1 906 2 C 918 4 918 22 931 22 C 944 22 945 4 958 2 C 962 1 968 2 970 2 C 971 2 971 2 971 2 H 1862');
-  }
-}
-
-.svg-wrapper {
-  &.animated {
-    transition: $squiggleAnimationDuration cubic-bezier(0.43, 0.14, 0.38, 1.29);
-    .squiggle {
-      path {
-        animation: wave $squiggleAnimationDuration 1;
-      }
-    }
-  }
-  &.static {
-    --bottom-squiggle-offset: -128px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: scaleY(-1) translateX(var(--bottom-squiggle-offset));
-  }
-}
 </style>

@@ -7,12 +7,6 @@
         <div class="col-3_md-5_mi-12">
           <div class="logo-cta">
             <!-- <Logo class="site-logo" /> -->
-            <div
-              class="cta-wrapper"
-              @click="$highlightApplyForm">
-              <CircleText class="cta-spinner" />
-              <Arrow class="cta-arrow" />
-            </div>
           </div>
         </div>
 
@@ -71,8 +65,6 @@
 import { mapGetters } from 'vuex'
 
 // import Logo from '@/components/logo'
-import CircleText from '@/components/icons/circle-text'
-import Arrow from '@/components/icons/arrow'
 import ButtonX from '@/components/buttons/button-x'
 import Card from '@/components/card'
 import GithubIcon from '@/components/icons/github'
@@ -84,8 +76,6 @@ export default {
 
   components: {
     // Logo,
-    CircleText,
-    Arrow,
     ButtonX,
     Card,
     GithubIcon,
@@ -98,8 +88,6 @@ export default {
       siteContent: 'general/siteContent'
     }),
     footerContent () {
-      // eslint-disable-next-line no-console
-      console.log('footerContent', this.siteContent.general.footer)
       return this.siteContent.general ? this.siteContent.general.footer : false
     },
     primaryLinks () {
@@ -153,13 +141,6 @@ export default {
 .section-footer {
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
-}
-
-.footer-bottom-border {
-  bottom: 0.5px !important;
-  :deep(path) {
-    fill: coral;
-  }
 }
 
 .site-logo {
@@ -230,8 +211,8 @@ export default {
   align-items: flex-start;
   height: 100%;
   margin-bottom: 0.75rem;
-  border-left: 3px solid antiquewhite;
-  border-right: 3px solid antiquewhite;
+  border-left: 3px solid --brand-color;
+  border-right: 3px solid --brand-color;
   @include medium {
     border-right: none;
   }
@@ -244,7 +225,7 @@ export default {
   position: relative;
   padding: toRem(38) toRem(40);
   width: 100%;
-  border-bottom: 3px solid antiquewhite;
+  border-bottom: 3px solid --brand-color;
   font-weight: 500;
   :deep(.button) {
     @include mini {
@@ -270,131 +251,12 @@ export default {
       top: -7px;
       width: calc(100vw * 0.041665);
       height: 3px;
-      background-color: antiquewhite;
     }
     &:first-child {
-      border-top: 3px solid antiquewhite;
+      border-top: 3px solid --brand-color;
       &:before {
         top: -3px;
       }
-    }
-  }
-}
-
-// /////////////////////////////////////////////////////////////////// Video CTA
-.video-cta-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  :deep(.chevron-long){
-    transition: 150ms ease-in;
-  }
-  &:hover {
-    :deep(.chevron-long) {
-      transition: 150ms ease-in;
-      transform: translateX(1rem);
-    }
-  }
-  @include medium {
-    height: toRem(314) !important;
-  }
-  @include tiny {
-    height: toRem(250) !important;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: calc(100% + (50vw - #{math.div($containerWidth, 2)}) + 3px);
-    max-width: toRem(623);
-    border-right: 3px solid antiquewhite;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: left calc(50% + 2rem) top 50%;
-    background-image: url('~/assets/images/abstract-3d-object-with-three-layered-branches-and-rounded-edges.png');
-    @include containerMaxMQ {
-      width: calc(100% + 100vw * 0.041665 + 3px);
-    }
-    @include medium {
-      width: toRem(1024);
-      height: calc(100% - 2px);
-      left: 50%;
-      transform: translateX(-50%);
-      border-right: none;
-      border-top: 3px solid antiquewhite;
-      max-width: unset;
-      background-position: center;
-    }
-    @include mini {
-      width: toRem(640);
-    }
-    @include tiny {
-      width: toRem(415);
-    }
-  }
-}
-
-.video-cta {
-  display: block;
-  width: 100%;
-  height: 100%;
-  .site-logo {
-    width: 13%;
-    top: 1.75rem;
-    left: 1.75rem;
-  }
-}
-
-.footer-cta-card.corner-position__top-right {
-  position: absolute;
-  width: fit-content;
-  left: 2.1875rem;
-  bottom: 1.125rem;
-  transform-origin: bottom left;
-  transition: 150ms ease-out;
-  :deep(.content) {
-    display: flex;
-    justify-content: space-between;
-    padding: 1.375rem 2.6875rem 1.4375rem 1.5rem;
-    @include mini {
-      padding: 0.875rem;
-      padding-right: 1.75rem;
-    }
-  }
-  :deep(.icon) {
-    background-color: #0047FF;
-  }
-  &.small-variant {
-    @include mini {
-      display: none;
-    }
-  }
-  &.tiny-variant {
-    display: none;
-    @include mini {
-      display: block;
-    }
-  }
-  .card-image {
-    margin: auto 0;
-    width: toRem(57);
-    height: toRem(57);
-    border-radius: 50%;
-    @include mini {
-      width: toRem(34);
-      height: toRem(34);
-    }
-  }
-  .card-text {
-    margin-left: 1.375rem;
-    font-size: toRem(25);
-    font-weight: 500;
-    line-height: 1.3;
-    @include mini {
-      font-size: toRem(15);
-      margin-left: 0.875rem;
     }
   }
 }
@@ -419,7 +281,6 @@ export default {
   font-size: 1rem;
   font-weight: 400;
   line-height: leading(30, 16);
-  color: darkcyan;
   text-align: right;
   @include large {
     font-size: 0.875rem;

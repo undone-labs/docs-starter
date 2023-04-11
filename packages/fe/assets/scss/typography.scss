@@ -148,25 +148,18 @@ button {
   font-size: toRem(13);
   line-height: leading(20, 13);
   font-weight: 500;
-  &:hover {
-    color: var(--brand-color);
-    transition: color .25s ease;
-  }
 }
 
 // ------------------------------------------------------- Sidebar Styles Mixins
 @mixin sidebarSectionTitle {
-  font-size: toRem(13);
-  line-height: leading(20, 13);
+  @include navigation;
   font-weight: 600;
   letter-spacing: 0.2px;
   padding: toRem(4) 0;
 }
 
 @mixin sidebar {
-  font-size: toRem(13);
-  line-height: leading(20, 13);
-  font-weight: 500;
+  @include navigation;
   color: var(--sidebar-text-color);
   padding: toRem(4) 0;
   &:hover {

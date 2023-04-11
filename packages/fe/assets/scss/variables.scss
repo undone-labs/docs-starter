@@ -46,7 +46,7 @@ $replace4: #000000;
 
 // ---------------------------------------------------------------------- Themes
 :root {
-  --brand-color: $mingGreen;
+  --brand-color: #{$mingGreen};
 
   --background-color: #{$white};
   --secondary-background-color: #{$alabaster};
