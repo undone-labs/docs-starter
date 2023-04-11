@@ -150,7 +150,7 @@ $dimension: 2.5rem;
     }
   }
   &.current {
-    border: 2px solid $nandor;
+    border: 2px solid antiquewhite;
     border-radius: 0.3125rem;
     cursor: default;
   }

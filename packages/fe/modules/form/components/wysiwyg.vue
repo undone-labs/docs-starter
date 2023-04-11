@@ -735,7 +735,7 @@ export default {
     left: -150%;
     top: 85%;
     border-radius: toRem(4);
-    background-color: $aztec;
+    background-color: coral;
     .toolbar-icon{
       margin: toRem(8) toRem(13) toRem(8) toRem(7) ;
     }
@@ -744,7 +744,7 @@ export default {
         border: none;
         background: salmon;
       }
-      @include p3;
+      // @include p3;
       max-width: 6rem;
     }
     .user-input-submit {
@@ -758,7 +758,7 @@ export default {
   border-radius: toRem(3);
   line-height: 1.6;
   :deep(.button-content) {
-    @include p2;
+    // @include p2;
   }
 }
 
@@ -816,7 +816,7 @@ export default {
 }
 
 .wysiwyg-char-count {
-  @include p3;
+  // @include p3;
   color: rgba($aquaSqueeze, 0.7);
   margin-right: toRem(13);
   text-align: right;

@@ -13,7 +13,7 @@
             to="/"
             class="logo-link"
             @click.native="closeNav">
-            <Logo class="logo" />
+            <!-- <Logo class="logo" /> -->
           </nuxt-link>
 
           <div
@@ -80,7 +80,6 @@
                   @mouseover.native="mouseOverLink(index)">
                   <div class="text" v-html="link.label" />
                 </ButtonX>
-                <AuthButton />
                 <ButtonA
                   v-if="cta"
                   :to="cta.href"
@@ -96,11 +95,11 @@
           </div>
 
           <!-- ================================================== Mobile nav -->
-          <MobileNav
+          <!-- <MobileNav
             v-else
             ref="mobileNav"
             :links="links"
-            :cta="cta" />
+            :cta="cta" /> -->
 
         </div>
       </div>
@@ -113,11 +112,10 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Logo from '@/components/logo'
+// import Logo from '@/components/logo'
 import ButtonA from '@/components/buttons/button-a'
 import ButtonX from '@/components/buttons/button-x'
-import MobileNav from '@/components/mobile-nav'
-import AuthButton from '@/components/auth-button'
+// import MobileNav from '@/components/mobile-nav'
 
 // =================================================================== Functions
 const resizeHandler = (instance) => {
@@ -154,11 +152,10 @@ export default {
   name: 'SiteHeader',
 
   components: {
-    Logo,
+    // Logo,
     ButtonA,
-    ButtonX,
-    MobileNav,
-    AuthButton
+    ButtonX
+    // MobileNav
   },
 
   data () {

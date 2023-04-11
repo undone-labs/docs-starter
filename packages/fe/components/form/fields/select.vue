@@ -140,7 +140,7 @@ $height: 4rem;
   }
   &.caution {
     ::v-deep .select {
-      border-color: $mandysPink;
+      border-color: pink;
     }
   }
   &.error {
@@ -161,7 +161,7 @@ $height: 4rem;
     }
   }
   .select {
-    border-bottom: 2px solid $titanWhite;
+    border-bottom: 2px solid blueviolet;
     transition: 150ms ease-out;
     &.native {
       &:focus-visible {
@@ -174,8 +174,8 @@ $height: 4rem;
     scale: 1 0;
     transition: scale 150ms ease-out;
     max-height: $height * 5.5;
-    background-color: $aztec;
-    border: 2px solid $titanWhite;
+    background-color: coral;
+    border: 2px solid blueviolet;
     border-radius: 0.3125rem;
   }
 }

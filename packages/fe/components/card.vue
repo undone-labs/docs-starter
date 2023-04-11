@@ -137,8 +137,8 @@ $cardRadiusTiny: 0.9375rem;
     height: $squigglySizing;
     width: calc(100% - #{$squigglySizing});
     border-top-left-radius: $cardRadius;
-    border-left: 2px solid $titanWhite;
-    border-top: 2px solid $titanWhite;
+    border-left: 2px solid blueviolet;
+    border-top: 2px solid blueviolet;
   }
   &:after {
     top: $squigglySizing;
@@ -198,7 +198,7 @@ $cardRadiusTiny: 0.9375rem;
   width: toRem(54);
   height: toRem(54);
   border-radius: 50%;
-  background-color: $greenYellow;
+  background-color: aqua;
   :deep(svg) {
     position: absolute;
     width: 0.9375rem;
@@ -208,14 +208,14 @@ $cardRadiusTiny: 0.9375rem;
   }
   &.arrow {
     :deep(path) {
-      fill: $aztec;
+      fill: coral;
     }
   }
   &.chevron-long {
     border: none;
     :deep(path) {
       fill: none;
-      stroke: $titanWhite;
+      stroke: blueviolet;
       transform: translateX(1px);
     }
   }
@@ -312,8 +312,8 @@ $cardRadiusTiny: 0.9375rem;
         height: $squigglySizingSmall;
         width: calc(100% - #{$squigglySizingSmall});
         border-top-left-radius: $cardRadiusSmall;
-        border-left: 1px solid $titanWhite;
-        border-top: 1px solid $titanWhite;
+        border-left: 1px solid blueviolet;
+        border-top: 1px solid blueviolet;
       }
       &:after {
         top: $squigglySizingSmall;
@@ -343,8 +343,8 @@ $cardRadiusTiny: 0.9375rem;
         height: $squigglySizingTiny;
         width: calc(100% - #{$squigglySizingTiny});
         border-top-left-radius: $cardRadiusTiny;
-        border-left: 1px solid $titanWhite;
-        border-top: 1px solid $titanWhite;
+        border-left: 1px solid blueviolet;
+        border-top: 1px solid blueviolet;
       }
       &:after {
         top: $squigglySizingTiny;

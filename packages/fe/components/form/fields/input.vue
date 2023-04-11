@@ -211,7 +211,7 @@ $height: 4rem;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  border-bottom: 2px solid $titanWhite;
+  border-bottom: 2px solid blueviolet;
   appearance: none;
   -moz-appearance: textfield;
   transition: 150ms ease-in-out;
@@ -236,7 +236,7 @@ $height: 4rem;
     appearance: none;
   }
   &.caution {
-    border-color: $mandysPink;
+    border-color: pink;
   }
   &.error {
     border-color: $flamingo;
@@ -254,8 +254,8 @@ $height: 4rem;
   left: 0;
   width: 100%;
   max-height: $height * 5.5;
-  background-color: $aztec;
-  border: 2px solid $titanWhite;
+  background-color: coral;
+  border: 2px solid blueviolet;
   border-radius: 0.3125rem;
   opacity: 0;
   visibility: hidden;

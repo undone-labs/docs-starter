@@ -1,21 +1,12 @@
 <template>
   <footer id="site-footer">
 
-    <Squigglie
-      :percent-left="15"
-      orientation="down"
-      color="nandor"
-      :thick="true"
-      class="footer-top-border" />
-
-    <Overlay type="noise" />
-
     <section class="section-footer">
       <div class="grid-noGutter-equalHeight">
 
         <div class="col-3_md-5_mi-12">
           <div class="logo-cta">
-            <Logo class="site-logo" />
+            <!-- <Logo class="site-logo" /> -->
             <div
               class="cta-wrapper"
               @click="$highlightApplyForm">
@@ -48,7 +39,7 @@
               :target="videoCta.target"
               class="video-cta">
 
-              <Logo class="site-logo" />
+              <!-- <Logo class="site-logo" /> -->
 
               <template v-for="variant in ['small', 'tiny']">
                 <Card
@@ -77,14 +68,6 @@
         </div>
 
       </div>
-
-      <Squigglie
-        :percent-left="90"
-        orientation="up"
-        anchor="bottom"
-        color="nandor"
-        :thick="true"
-        class="footer-bottom-border" />
 
     </section>
 
@@ -123,30 +106,26 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Overlay from '@/components/overlay'
-import Logo from '@/components/logo'
+// import Logo from '@/components/logo'
 import CircleText from '@/components/icons/circle-text'
 import Arrow from '@/components/icons/arrow'
 import ButtonX from '@/components/buttons/button-x'
 import Card from '@/components/card'
 import GithubIcon from '@/components/icons/github'
 import SlackIcon from '@/components/icons/slack'
-import Squigglie from '@/components/squigglie'
 
 // ====================================================================== Export
 export default {
   name: 'SiteFooter',
 
   components: {
-    Overlay,
-    Logo,
+    // Logo,
     CircleText,
     Arrow,
     ButtonX,
     Card,
     GithubIcon,
-    SlackIcon,
-    Squigglie
+    SlackIcon
     // ButtonD
   },
 
@@ -155,6 +134,8 @@ export default {
       siteContent: 'general/siteContent'
     }),
     footerContent () {
+      // eslint-disable-next-line no-console
+      console.log('footerContent', this.siteContent.general.footer)
       return this.siteContent.general ? this.siteContent.general.footer : false
     },
     primaryLinks () {
@@ -213,7 +194,7 @@ export default {
 .footer-bottom-border {
   bottom: 0.5px !important;
   :deep(path) {
-    fill: $aztec;
+    fill: coral;
   }
 }
 
@@ -285,8 +266,8 @@ export default {
   align-items: flex-start;
   height: 100%;
   margin-bottom: 0.75rem;
-  border-left: 3px solid $nandor;
-  border-right: 3px solid $nandor;
+  border-left: 3px solid antiquewhite;
+  border-right: 3px solid antiquewhite;
   @include medium {
     border-right: none;
   }
@@ -299,7 +280,7 @@ export default {
   position: relative;
   padding: toRem(38) toRem(40);
   width: 100%;
-  border-bottom: 3px solid $nandor;
+  border-bottom: 3px solid antiquewhite;
   font-weight: 500;
   :deep(.button) {
     @include mini {
@@ -325,10 +306,10 @@ export default {
       top: -7px;
       width: calc(100vw * 0.041665);
       height: 3px;
-      background-color: $nandor;
+      background-color: antiquewhite;
     }
     &:first-child {
-      border-top: 3px solid $nandor;
+      border-top: 3px solid antiquewhite;
       &:before {
         top: -3px;
       }
@@ -364,7 +345,7 @@ export default {
     height: 100%;
     width: calc(100% + (50vw - #{math.div($containerWidth, 2)}) + 3px);
     max-width: toRem(623);
-    border-right: 3px solid $nandor;
+    border-right: 3px solid antiquewhite;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left calc(50% + 2rem) top 50%;
@@ -378,7 +359,7 @@ export default {
       left: 50%;
       transform: translateX(-50%);
       border-right: none;
-      border-top: 3px solid $nandor;
+      border-top: 3px solid antiquewhite;
       max-width: unset;
       background-position: center;
     }
@@ -474,7 +455,7 @@ export default {
   font-size: 1rem;
   font-weight: 400;
   line-height: leading(30, 16);
-  color: $juniper;
+  color: darkcyan;
   text-align: right;
   @include large {
     font-size: 0.875rem;
@@ -483,9 +464,6 @@ export default {
   @include mini {
     padding: 0 1rem;
     margin-top: toRem(38);
-  }
-  :deep(a) {
-    @include linkUnderline;
   }
 }
 

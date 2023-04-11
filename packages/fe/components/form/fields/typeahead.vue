@@ -296,7 +296,7 @@ $height: 2.5rem;
   flex-direction: row;
   align-items: center;
   width: 100%;
-  border-bottom: 2px solid $titanWhite;
+  border-bottom: 2px solid blueviolet;
   appearance: none;
   transition: 150ms ease-in-out;
   @include placeholder {
@@ -311,7 +311,7 @@ $height: 2.5rem;
     font-size: toRem(20);
   }
   &.caution {
-    border-color: $mandysPink;
+    border-color: pink;
   }
   &.error {
     border-color: $flamingo;
@@ -344,8 +344,8 @@ $height: 2.5rem;
   left: 0;
   width: 100%;
   max-height: $height * 5.5;
-  background-color: $aztec;
-  border: 2px solid $titanWhite;
+  background-color: coral;
+  border: 2px solid blueviolet;
   border-radius: 0.3125rem;
 }
 

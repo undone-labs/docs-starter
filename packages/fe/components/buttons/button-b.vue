@@ -127,11 +127,11 @@ export default {
 
 // ////////////////////////////////////////////////////////////////////// Themes
 .theme__green {
-  color: $greenYellow;
-  border-color: $greenYellow;
+  color: aqua;
+  border-color: aqua;
   &:not([disabled]) {
     &:hover {
-      background-color: $greenYellow;
+      background-color: aqua;
     }
   }
 }

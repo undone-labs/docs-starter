@@ -107,7 +107,7 @@ export default {
     opacity: 1;
   }
   :deep(.dot) {
-    background-color: $titanWhite;
+    background-color: blueviolet;
   }
 }
 
@@ -125,7 +125,7 @@ export default {
 // ////////////////////////////////////////////////////////////////////// Themes
 .theme__pink {
   display: inline-block;
-  color: $mandysPink;
+  color: pink;
   .button-content {
     display: flex;
     align-items: center;
@@ -140,7 +140,7 @@ export default {
     margin-right: toRem(8);
   }
   &:hover {
-    color: $mandysPink;
+    color: pink;
     :deep(.icon-chevron) {
       transform: rotate(90deg) translateY(1rem);
       transition: 150ms ease-out;
@@ -149,27 +149,27 @@ export default {
 }
 
 .theme__green {
-  color: $greenYellow;
+  color: aqua;
   :deep(.text) {
-    @include p2;
+    // @include p2;
   }
   &:hover {
-    color: $greenYellow;
+    color: aqua;
   }
 }
 
 .theme__mineral-green {
-  background-color: rgba($mineralGreen, 0.5);
+  background-color: rgba(salmon, 0.5);
   border-radius: toRem(3);
   .button-content{
-    @include p3;
+    // @include p3;
     line-height: 1.8;
     font-weight: 500;
     padding: 0 toRem(13);
   }
   &:not([disabled]) {
     &:hover {
-      background-color: rgba($mineralGreen, 1);
+      background-color: rgba(salmon, 1);
       :deep(.button-content) {
         text-decoration: none;
       }

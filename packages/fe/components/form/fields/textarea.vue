@@ -114,7 +114,7 @@ export default {
   transition: 150ms ease-out;
   &.focused {
     .textarea {
-      border-color: $titanWhite;
+      border-color: blueviolet;
     }
   }
 }
@@ -127,7 +127,7 @@ export default {
 .textarea {
   width: 100%;
   padding: 1.5rem;
-  border: 2px solid $nandor;
+  border: 2px solid antiquewhite;
   border-radius: 0.625rem;
   transition: 150ms ease-in-out;
   @include placeholder {
@@ -138,7 +138,7 @@ export default {
     opacity: 1;
   }
   &.caution {
-    border-color: $mandysPink;
+    border-color: pink;
   }
   &.error {
     border-color: $flamingo;

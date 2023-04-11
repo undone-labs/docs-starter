@@ -109,7 +109,7 @@ $dimension: 1.625rem;
     .radio {
       &:checked {
         + .checker {
-          border-color: $mandysPink;
+          border-color: pink;
         }
       }
     }
@@ -154,7 +154,7 @@ $dimension: 1.625rem;
   &:checked {
     + .checker {
       animation: shrink-bounce 150ms cubic-bezier(0.4, 0, 0.23, 1);
-      border-color: $nandor;
+      border-color: antiquewhite;
       background-color: $racingGreen;
       .dot {
         display: block;
@@ -178,7 +178,7 @@ $dimension: 1.625rem;
   left: 0;
   width: $dimension;
   height: $dimension;
-  border: 2px solid $nandor;
+  border: 2px solid antiquewhite;
   border-radius: 50%;
   background-color: $racingGreen;
   pointer-events: none;
@@ -189,7 +189,7 @@ $dimension: 1.625rem;
 .dot {
   display: none;
   clip-path: circle(50%);
-  background: radial-gradient(50% 50% at 50% 50%, transparent 0%, $greenYellow 100%);
+  background: radial-gradient(50% 50% at 50% 50%, transparent 0%, aqua 100%);
   height: toRem(12);
   width: toRem(12);
 }

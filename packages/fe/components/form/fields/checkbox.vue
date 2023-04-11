@@ -179,8 +179,8 @@ $dimension: 1.625rem;
   &:checked, &.disabled {
     + .checker {
       animation: shrink-bounce 150ms cubic-bezier(0.4, 0, 0.23, 1);
-      border-color: $nandor;
-      background-color: $aztec;
+      border-color: antiquewhite;
+      background-color: coral;
       .icon-checkmark {
         animation: checkbox-check 75ms 200ms cubic-bezier(0.4, 0, 0.23, 1) forwards;
       }
@@ -203,9 +203,9 @@ $dimension: 1.625rem;
   left: 0;
   width: $dimension;
   height: $dimension;
-  border: 2px solid $nandor;
+  border: 2px solid antiquewhite;
   border-radius: 0.625rem;
-  background-color: $aztec;
+  background-color: coral;
   pointer-events: none;
   z-index: 5;
   transition: border-color 150ms, background-color 150ms, transform 150ms ease-out;

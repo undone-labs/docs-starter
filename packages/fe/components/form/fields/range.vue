@@ -138,7 +138,7 @@ $borderWidth: 2px;
   &.caution {
     :deep(.range-track) {
       &:before {
-        background-color: $mandysPink;
+        background-color: pink;
       }
     }
   }
@@ -165,7 +165,7 @@ $borderWidth: 2px;
     left: calc(#{math.div($trackHeight, 2)} - #{math.div($thumbWidth, 2)});
     width: calc(100% - #{$trackHeight} + #{math.div($thumbWidth, 1)});
     height: $borderWidth;
-    background-color: $titanWhite;
+    background-color: blueviolet;
     transition: all 150ms ease;
   }
   &:hover {
@@ -178,10 +178,10 @@ $borderWidth: 2px;
   }
   &:active {
     .thumb {
-      background-color: $mandysPink;
+      background-color: pink;
       &::before,
       &::after {
-        background-color: $mandysPink;
+        background-color: pink;
         height: 1rem;
       }
     }
@@ -199,7 +199,7 @@ $borderWidth: 2px;
   top: 0;
   width: $thumbWidth;
   height: $trackHeight;
-  background-color: $titanWhite;
+  background-color: blueviolet;
   transition: all 150ms linear;
   &:before,
   &:after {
@@ -241,7 +241,7 @@ $borderWidth: 2px;
 }
 
 .line {
-  background-color: $titanWhite;
+  background-color: blueviolet;
   width: 1px;
   height: 100%;
   &:not(:last-child) {

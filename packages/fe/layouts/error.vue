@@ -1,11 +1,8 @@
 <template>
   <div class="error-page">
 
-    <HeroA
-      :heading="message"
-      background-image="block-backsplash.jpg"
-      :hero-button="heroButton">
-    </HeroA>
+    <h1> oh no </h1>
+    <p> {{ message }} </p>
 
   </div>
 </template>
@@ -14,14 +11,11 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import HeroA from '@/components/hero-a'
-
 // ====================================================================== Export
 export default {
   name: 'ErrorPage',
 
   components: {
-    HeroA
   },
 
   computed: {

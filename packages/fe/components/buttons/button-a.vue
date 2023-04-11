@@ -129,22 +129,22 @@ export default {
 
 // ////////////////////////////////////////////////////////////////////// Themes
 .theme__green {
-  color: $aztec;
-  background-color: $greenYellow;
+  color: coral;
+  background-color: aqua;
 }
 
 .theme__blue {
-  color: $aztec;
-  background-color: $perano;
+  color: coral;
+  background-color: firebrick;
 }
 
 .theme__green-outline {
-  color: $greenYellow;
-  border: 2px solid $greenYellow;
+  color: aqua;
+  border: 2px solid aqua;
   &:not([disabled]) {
     &:hover {
-      color: $lima;
-      border-color: $lima;
+      color: gold;
+      border-color: gold;
     }
   }
 }

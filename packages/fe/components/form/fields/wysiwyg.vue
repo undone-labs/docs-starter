@@ -68,18 +68,18 @@ export default {
 <style lang="scss" scoped>
 @mixin input {
     box-sizing: border-box;
-    border: 1px solid $mineralGreen;
+    border: 1px solid salmon;
     border-radius: toRem(1);
     height: 5px;
 }
 // ///////////////////////////////////////////////////////////////////// General
 .field-wysiwyg {
-  border: 2px solid $nandor;
+  border: 2px solid antiquewhite;
   border-radius: toRem(10);
 }
 
 :deep(.wysiwyg-toolbar) {
-  border-bottom: 2px solid $nandor;
+  border-bottom: 2px solid antiquewhite;
 
   .toolbar-section-mobile-wrapper {
     &:is(:first-child){
@@ -94,18 +94,18 @@ export default {
         border-right: none;
       }
       @include medium {
-        border-top: 2px solid $nandor;
+        border-top: 2px solid antiquewhite;
       }
     }
   }
 
   .toolbar-section {
-    border-right: 2px solid $nandor;
+    border-right: 2px solid antiquewhite;
   }
 
   .wysiwyg-formatting-option {
     .user-input-wrapper {
-      border: 2px solid $nandor;
+      border: 2px solid antiquewhite;
     }
   }
 
@@ -121,7 +121,7 @@ export default {
       background: rgba(59, 86, 79, 0.5);
     }
     &.is-active {
-      background: $mineralGreen;
+      background: salmon;
     }
   }
 }

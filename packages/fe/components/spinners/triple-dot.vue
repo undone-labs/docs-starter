@@ -36,7 +36,7 @@ export default {
   height: 0.75rem;
   border-radius: 100%;
   display: inline-block;
-  background-color: $aztec;
+  background-color: coral;
   animation: dot 1.4s infinite ease-in-out both;
   transition: 250ms ease-in-out;
   &.dot-1 {
