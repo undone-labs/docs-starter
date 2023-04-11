@@ -50,6 +50,7 @@ export default {
 .page-index {
   position: relative;
   overflow: hidden;
+  margin-top: $siteHeaderHeight;
 }
 
 .container {

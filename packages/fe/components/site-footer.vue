@@ -31,42 +31,6 @@
           </div>
         </div>
 
-        <div class="col-5_md-12_mi-12">
-          <div class="video-cta-wrapper">
-            <ButtonX
-              :tag="videoCta.type"
-              :to="videoCta.url"
-              :target="videoCta.target"
-              class="video-cta">
-
-              <!-- <Logo class="site-logo" /> -->
-
-              <template v-for="variant in ['small', 'tiny']">
-                <Card
-                  :key="`footer-card-${variant}`"
-                  :variant="variant"
-                  corner-position="top-right"
-                  icon="chevron-long"
-                  :class="['footer-cta-card', `${variant}-variant`]">
-                  <template v-if="videoCta">
-
-                    <img
-                      class="card-image"
-                      :src="videoCta.image" />
-
-                    <div
-                      class="card-text"
-                      v-html="videoCta.text">
-                    </div>
-
-                  </template>
-                </Card>
-              </template>
-
-            </ButtonX>
-          </div>
-        </div>
-
       </div>
 
     </section>

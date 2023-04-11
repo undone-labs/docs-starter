@@ -16,92 +16,47 @@
             <!-- <Logo class="logo" /> -->
           </nuxt-link>
 
-          <div
-            v-if="breakpoint !== 'medium'"
-            :class="['nav-wrapper', breakpoint]"
-            :style="{
-              width: `${navWidth}px`,
-              '--squiggle-container-length': `${squiggleContainerLength}px`,
-              '--right-squiggle-offset': `${navWidth - squiggleContainerLength}px`,
-            }">
+          <div class="nav-detail" />
 
-            <div class="nav-detail" />
-
-            <!-- ================================================ Squigglies -->
-            <div class="squiggle-container">
-              <div
-                :class="['svg-wrapper', 'animated', breakpoint]"
-                :style="{ transform: `translateX(${squiggleOffsetLeft - squiggleDefaultOffset}px)` }">
-                <svg
-                  class="squiggle"
-                  width="1860"
-                  height="40"
-                  viewBox="0 0 1858 40"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    :key="pathKey"
-                    :d="path"
-                    stroke="white"
-                    stroke-width="2" />
-                </svg>
-              </div>
-              <div
-                class="svg-wrapper static"
-                :style="{ '--bottom-squiggle-offset': `${bottomSquiggleOffset}px` }">
-                <svg
-                  class="squiggle"
-                  width="1860"
-                  height="40"
-                  viewBox="0 0 1858 40"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    :d="path"
-                    stroke="white"
-                    stroke-width="2" />
-                </svg>
-              </div>
+          <nav id="site-nav">
+            <!-- =============================================== Nav links -->
+            <div
+              ref="buttonList"
+              class="button-list"
+              @mouseleave.self="mouseLeaveNav">
+              <ButtonX
+                v-for="(link, index) in links"
+                :key="index"
+                ref="navItems"
+                :to="link.href"
+                :selected="$isRouteCurrent($route, link.href)"
+                :tag="link.type"
+                :target="link.target"
+                class="site-nav-link"
+                @mouseover.native="mouseOverLink(index)">
+                <div class="text" v-html="link.label" />
+              </ButtonX>
+              <ButtonA
+                v-if="cta"
+                :to="cta.href"
+                tag="button"
+                class="site-nav-cta"
+                @clicked="$highlightApplyForm">
+                <div class="text" v-html="cta.label" />
+              </ButtonA>
             </div>
 
-            <nav id="site-nav">
-              <!-- =============================================== Nav links -->
-              <div
-                ref="buttonList"
-                class="button-list"
-                @mouseleave.self="mouseLeaveNav">
-                <ButtonX
-                  v-for="(link, index) in links"
-                  :key="index"
-                  ref="navItems"
-                  :to="link.href"
-                  :selected="$isRouteCurrent($route, link.href)"
-                  :tag="link.type"
-                  :target="link.target"
-                  class="site-nav-link"
-                  @mouseover.native="mouseOverLink(index)">
-                  <div class="text" v-html="link.label" />
-                </ButtonX>
-                <ButtonA
-                  v-if="cta"
-                  :to="cta.href"
-                  tag="button"
-                  class="site-nav-cta"
-                  @clicked="$highlightApplyForm">
-                  <div class="text" v-html="cta.label" />
-                </ButtonA>
-              </div>
+          </nav>
 
-            </nav>
+        </div>
 
-          </div>
-
-          <!-- ================================================== Mobile nav -->
-          <!-- <MobileNav
+        <!-- ================================================== Mobile nav -->
+        <!-- <MobileNav
             v-else
             ref="mobileNav"
             :links="links"
             :cta="cta" /> -->
 
-        </div>
       </div>
     </div>
 
@@ -266,7 +221,7 @@ export default {
   left: 0;
   width: 100%;
   height: $siteHeaderHeight;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 28.86%, transparent 100%);
+  background: hotpink;
   z-index: 1000;
   transition: background-color 150ms ease-out, height 150ms ease-out;
   &.mini {
