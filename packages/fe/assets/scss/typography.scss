@@ -1,98 +1,85 @@
 // ////////////////////////////////////////////////////////////////// Typography
 // =============================================================================
 // -------------------------------------------------------------------- Families
-$fontSuisseIntl: 'SuisseIntl', sans-serif, monospace;
-$fontSuisseIntlMono: 'SuisseIntlMono', sans-serif, monospace;
-$fontHelveticaNeue: 'HelveticaNeue', sans-serif, monospace;
-$fontInconsolata: 'Inconsolata', sans-serif, monospace;
+$fontInter: 'Inter', sans-serif, monospace;
+$fontMenlo: 'Menlo', sans-serif, monospace;
 
 // --------------------------------------------------------------------- Leading
 @function leading($lineHeight, $fontSize) {
   @return math.div(math.round(10 * math.div($lineHeight, $fontSize)), 10);
 }
 
-// ////////////////////////////////////////////////////////////////////// Mixins
+// ///////////////////////////////////////////////////////// Basic Styles Mixins
 // =============================================================================
 
 @mixin h1 {
-  font-size: toRem(80);
-  line-height: leading(50, 80);
-  font-weight: 500;
+  font-size: toRem(38);
+  line-height: leading(53, 38);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 3rem;
 }
 
 @mixin h2 {
-  font-size: toRem(60);
-  line-height: leading(105, 60);
-  font-weight: 500;
+  font-size: toRem(24);
+  line-height: leading(36, 24);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin:4rem 0 1.8rem;
+  padding-top:1.8rem;
 }
 
 @mixin h3 {
-  font-size: toRem(35);
-  line-height: leading(50, 35);
-  font-weight: 500;
+  font-size: toRem(19);
+  line-height: leading(28, 19);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 3rem 0 1.25rem;
 }
 
 @mixin h4 {
-  font-size: toRem(24);
-  line-height: leading(35, 24);
-  font-weight: 500;
+  font-size: toRem(17);
+  line-height: leading(25, 17);
+  font-weight: 600;
 }
 
-@mixin h5 {
+@mixin h5 { // needs to be updated
   font-size: toRem(20);
   line-height: leading(30, 20);
   font-weight: 500;
 }
 
-@mixin h6 {
+@mixin h6 { // needs to be updated
   font-size: toRem(18);
   line-height: leading(30, 18);
   font-weight: 500;
 }
 
 @mixin p1 {
-  font-size: toRem(18);
-  line-height: leading(35, 18);
-  font-weight: 400;
-}
-
-@mixin p2 {
-  font-size: toRem(16);
-  line-height: leading(30, 16);
-  font-weight: 400;
-}
-
-@mixin p3 {
   font-size: toRem(14);
-  line-height: leading(30, 14);
+  line-height: leading(21, 14);
   font-weight: 400;
+  letter-spacing: 0.2px;
+  // margin-bottom: 1.2rem;
 }
 
-@mixin special {
-  font-size: toRem(18);
-  line-height: leading(30, 18);
-  font-weight: 400;
-  font-style: italic;
+@mixin inlineCode {
+  font-family: $fontMenlo;
+  color: var(--code-text-color);
+  background-color: var(--code-background-color);
+  padding: 0.12rem 0.45rem;
+  border-radius: toRem(4);
 }
 
-@mixin button {
-  font-size: toRem(18);
-  line-height: leading(70, 18);
-  font-weight: 400;
-}
-
-@mixin p2Link {
-  @include p2;
-  color: $mandysPink;
-}
-
-@mixin headingHighlight {
-  font-size: toRem(35);
-  line-height: leading(50, 35);
+@mixin p1Link {
+  @include p1;
   font-weight: 500;
-  color: $mandysPink;
+  color: var(--link-color);
+  &:hover {
+    color: var(--link-hover-color);
+    transition: color .25s ease;
+  }
 }
-
 
 // ////////////////////////////////////////////////////////////////////// Sizing
 // =============================================================================
@@ -136,16 +123,12 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  @include h5;
-}
+    @include h5;
+  }
 
-h6, .h6 {
-  @include h6;
-}
-
-.p2 {
-  @include p2;
-}
+  h6, .h6 {
+      @include h6;
+    }
 
 p,
 .p1,
@@ -155,71 +138,62 @@ button {
   @include p1;
 }
 
-// ////////////////////////////////////////////////////////////////////// Mixins
+:not(pre) > code {
+  @include inlineCode;
+}
+
+// //////////////////////////////////////////////////// Navigation Styles Mixins
 // =============================================================================
-
-@mixin h1 {
-  font-size: toRem(80);
-  line-height: leading(50, 80);
+@mixin navigation {
+  font-size: toRem(13);
+  line-height: leading(20, 13);
   font-weight: 500;
-}
-
-@mixin h2 {
-  font-size: toRem(60);
-  line-height: leading(105, 60);
-  font-weight: 500;
-}
-
-@mixin p2 {
-  font-size: toRem(16);
-  line-height: leading(30, 16);
-}
-
-@mixin h5 {
-  font-size: toRem(20);
-  line-height: leading(30, 20);
-  font-weight: 500;
-}
-
-@mixin headingHighlight {
-  font-size: toRem(35);
-  line-height: leading(50, 35);
-  font-weight: 500;
-  color: $mandysPink;
-}
-
-@mixin linkUnderline {
-  cursor: pointer;
-  color: $greenYellow;
-  text-decoration: none;
-  box-sizing: border-box;
-  background-image:
-  linear-gradient(0deg, $greenYellow, $greenYellow);
-  background-size: 0 1px;
-  background-position: 0 95%;
-  transition: all 150ms ease-in;
-  padding: 0 0 3px;
-  background-repeat: no-repeat;
-  animation: link-effect-in 150ms both linear;
   &:hover {
-    animation: link-effect-out 150ms both linear;
+    color: var(--brand-color);
+    transition: color .25s ease;
   }
 }
 
-@keyframes link-effect-out {
-  from {
-  background-size: 0 1px;
-  }
-  to {
-    background-size: 100% 1px;
+// ------------------------------------------------------- Sidebar Styles Mixins
+@mixin sidebarSectionTitle {
+  font-size: toRem(13);
+  line-height: leading(20, 13);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: toRem(4) 0;
+}
+
+@mixin sidebar {
+  font-size: toRem(13);
+  line-height: leading(20, 13);
+  font-weight: 500;
+  color: var(--sidebar-text-color);
+  padding: toRem(4) 0;
+  &:hover {
+    color: var(--primary-text-color);
+    transition: color .25s ease;
   }
 }
 
-@keyframes link-effect-in {
-  from {
-  background-size: 100% 1px;
-  }
-  to {
-    background-size: 0 1px;
-  }
+@mixin sidebarActive {
+  color: var(--brand-color);
+}
+
+// ///////////////////////////////////////////////////////////////// Misc Mixins
+// =============================================================================
+@mixin customBlockTitle {
+  font-size: toRem(15);
+  line-height: leading(24, 15);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  margin-bottom: toRem(8);
+}
+
+@mixin customBlockText {
+  color: $softBlack;
+  font-size: toRem(14);
+  line-height: (22, 14);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  margin-bottom: toRem(17);
 }

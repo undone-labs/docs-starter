@@ -21,7 +21,7 @@ $fontAssetPath: '~assets/fonts';
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'InterItalic';
   src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
   font-weight: 400;
   font-variation-settings: "slnt" -10;
@@ -35,7 +35,7 @@ $fontAssetPath: '~assets/fonts';
 }
 
 @font-face {
-  font-family: 'Inter';
+  font-family: 'InterItalic';
   src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
   font-weight: 500;
   font-variation-settings: "slnt" -10;
@@ -63,7 +63,6 @@ $fontAssetPath: '~assets/fonts';
   font-style: normal;
 }
 
-
 //////////////////////////////////////////////////////////////////////// General
 //------------------------------------------------------------------------------
 html,
@@ -81,12 +80,12 @@ body {
   padding: 0;
   margin: 0;
   height: auto;
-  color: $titanWhite;
+  color: var(--primary-text-color);
   font-family: $fontInter;
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: 0px;
-  background-color: $aztec;
+  background-color: var(--background-color);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
@@ -154,6 +153,11 @@ input[type=datetime-local] {
   font-size: inherit;
   background-color: transparent;
   box-sizing: border-box;
+}
+
+pre,
+code {
+  font-family: $fontMenlo;
 }
 
 textarea,
@@ -357,12 +361,12 @@ span.error {
     top: calc(100% + 2px);
     border-left: 0.5rem solid transparent;
     border-right: 0.5rem solid transparent;
-    border-bottom: 0.375rem solid $mineralGreen;
+    border-bottom: 0.375rem solid salmon;
   }
   &:after {
     content: attr(data-tooltip);
     top: calc(100% + 0.5rem);
-    background-color: $mineralGreen;
+    background-color: salmon;
     font-family: inherit;
     font-size: 0.625rem;
     white-space: nowrap;
@@ -397,8 +401,8 @@ span.error {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid $titanWhite;
-  background-color: $aztec;
+  border: 2px solid var(--brand-color);
+  background-color: var(--background-color);
   padding: 1rem;
   border-radius: 3rem;
   .icon {
@@ -412,11 +416,11 @@ span.error {
 .bubble {
   position: relative;
   padding: 1rem 3.125rem;
-  border: 2px solid $titanWhite;
+  border: 2px solid var(--brand-color);
   border-radius: 4rem;
   line-height: 1;
   @include mini {
-    border: 1.5px solid $titanWhite;
+    border: 1.5px solid var(--brand-color);
   }
   &:before,
   &:after {
@@ -469,10 +473,6 @@ span.error {
       }
     }
   }
-}
-
-.warp-image-double {
-  margin-top: -3px;
 }
 
 .z-index-100 {
@@ -533,12 +533,13 @@ span.error {
   a {
     font-size: 1.125rem;
     line-height: leading(35, 18);
-    color: $greenYellow;
+    color: var(--link-color);
     font-weight: 500;
-    border-bottom: 1px solid rgba($greenYellow, 0);
+    border-bottom: 1px solid rgba(var(--link-color), 0);
     transition: 200ms ease;
     &:hover {
-      border-bottom: 1px solid rgba($greenYellow, 1);
+      color: var(--link-hover-color);
+      border-bottom: 1px solid rgba(var(--link-hover-color) 1);
     }
   }
   hr {
@@ -565,9 +566,8 @@ span.error {
   }
   pre,
   code {
-    font-family: $fontMenlo;
-    background-color: $aztec;
-    color: white;
+    background-color: var(--code-background-color);
+    color: var(--code-text-color);
     padding: 0.3125rem 0.625rem;
     border-radius: 0.25rem;
     font-size: 0.75rem;
@@ -580,8 +580,8 @@ span.error {
     word-break: break-all;
     white-space: break-spaces;
     border-radius: 0;
-    &::-moz-selection { background: $titanWhite; color: $aztec; }
-    &::selection { background: $titanWhite; color: $aztec; }
+    &::-moz-selection { background: $codGray; color: $white; }
+    &::selection { background: $codGray; color: $white; }
   }
   ul, ol {
     &:not(:last-child) {
@@ -661,7 +661,7 @@ span.error {
   }
 }
 
-// ///////////////////////////////////////////////////////// User Input Markdown
+// --------------------------------------------------------- User Input Markdown
 .markdown-user-input {
   h1, h2, h3, p, ul, ol, pre {
     + h2, + h3 {
@@ -694,10 +694,10 @@ span.error {
   a {
     font-size: toRem(18);
     line-height: leading(30, 18);
-    color: $mandysPink;
+    color: var(--brand-color);
     padding-bottom: .25rem;
     &:hover {
-      border-bottom: 2px solid $nandor;
+      border-bottom: 2px solid var(--brand-color);
       transition: none;
     }
   }
@@ -707,7 +707,7 @@ span.error {
     line-height: leading(25, 16);
   }
   blockquote {
-    border-left: 3px solid $nandor;
+    border-left: 3px solid var(--brand-color);
     margin-left: toRem(26);
     padding-left: toRem(16);
     margin-right: toRem(45);

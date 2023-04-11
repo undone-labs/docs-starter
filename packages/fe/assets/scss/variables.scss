@@ -6,7 +6,7 @@
 $containerWidth: 82rem;
 $standardGutter: 0.75rem;
 
-$siteHeaderHeight: 10.5rem;
+$siteHeaderHeight: 3.5rem;
 $siteHeaderHeightMini: 7rem;
 
 // --------------------------------------------------------------------- Colours
@@ -21,24 +21,55 @@ $gray700: #616161;
 $gray800: #424242;
 $gray900: #212121;
 
-$aztec: #0F1F1A; // rgba(15, 31, 26, 1)
-$titanWhite: #F6F5FF; // rgba(246, 245, 255, 1)
-$nandor: #4D655F; // rgba(77, 101, 95, 1)
-$greenYellow: #B7F651; // rgba(183, 246, 81, 1)
-$perano: #B9D8F3; // rgba(185, 216, 243, 1)
-$dodgerBlue: #1890FC; // rgba(24, 144, 252, 1)
-$mandysPink: #F4C9B2; // rgba(244, 201, 178, 1)
-$flamingo: #E96731; // rgba(233, 103, 49, 1)
-$aquaSqueeze: #EAF6F6; // rgba(234, 246, 246, 1)
-$racingGreen: #101A17; // rgba(16, 26, 23, 1)
-$lima: #8ED31C; // rgba(142, 211, 28, 1)
-$mineralGreen: #3B564F; // rgba(59, 86, 79, 1)
-$juniper: #75938B; // rgba(117, 147, 139, 1)
+$shamrock: #42D392; // rgb(66, 211, 146)
+$mingGreen: #42b883; // rgb(66, 184, 131)
+$oceanGreen: #33a06f; // rgb(51, 160, 111)
+
+$white: #FFFFFF; // rgb(255, 255, 255)
+$alabaster: #f9f9f9; // rgb(249, 249, 249)
+$cloudBurst: #213547; // rgb(33, 53, 71)
+$softBlack: #0000008c; // rgba(0, 0, 0, .55)
+$shishaCoal: #3c3c3cb3; // rgba(60, 60, 60, 0.7)
+$bismark: #476582; // rgb(71, 101, 130)
+$seashell: #F1F1F1; // rgb(241, 241, 241)
+
+$codGray: #1A1A1A; // rgb(26, 26, 26)
+$mineShaft: #242424; // rgb(36, 36, 36)
+$gallery: #ebebeb99; // rgba(235, 235, 235, 0.6)
+$regentStBlue: #aac8e4; // rgb(170, 200 228)
+$tricornBlack: #2f2f2f; // rgb(47, 47, 47)
 
 $replace1: #D9D9D9;
 $replace2: #C6C6C6;
 $replace3: #E8E8E8;
 $replace4: #000000;
+
+// ---------------------------------------------------------------------- Themes
+:root {
+  --brand-color: $mingGreen;
+
+  --background-color: #{$white};
+  --secondary-background-color: #{$alabaster};
+  --primary-text-color: #{$cloudBurst};
+  --secondary-text-color: #{$softBlack};
+  --sidebar-text-color: #{$shishaCoal};
+  --link-color: var(--brand-color);
+  --link-hover-color: #{$oceanGreen};
+  --code-text-color: #{$bismark};
+  --code-background-color: #{$seashell};
+}
+
+.dark {
+  --background-color: #{$codGray};
+  --secondary-background-color: #{$mineShaft};
+  --primary-text-color: rgba($white, 0.87);
+  --secondary-text-color: #{$gallery};
+  --sidebar-text-color: #{$gallery};
+  --link-hover-color: #{$shamrock};
+  --code-text-color: #{$regentStBlue};
+  --code-background-color: #{$tricornBlack};
+}
+
 
 // ----------------------------------------------------------------- Breakpoints
 $breakpoint_Tiny: 25.9375rem; // 415px
@@ -49,8 +80,6 @@ $breakpoint_Large: 75rem; // 1200px
 $breakpoint_Xlarge: 90rem; // 1440px
 $breakpoint_UltraLarge: 140.625rem; // 2250px
 
-// ////////////////////////////////////////////////////////////////////// Mixins
-// =============================================================================
 // --------------------------------------------------------------------- Styling
 @mixin shadow1 {
 	box-shadow: 0.125rem 0px 1rem 0.3125rem rgb(black, 0.7);
