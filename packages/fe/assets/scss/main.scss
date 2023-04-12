@@ -86,6 +86,7 @@ body {
   line-height: 1.2;
   letter-spacing: 0px;
   background-color: var(--background-color);
+  transition: background-color 250ms;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
@@ -153,6 +154,7 @@ input[type=datetime-local] {
   font-size: inherit;
   background-color: transparent;
   box-sizing: border-box;
+  transition: color 500ms;
 }
 
 pre,

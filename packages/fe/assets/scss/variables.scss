@@ -26,6 +26,7 @@ $mingGreen: #42b883; // rgb(66, 184, 131)
 $oceanGreen: #33a06f; // rgb(51, 160, 111)
 
 $white: #FFFFFF; // rgb(255, 255, 255)
+$whiteText: #ffffffde; // rgba(255, 255, 255, 0.87)
 $alabaster: #f9f9f9; // rgb(249, 249, 249)
 $cloudBurst: #213547; // rgb(33, 53, 71)
 $softBlack: #0000008c; // rgba(0, 0, 0, .55)
@@ -47,6 +48,7 @@ $replace4: #000000;
 // ---------------------------------------------------------------------- Themes
 :root {
   --brand-color: #{$mingGreen};
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, .04), 0 1px 2px rgba(0, 0, 0, .06);
 
   --background-color: #{$white};
   --secondary-background-color: #{$alabaster};
@@ -62,7 +64,7 @@ $replace4: #000000;
 .dark {
   --background-color: #{$codGray};
   --secondary-background-color: #{$mineShaft};
-  --primary-text-color: rgba($white, 0.87);
+  --primary-text-color: #{$whiteText};
   --secondary-text-color: #{$gallery};
   --sidebar-text-color: #{$gallery};
   --link-hover-color: #{$shamrock};

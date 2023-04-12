@@ -1,8 +1,7 @@
 <template>
   <header
     id="site-header"
-    ref="header"
-    :class="{ mini }">
+    ref="header">
 
     <div class="grid-noGutter">
       <div class="col">
@@ -45,6 +44,8 @@
 
           </nav>
 
+          <ThemeToggle />
+
         </div>
 
         <!-- ================================================== Mobile nav -->
@@ -67,6 +68,7 @@ import { mapGetters } from 'vuex'
 // import Logo from '@/components/logo'
 import ButtonA from '@/components/buttons/button-a'
 import ButtonX from '@/components/buttons/button-x'
+import ThemeToggle from '@/components/theme-toggle'
 // import MobileNav from '@/components/mobile-nav'
 
 // ====================================================================== Export
@@ -76,7 +78,8 @@ export default {
   components: {
     // Logo,
     ButtonA,
-    ButtonX
+    ButtonX,
+    ThemeToggle
     // MobileNav
   },
 
