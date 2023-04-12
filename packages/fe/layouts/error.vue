@@ -1,8 +1,10 @@
 <template>
   <div class="error-page">
 
-    <h1> oh no </h1>
-    <p> {{ message }} </p>
+    <div class="col-9">
+      <h1> oh no </h1>
+      <span v-html="message" />
+    </div>
 
   </div>
 </template>
@@ -37,6 +39,10 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
+.error-page {
+  margin-top: $siteHeaderHeight;
+}
+
 .inner-container {
   text-align: center;
 }
