@@ -118,6 +118,7 @@ export default {
   width: 100%;
   height: $siteHeaderHeight;
   z-index: 1000;
+  border-bottom: 1px solid var(--divider);
   // &.mini {
   //   height: $siteHeaderHeightMini;
   //   @include mini {

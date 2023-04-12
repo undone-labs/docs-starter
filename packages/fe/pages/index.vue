@@ -1,11 +1,14 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <!-- ============================================================== Hero -->
-
-    <h1> it's the page! </h1>
-
-    <!-- ========================================================== Overlays -->
+    <div class="grid">
+      <div class="col-3">
+        <Sidebar />
+      </div>
+      <div class="col-9">
+        content!
+      </div>
+    </div>
 
   </div>
 </template>
@@ -14,11 +17,14 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
+import Sidebar from '@/components/sidebar'
+
 // ====================================================================== Export
 export default {
   name: 'IndexPage',
 
   components: {
+    Sidebar
   },
 
   data () {

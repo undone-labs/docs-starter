@@ -5,7 +5,7 @@
 
     <nuxt />
 
-    <SiteFooter />
+    <!-- <SiteFooter /> -->
 
   </div>
 </template>
@@ -14,15 +14,15 @@
 // ===================================================================== Imports
 
 import SiteHeader from '@/components/site-header'
-import SiteFooter from '@/components/site-footer'
+// import SiteFooter from '@/components/site-footer'
 
 // ====================================================================== Export
 export default {
   name: 'LayoutDefault',
 
   components: {
-    SiteHeader,
-    SiteFooter
+    SiteHeader
+    // SiteFooter
   },
 
   async created () {

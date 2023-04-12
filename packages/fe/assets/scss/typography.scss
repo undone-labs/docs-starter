@@ -155,21 +155,12 @@ button {
   @include navigation;
   font-weight: 600;
   letter-spacing: 0.2px;
-  padding: toRem(4) 0;
 }
 
 @mixin sidebar {
   @include navigation;
   color: var(--sidebar-text-color);
   padding: toRem(4) 0;
-  &:hover {
-    color: var(--primary-text-color);
-    transition: color .25s ease;
-  }
-}
-
-@mixin sidebarActive {
-  color: var(--brand-color);
 }
 
 // ///////////////////////////////////////////////////////////////// Misc Mixins
