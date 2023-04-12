@@ -61,9 +61,13 @@ export default {
   display: flex;
   width: 2.5rem;
   height: toRem(20);
-  border: 1px solid var(--primary-text-color);
+  border: 1px solid var(--secondary-text-color);
   border-radius: toRem(10);
   background-color: var(--code-background-color);
+  &:hover {
+    border-color: var(--primary-text-color);
+    transition: 250ms ease-in;
+  }
 }
 
 .icon-container {
