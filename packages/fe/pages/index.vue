@@ -6,7 +6,11 @@
         <Sidebar />
       </div>
       <div class="col-9">
-        content!
+        <div class="page-content">
+
+          <MarkdownParser :markdown="markdown" />
+
+        </div>
       </div>
     </div>
 
@@ -18,19 +22,28 @@
 import { mapGetters } from 'vuex'
 
 import Sidebar from '@/components/sidebar'
+import MarkdownParser from '@/components/markdown-parser'
+
+import IndexPageData from '@/content/pages/index.json'
+import IndexPageContent from '@/content/markdown/index.md'
 
 // ====================================================================== Export
 export default {
   name: 'IndexPage',
 
   components: {
-    Sidebar
+    Sidebar,
+    MarkdownParser
   },
 
   data () {
     return {
       tag: 'index'
     }
+  },
+
+  async fetch ({ app, store }) {
+    await store.dispatch('general/getBaseData', { key: 'index', data: IndexPageData })
   },
 
   head () {
@@ -46,6 +59,9 @@ export default {
     },
     pageData () {
       return this.siteContent[this.tag].page_content
+    },
+    markdown () {
+      return IndexPageContent
     }
   }
 }
@@ -63,7 +79,4 @@ export default {
   position: relative;
 }
 
-// //////////////////////////////////////////////////////////////////////// Hero
-
-// ///////////////////////////////////////////////////////////////////////// FAQ
 </style>

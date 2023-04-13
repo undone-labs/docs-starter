@@ -1,0 +1,13 @@
+{
+  "seo": {
+    "title": "Zero Docs",
+    "description": "Zero Docs!"
+  },
+  "og": {
+    "site_name": "Zero Docs",
+    "url": "",
+    "type": "website",
+    "image": ""
+  },
+  "page_content": {}
+}

@@ -78,6 +78,7 @@ export default {
 }
 
 .icon {
+  display: block;
   opacity: 0;
   height: toRem(14);
   margin: 1px 2px;
@@ -99,7 +100,6 @@ export default {
 
 .dark {
   .icon-container {
-    display: block;
     transform: translateX(toRem(18));
     transition: transform 250ms ease-in;
     .icon-moon {

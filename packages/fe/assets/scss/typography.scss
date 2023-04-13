@@ -17,7 +17,6 @@ $fontMenlo: 'Menlo', sans-serif, monospace;
   line-height: leading(53, 38);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin: 0 0 3rem;
 }
 
 @mixin h2 {
@@ -25,8 +24,6 @@ $fontMenlo: 'Menlo', sans-serif, monospace;
   line-height: leading(36, 24);
   font-weight: 600;
   letter-spacing: -0.02em;
-  margin:4rem 0 1.8rem;
-  padding-top:1.8rem;
 }
 
 @mixin h3 {
@@ -56,6 +53,12 @@ $fontMenlo: 'Menlo', sans-serif, monospace;
 }
 
 @mixin p1 {
+  font-size: toRem(16);
+  line-height: leading(27, 16);
+  font-weight: 400;
+}
+
+@mixin p2 {
   font-size: toRem(14);
   line-height: leading(21, 14);
   font-weight: 400;
