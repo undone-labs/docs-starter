@@ -170,7 +170,7 @@ button {
 
 @mixin magellanTitle {
   font-size: toRem(11);
-  line-height: leading(24, 11);
+  line-height: leading(28, 11);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -179,7 +179,13 @@ button {
 @mixin magellan {
   font-size: toRem(13);
   line-height: leading(24, 13);
+  font-weight: 500;
   letter-spacing: 0.2px;
+  color: var(--sidebar-text-color);
+  &:hover {
+    cursor: pointer;
+    color: var(--primary-text-color)
+  }
 }
 
 // ///////////////////////////////////////////////////////////////// Misc Mixins
