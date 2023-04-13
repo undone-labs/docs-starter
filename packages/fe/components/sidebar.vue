@@ -53,9 +53,13 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
+  position: fixed;
+  top: $siteHeaderHeight;
   height: calc(100vh - $siteHeaderHeight);
-  overflow-y: scroll;
-  padding: 1rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 2rem 6rem 2rem 0;
+  border-right: 1px solid var(--divider);
 }
 
 .sidebar-section {
