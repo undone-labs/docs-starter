@@ -119,6 +119,7 @@ export default {
   height: $siteHeaderHeight;
   z-index: 1000;
   border-bottom: 1px solid var(--divider);
+  background-color: var(--background-color);
   // &.mini {
   //   height: $siteHeaderHeightMini;
   //   @include mini {
