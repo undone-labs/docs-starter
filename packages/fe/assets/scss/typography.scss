@@ -145,7 +145,7 @@ button {
   @include inlineCode;
 }
 
-// //////////////////////////////////////////////////// Navigation Styles Mixins
+// /////////////////////////////////////////////////////////// Navigation Mixins
 // =============================================================================
 @mixin navigation {
   font-size: toRem(13);
@@ -153,7 +153,7 @@ button {
   font-weight: 500;
 }
 
-// ------------------------------------------------------- Sidebar Styles Mixins
+// -------------------------------------------------------------- Sidebar Mixins
 @mixin sidebarSectionTitle {
   @include navigation;
   font-weight: 600;
@@ -164,6 +164,22 @@ button {
   @include navigation;
   color: var(--sidebar-text-color);
   padding: toRem(4) 0;
+}
+
+// -------------------------------------------------------- Magellan Menu Mixins
+
+@mixin magellanTitle {
+  font-size: toRem(11);
+  line-height: leading(24, 11);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+@mixin magellan {
+  font-size: toRem(13);
+  line-height: leading(24, 13);
+  letter-spacing: 0.2px;
 }
 
 // ///////////////////////////////////////////////////////////////// Misc Mixins

@@ -10,7 +10,7 @@
 <script>
 // ===================================================================== Imports
 import Kramed from 'kramed'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 // ====================================================================== Export
 export default {

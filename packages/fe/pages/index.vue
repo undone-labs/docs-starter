@@ -10,6 +10,8 @@
 
           <MarkdownParser :markdown="markdown" />
 
+          <MagellanMenu :links="magellanLinks" />
+
         </div>
       </div>
     </div>
@@ -23,6 +25,7 @@ import { mapGetters } from 'vuex'
 
 import Sidebar from '@/components/sidebar'
 import MarkdownParser from '@/components/markdown-parser'
+import MagellanMenu from '@/components/magellan-menu'
 
 import IndexPageData from '@/content/pages/index.json'
 import IndexPageContent from '@/content/markdown/index.md'
@@ -33,7 +36,8 @@ export default {
 
   components: {
     Sidebar,
-    MarkdownParser
+    MarkdownParser,
+    MagellanMenu
   },
 
   data () {
@@ -62,6 +66,11 @@ export default {
     },
     markdown () {
       return IndexPageContent
+    },
+    magellanLinks () {
+      const regex = /(?<=#{2})[\w \p{P}]+(?=\n)/gu
+      const headings = this.markdown.match(regex)
+      return headings
     }
   }
 }
@@ -71,12 +80,14 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .page-index {
   position: relative;
-  overflow: hidden;
   margin-top: $siteHeaderHeight;
 }
 
-.container {
+.page-content {
   position: relative;
+  width: 100%;
+  display: flex;
+  margin: 3.75rem 0 2rem 0;
 }
 
 </style>
