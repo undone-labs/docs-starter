@@ -97,7 +97,7 @@ export default {
     '~/modules/toaster',
     // '~/modules/slider',
     // '~/modules/alert',
-    '~/modules/auth',
+    // '~/modules/auth',
     '~/modules/search',
     '~/modules/form',
     '~/modules/button',
@@ -129,25 +129,25 @@ export default {
   },
   // ///////////////////////////////////////////////////////////// [Module] Auth
   // ---------------------------------------------------------------------------
-  auth: {
-    redirectUnauthenticated: '/apply',
-    redirectAfterLogin: {
-      unregistered: {
-        path: '/apply',
-        key: 'githubUsername'
-      },
-      registered: {
-        path: '/apply',
-        key: 'githubUsername'
-      }
-    },
-    redirectAfterLogout: {
-      path: '/apply',
-      match: [
-        '/account'
-      ]
-    }
-  },
+  // auth: {
+  //   redirectUnauthenticated: '/apply',
+  //   redirectAfterLogin: {
+  //     unregistered: {
+  //       path: '/apply',
+  //       key: 'githubUsername'
+  //     },
+  //     registered: {
+  //       path: '/apply',
+  //       key: 'githubUsername'
+  //     }
+  //   },
+  //   redirectAfterLogout: {
+  //     path: '/apply',
+  //     match: [
+  //       '/account'
+  //     ]
+  //   }
+  // },
   // /////////////////////////////////////////////////////////////// [Module] ls
   // ---------------------------------------------------------------------------
   ls: {
