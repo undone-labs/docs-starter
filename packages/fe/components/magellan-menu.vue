@@ -47,24 +47,7 @@ export default {
   },
 
   mounted () {
-    console.log('mounted')
-    const locations = this.links.map((item) => {
-      const id = item.id
-      const element = document.getElementById(id)
-      const top = element.getBoundingClientRect().top
-      const active = top < 93 && top > 0
-      const isActive = this.activeSection === item.id
-      if (active && !isActive) { this.activeSection = id }
-      return {
-        id,
-        top,
-        active
-      }
-    })
-    this.headingLocations = locations
-
-    // const manageScroll = this.$throttle(this.activeSectionUpdate, 100)
-
+    this.activeSectionUpdate('mounted', this.links)
     window.addEventListener('scroll', this.activeSectionUpdate)
   },
 
@@ -73,18 +56,18 @@ export default {
   },
 
   methods: {
-    activeSectionUpdate () {
+    activeSectionUpdate (_trigger, currentLocations = this.headingLocations) {
       if (window.scrollY === 0) { this.activeSection = false }
 
-      const locations = this.headingLocations.map((item) => {
-        const element = document.getElementById(item.id)
+      const locations = currentLocations.map((item) => {
+        const id = item.id
+        const element = document.getElementById(id)
         const top = element.getBoundingClientRect().top
         const active = top < 93 && top > 0
-        const isActive = this.activeSection === item.id
-        // if (active && !isActive) { this.$router.replace({ hash: `#${item.id}` }) }
-        if (active && !isActive) { this.activeSection = item.id }
+        const isActive = this.activeSection === id
+        if (active && !isActive) { this.activeSection = id }
         return {
-          ...item,
+          id,
           top,
           active
         }
