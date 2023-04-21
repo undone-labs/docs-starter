@@ -25,6 +25,12 @@ export default {
     // SiteFooter
   },
 
+  watch: {
+    '$route.hash' () {
+      this.scrollToHash()
+    }
+  },
+
   async created () {
     await this.$store.dispatch('general/getBaseData', 'general')
   },
@@ -32,6 +38,12 @@ export default {
   mounted () {
     // Scroll to hash
     this.$nextTick(() => {
+      this.scrollToHash()
+    })
+  },
+
+  methods: {
+    scrollToHash () {
       const hash = this.$route.hash.replace('#', '')
       if (hash) {
         const element = document.getElementById(hash) || document.querySelector(`[data-id='${hash}']`)
@@ -39,7 +51,7 @@ export default {
           this.$scrollToElement(element, 200, -100)
         }
       }
-    })
+    }
   }
 }
 </script>
