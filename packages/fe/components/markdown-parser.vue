@@ -10,7 +10,6 @@
 <script>
 // ===================================================================== Imports
 import Kramed from 'kramed'
-import { mapGetters } from 'vuex'
 
 // ====================================================================== Export
 export default {
@@ -26,17 +25,11 @@ export default {
   data () {
     return {
       renderer: false,
-      headings: [],
-      baseURL: false,
-      textCopied: 'Copied!',
-      textNotCopied: 'Click to copy link'
+      headings: []
     }
   },
 
   computed: {
-    ...mapGetters({
-      clipboard: 'general/clipboard'
-    }),
     parsed () {
       return Kramed(this.markdown, { renderer: this.renderer })
     }
@@ -81,12 +74,6 @@ export default {
         </h${level}>
       `
     }
-  },
-
-  mounted () {
-  },
-
-  methods: {
   }
 }
 </script>
