@@ -6,15 +6,14 @@
       :key="`section_${sectionIndex}`"
       class="sidebar-section">
 
-      <template
-        v-for="(item, index) in section">
+      <template v-for="(item, index) in section">
         <h2
-          v-if="index === 0"
+          v-if="item.type === 'title'"
           :key="`item_${index}`"
           class="title"
-          v-html="item" />
+          v-html="item.text" />
         <ButtonX
-          v-else
+          v-if="item.type === 'nuxt-link'"
           :key="`item_${index}`"
           :to="item.href"
           :tag="item.type"

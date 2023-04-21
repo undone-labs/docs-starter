@@ -37,7 +37,10 @@
   },
   "sidebar": {
     "section_1": [
-      "Getting Started",
+      {
+        "type": "title",
+        "text": "Getting Started"
+      },
       {
         "type": "nuxt-link",
         "href": "/introduction",
@@ -50,7 +53,10 @@
       }
     ],
     "section_2": [
-      "Essentials",
+      {
+        "type": "title",
+        "text": "Essentials"
+      },
       {
         "type": "nuxt-link",
         "href": "/application",
@@ -118,7 +124,10 @@
       }
     ],
     "section_3": [
-      "Components in Depth",
+      {
+        "type": "title",
+        "text": "Components in Depth"
+      },
       {
         "type": "nuxt-link",
         "href": "/registration",
@@ -161,7 +170,10 @@
       }
     ],
     "section_4": [
-      "Reusability",
+      {
+        "type": "title",
+        "text": "Reusability"
+      },
       {
         "type": "nuxt-link",
         "href": "/composables",
@@ -179,7 +191,10 @@
       }
     ],
     "section_5": [
-      "Built-in Components",
+      {
+        "type": "title",
+        "text": "Built-in Components"
+      },
       {
         "type": "nuxt-link",
         "href": "/transition",
