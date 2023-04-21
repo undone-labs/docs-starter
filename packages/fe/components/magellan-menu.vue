@@ -1,8 +1,11 @@
 <template>
-  <div class="magellan-menu sticky ">
+  <div id="magellan-menu">
     <div class="title">
       On this page
     </div>
+
+    <div class="active-marker" :style="menuItemStyles[activeSection]" />
+
     <template v-for="(link, index) in links">
       <a
         :ref="link.id"
@@ -29,20 +32,8 @@ export default {
   data () {
     return {
       activeSection: false,
-      headingLocations: []
-    }
-  },
-
-  computed: {
-    menuItemLocations () {
-      // console.log('refs ', this.$refs)
-      return []
-    }
-  },
-
-  watch: {
-    activeSection () {
-
+      headingLocations: [],
+      menuItemStyles: {}
     }
   },
 
@@ -56,14 +47,16 @@ export default {
   },
 
   methods: {
-    activeSectionUpdate (_trigger, currentLocations = this.headingLocations) {
+    activeSectionUpdate (trigger, currentLocations = this.headingLocations) {
       if (window.scrollY === 0) { this.activeSection = false }
+
+      if (this.activeSection) { this.calcMenuItemStyles() }
 
       const locations = currentLocations.map((item) => {
         const id = item.id
         const element = document.getElementById(id)
         const top = element.getBoundingClientRect().top
-        const active = top < 93 && top > 0
+        const active = top < 230
         const isActive = this.activeSection === id
         if (active && !isActive) { this.activeSection = id }
         return {
@@ -73,13 +66,26 @@ export default {
         }
       })
       this.headingLocations = locations
+    },
+    calcMenuItemStyles () {
+      const locations = {}
+      const refs = this.$refs
+      for (const entry in refs) {
+        const item = refs[entry][0]
+        locations[entry] = {
+          top: `${item.offsetTop}px`,
+          height: `${item.clientHeight}px`,
+          opacity: 1
+        }
+      }
+      this.menuItemStyles = locations
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.magellan-menu {
+#magellan-menu {
   align-self: flex-start;
   display: flex;
   flex-flow: column nowrap;
@@ -101,26 +107,15 @@ export default {
 
 .active {
   color: var(--primary-text-color);
-  &::before {
-    content: '';
-    position: absolute;
-    left: -.5rem;
-    height: 100%;
-    top: 0;
-    width: toRem(4);
-    border-radius: toRem(4);
-    background-color: var(--brand-color);
-  }
 }
 
 .active-marker {
   position: absolute;
   left: -.5rem;
-  height: toRem(20);
-  top: 0;
+  opacity: 0;
   width: toRem(4);
   border-radius: toRem(4);
   background-color: var(--brand-color);
-
+  transition: all 200ms ease-in;
 }
 </style>
