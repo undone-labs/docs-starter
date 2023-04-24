@@ -662,6 +662,9 @@ span.error {
     &:is(h2) > .heading-anchor {
       margin-left: -1.3rem;
     }
+    &:is(h3) > .heading-anchor {
+      margin-left: -1rem;
+    }
   }
 }
 

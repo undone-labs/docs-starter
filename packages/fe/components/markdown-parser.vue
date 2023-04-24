@@ -59,7 +59,7 @@ export default {
     // //////////////////////////////////////////////////////////////// Headings
     this.renderer.heading = function (text, level) {
       const escapedText = text.toLowerCase()
-        .replace(/&#\d+;/g, '') // Remove parsed unicode decimal codes
+        .replace(/&(#\d+|\w+);/g, '') // Remove parsed unicode decimal codes
         .replace(/[^\w]/g, '-')
         .replace(/--+/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text

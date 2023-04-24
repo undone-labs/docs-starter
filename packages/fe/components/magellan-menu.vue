@@ -1,7 +1,7 @@
 <template>
   <div id="magellan-menu">
-    <div class="title">
-      On this page
+    <div class="menu-title">
+      ON THIS PAGE
     </div>
 
     <div class="active-marker" :style="menuItemStyles[activeSection]" />
@@ -10,7 +10,7 @@
       <a
         :ref="link.id"
         :key="index"
-        :class="['magellan-menu-item', activeSection === link.id ? 'active' : '']"
+        :class="['magellan-menu-item',link.type, activeSection === link.id ? 'active' : '']"
         :href="`#${link.id}`"
         v-html="link.text" />
     </template>
@@ -50,24 +50,22 @@ export default {
     activeSectionUpdate (trigger, currentLocations = this.headingLocations) {
       if (window.scrollY === 0) { this.activeSection = false }
 
-      if (this.activeSection) { this.calcMenuItemStyles() }
+      if (this.activeSection) { this.calcActiveMarkerStyles() }
 
       const locations = currentLocations.map((item) => {
         const id = item.id
         const element = document.getElementById(id)
-        const top = element.getBoundingClientRect().top
-        const active = top < 230
+        const active = element.getBoundingClientRect().top < 230
         const isActive = this.activeSection === id
         if (active && !isActive) { this.activeSection = id }
         return {
           id,
-          top,
           active
         }
       })
       this.headingLocations = locations
     },
-    calcMenuItemStyles () {
+    calcActiveMarkerStyles () {
       const locations = {}
       const refs = this.$refs
       for (const entry in refs) {
@@ -96,13 +94,17 @@ export default {
   min-width: 25%;
 }
 
-.title {
+.menu-title {
   @include magellanTitle;
   margin-bottom: toRem(4);
 }
 
 .magellan-menu-item {
   @include magellan;
+}
+
+.subtitle {
+  padding-left: 1rem;
 }
 
 .active {

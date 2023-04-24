@@ -27,12 +27,12 @@ import Sidebar from '@/components/sidebar'
 import MarkdownParser from '@/components/markdown-parser'
 import MagellanMenu from '@/components/magellan-menu'
 
-import IndexPageData from '@/content/pages/index.json'
-import IndexPageContent from '@/content/markdown/index.md'
+import IntroductionPageData from '@/content/pages/introduction.json'
+import IntroductionPageContent from '@/content/markdown/introduction.md'
 
 // ====================================================================== Export
 export default {
-  name: 'IndexPage',
+  name: 'IntroductionPage',
 
   components: {
     Sidebar,
@@ -42,12 +42,12 @@ export default {
 
   data () {
     return {
-      tag: 'index'
+      tag: 'introduction'
     }
   },
 
-  async fetch ({ app, store }) {
-    await store.dispatch('general/getBaseData', { key: 'index', data: IndexPageData })
+  async fetch ({ store }) {
+    await store.dispatch('general/getBaseData', { key: 'introduction', data: IntroductionPageData })
   },
 
   head () {
@@ -65,32 +65,37 @@ export default {
       return this.siteContent[this.tag].page_content
     },
     markdown () {
-      return IndexPageContent
+      return IntroductionPageContent
     },
     magellanLinks () {
-      const regex = /(?<=#{2})[\w \p{P}]+(?=\n)/gu
-      const headings = this.markdown.match(regex).map((heading) => {
+      const regex = /(?<=#{2,3})[\w \p{P} \p{S}]+(?=\n)/gu
+      const heading = this.markdown.match(regex).map((heading) => {
         const sectionName = heading.toLowerCase()
           .replace(/\p{P}/gu, '') // Remove punctuation
           .replace(/[^\w]/g, '-')
           .replace(/--+/g, '-') // Replace multiple - with single -
           .replace(/^-+/, '') // Trim - from start of text
           .replace(/-+$/, '') // Trim - from end of text
+        let sectionType = 'title'
+        if (heading[0] === '#') {
+          heading = heading.slice(1)
+          sectionType = 'subtitle'
+        }
         return {
           text: heading,
-          id: sectionName
+          id: sectionName,
+          type: sectionType
         }
       })
-      return headings
+      return heading
     }
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.page-index {
+.page-introduction {
   position: relative;
   margin-top: $siteHeaderHeight;
 }
