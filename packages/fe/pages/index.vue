@@ -1,10 +1,5 @@
-<script>
-// ====================================================================== Export
-export default {
-  name: 'IndexPage',
-
-  fetch ({ redirect }) {
-    redirect('/introduction')
-  }
-}
-</script>
+<template>
+  <div :class="`page`">
+    INDEX PAGE
+  </div>
+</template>

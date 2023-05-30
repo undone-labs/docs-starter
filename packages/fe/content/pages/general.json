@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "Zero Docs",
-    "description": "Zero Docs!"
+    "title": "Docs Starter",
+    "description": "Get a docs site up and running fast 🚀"
   },
   "og": {
-    "site_name": "Zero Docs",
+    "site_name": "Docs Starter",
     "url": "",
     "type": "website",
     "image": ""
@@ -12,18 +12,18 @@
   "navigation": {
     "header": [
       {
-        "type": "nuxt-link",
-        "href": "/docs",
+        "tag": "nuxt-link",
+        "to": "/docs",
         "label": "Docs"
       },
       {
-        "type": "nuxt-link",
-        "href": "/about",
+        "tag": "nuxt-link",
+        "to": "/about",
         "label": "About"
       },
       {
-        "type": "nuxt-link",
-        "href": "/faq",
+        "tag": "nuxt-link",
+        "to": "/faq",
         "label": "FAQ"
       }
     ],

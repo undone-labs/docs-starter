@@ -4,6 +4,66 @@
 $fontInter: 'Inter', sans-serif, monospace;
 $fontMenlo: 'Menlo', sans-serif, monospace;
 
+$fontAssetPath: 'assets/fonts';
+
+// ----------------------------------------------------------------------- Inter
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'InterItalic';
+  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: 400;
+  font-variation-settings: "slnt" -10;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'InterItalic';
+  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: 500;
+  font-variation-settings: "slnt" -10;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/inter/Inter-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: bold;
+}
+
+// ----------------------------------------------------------------------- Menlo
+@font-face {
+  font-family: 'Menlo';
+  src: url('#{$fontAssetPath}/menlo/Menlo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 // --------------------------------------------------------------------- Leading
 @function leading($lineHeight, $fontSize) {
   @return math.div(math.round(10 * math.div($lineHeight, $fontSize)), 10);
@@ -11,7 +71,6 @@ $fontMenlo: 'Menlo', sans-serif, monospace;
 
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
 // =============================================================================
-
 @mixin h1 {
   font-size: toRem(38);
   line-height: leading(53, 38);

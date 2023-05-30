@@ -1,34 +1,27 @@
 {
-  "name": "zero-docs",
+  "name": "@undone-labs/docs-starter",
   "version": "1.0.0",
-  "description": "Zero Docs",
+  "description": "Get a docs site up and running fast 🚀",
   "author": {
     "name": "Agency Undone",
     "email": "hello@agencyundone.com"
   },
   "license": "Apache-2.0",
   "scripts": {
-    "dev-fe": "npm run dev -w fe",
-    "dev-be": "npm run dev -w be"
+    "dev-fe": "npm run dev -w fe"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:undone-labs/zero-docs.git"
+    "url": "git@github.com:undone-labs/docs-starter.git"
   },
   "engines": {
     "node": ">=16.18.0"
   },
-  "keywords": [
-    "Zero Docs",
-    "zero-docs",
-    "zerodocs"
-  ],
-  "bugs": {
-    "url": "https://github.com/undone-labs/zero-docs/issues"
-  },
-  "homepage": "https://github.com/undone-labs/zero-docs#readme",
+  "keywords": [],
   "workspaces": [
-    "packages/fe",
-    "packages/be"
-  ]
+    "packages/fe"
+  ],
+  "devDependencies": {
+    "nuxt": "^3.4.1"
+  }
 }

@@ -3,66 +3,6 @@
 @import 'normalize';
 @import 'grid/gridlex-2.7.1';
 
-$fontAssetPath: '~assets/fonts';
-
-// -------------------------------------------------------- Suisse International
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'InterItalic';
-  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
-  font-weight: 400;
-  font-variation-settings: "slnt" -10;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'InterItalic';
-  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
-  font-weight: 500;
-  font-variation-settings: "slnt" -10;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: bold;
-}
-
-// ----------------------------------------------------------------------- Menlo
-@font-face {
-  font-family: 'Menlo';
-  src: url('#{$fontAssetPath}/menlo/Menlo-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
 //////////////////////////////////////////////////////////////////////// General
 //------------------------------------------------------------------------------
 html,
@@ -299,18 +239,14 @@ span.error {
   z-index: 100;
 }
 
-[class~="grid"],
-[class*="grid-"],
-[class*="grid_"] {
+[class~="grid"], [class*="grid-"], [class*="grid_"] {
   width: $containerWidth;
   margin: 0 auto;
   @include containerMaxMQ {
     padding: 0 4.1665%;
     width: 100%;
   }
-  [class~="grid"],
-  [class*="grid-"],
-  [class*="grid_"] {
+  [class~="grid"], [class*="grid-"], [class*="grid_"] {
     width: 100%;
     padding: 0;
   }
@@ -323,6 +259,9 @@ span.error {
     &.maxed {
       max-width: 90rem;
     }
+  }
+  &.max-height {
+    height: 100%;
   }
   &.no-padding {
     padding: 0;

@@ -4,8 +4,8 @@ const env = process.env.SERVER_ENV
 
 const baseUrls = {
   development: 'https://localhost',
-  stable: 'https://stable.filplus.storage',
-  production: 'https://filplus.storage'
+  stable: '',
+  production: ''
 }
 
 const frontendPort = (function () {
