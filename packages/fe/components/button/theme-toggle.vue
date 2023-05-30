@@ -20,6 +20,8 @@ import { storeToRefs } from 'pinia'
 
 // ======================================================================= Setup
 const store = useGeneralStore()
+
+// ======================================================================= Data
 const { theme } = storeToRefs(store)
 
 // ======================================================================= Hooks
@@ -65,7 +67,7 @@ const toggleTheme = () => {
   opacity: 0;
   height: toRem(14);
   margin: 1px 2px;
-  :deep(path){
+  :deep(path) {
     color: var(--sidebar-text-color);
   }
 }
