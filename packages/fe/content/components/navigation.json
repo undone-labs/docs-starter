@@ -1,0 +1,19 @@
+{
+  "header": [
+    {
+      "tag": "nuxt-link",
+      "to": "/docs",
+      "label": "Docs"
+    },
+    {
+      "tag": "nuxt-link",
+      "to": "/about",
+      "label": "About"
+    },
+    {
+      "tag": "nuxt-link",
+      "to": "/faq",
+      "label": "FAQ"
+    }
+  ]
+}

@@ -1,3 +1,7 @@
-<script setup>
-navigateTo('/introduction')
-</script>
+<template>
+  <div class="page">
+
+    Just another index page
+
+  </div>
+</template>

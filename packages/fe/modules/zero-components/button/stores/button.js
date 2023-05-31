@@ -23,9 +23,9 @@ const removeButton = (id) => {
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
 export const useZeroButtonStore = defineStore('zero-button', () => ({
-  // State
+  // ----- state
   buttons,
-  // Actions
+  // ----- actions
   setButton,
   removeButton
 }))

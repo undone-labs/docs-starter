@@ -19,12 +19,6 @@
   </div>
 </template>
 
-<script setup>
-// ======================================================================= Setup
-const store = useGeneralStore()
-store.getBaseData('general')
-</script>
-
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .layout {

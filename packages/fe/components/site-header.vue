@@ -37,12 +37,9 @@
 </template>
 
 <script setup>
-// ======================================================================= Setup
-const store = useGeneralStore()
-
 // ======================================================================== Data
-const { general: generalSiteContent } = store.siteContent
-const links = generalSiteContent.navigation.header
+const navigation = await queryContent('components/navigation').findOne()
+const links = navigation.header
 </script>
 
 <style lang="scss" scoped>

@@ -90,6 +90,7 @@ export default defineNuxtConfig({
     // '~/modules/button',
     // '~/modules/ls'
     '@pinia/nuxt',
+    '@nuxt/content',
     '~/modules/zero-components/index.js'
   ],
   // /////////////////////////////////////////////////////////////// Vite Config
@@ -110,10 +111,10 @@ export default defineNuxtConfig({
     autoImports: [
       'defineStore' // import { defineStore } from 'pinia'
     ]
-  },
+  }
   // /////////////////////////////////////////////////////////////// [Module] ls
   // ---------------------------------------------------------------------------
-  ls: {
-    prefix: 'docsstarter__'
-  }
+  // ls: {
+  //   prefix: 'docsstarter__'
+  // }
 })

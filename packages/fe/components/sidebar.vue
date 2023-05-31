@@ -29,12 +29,9 @@
 </template>
 
 <script setup>
-// ======================================================================= Setup
-const store = useGeneralStore()
-
 // ======================================================================== Data
-const { general: generalSiteContent } = store.siteContent
-const sidebar = generalSiteContent.sidebar
+const content = await queryContent('components/sidebar').findOne()
+const sidebar = content.body
 </script>
 
 <style lang="scss" scoped>
