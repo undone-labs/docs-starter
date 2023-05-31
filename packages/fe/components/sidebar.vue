@@ -1,48 +1,40 @@
 <template>
   <div class="sidebar">
 
-    <section
-      v-for="(section, sectionIndex) in sidebar"
-      :key="`section-${sectionIndex}`"
-      class="section">
-      <template v-for="(item, itemIndex) in section">
+    <ContentNavigation v-slot="{ navigation }">
+      <section
+        v-for="section in navigation"
+        :key="section._path"
+        class="section">
 
         <h2
-          v-if="item.type === 'title'"
-          :key="`item-${itemIndex}`"
           class="title"
-          v-html="item.label" />
+          v-html="section.title" />
 
         <ButtonClear
-          v-else
-          :key="`item-${itemIndex}`"
-          :to="item.href"
-          :tag="item.type"
+          v-for="link in section.children"
+          :key="link._path"
+          :to="link._path"
+          tag="nuxt-link"
           class="link">
-          <div class="button-label" v-html="item.label" />
+          <div class="button-label" v-html="link.title" />
         </ButtonClear>
 
-      </template>
-    </section>
+      </section>
+    </ContentNavigation>
 
   </div>
 </template>
-
-<script setup>
-// ======================================================================== Data
-const content = await queryContent('components/sidebar').findOne()
-const sidebar = content.body
-</script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .sidebar {
   position: fixed;
   top: $siteHeaderHeight;
+  width: 100%;
   height: calc(100vh - $siteHeaderHeight);
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 2rem 6rem 2rem 0;
   border-right: 1px solid var(--divider);
 }
 

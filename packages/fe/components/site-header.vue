@@ -37,9 +37,11 @@
 </template>
 
 <script setup>
+// ===================================================================== Imports
+import Navigation from '@/data/components/navigation'
+
 // ======================================================================== Data
-const navigation = await queryContent('components/navigation').findOne()
-const links = navigation.header
+const links = Navigation.header
 </script>
 
 <style lang="scss" scoped>
