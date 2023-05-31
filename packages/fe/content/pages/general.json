@@ -26,20 +26,13 @@
         "to": "/faq",
         "label": "FAQ"
       }
-    ],
-    "footer": [
-      {
-        "type": "nuxt-link",
-        "href": "/",
-        "label": "Home"
-      }
     ]
   },
-  "sidebar": {
-    "section_1": [
+  "sidebar": [
+    [
       {
         "type": "title",
-        "text": "Getting Started"
+        "label": "Getting Started"
       },
       {
         "type": "nuxt-link",
@@ -52,10 +45,10 @@
         "label": "Quick Start"
       }
     ],
-    "section_2": [
+    [
       {
         "type": "title",
-        "text": "Essentials"
+        "label": "Essentials"
       },
       {
         "type": "nuxt-link",
@@ -66,185 +59,7 @@
         "type": "nuxt-link",
         "href": "/template-syntax",
         "label": "Template Syntax"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/reactivity-fundamentals",
-        "label": "Reactivity Fundamentals"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/computed-properties",
-        "label": "Computed Properties"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/class-and-style",
-        "label": "Class and Style Bindings"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/conditional-rendering",
-        "label": "Conditional Rendering"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/list-rendering",
-        "label": "List Rendering"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/event-handling",
-        "label": "Event Handling"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/forms",
-        "label": "Form Input Bindings"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/lifecycle-hooks",
-        "label": "Lifecycle Hooks"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/watchers",
-        "label": "Watchers"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/template-refs",
-        "label": "Template Refs"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/component-basics",
-        "label": "Component Basics"
-      }
-    ],
-    "section_3": [
-      {
-        "type": "title",
-        "text": "Components in Depth"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/registration",
-        "label": "Registration"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/props",
-        "label": "Props"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/events",
-        "label": "Events"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/v-model",
-        "label": "Component v-model"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/attrs",
-        "label": "Fallthrough Attributes"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/slots",
-        "label": "Slots"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/provide-inject",
-        "label": "Provide / Inject"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/async-components",
-        "label": "Async Component"
-      }
-    ],
-    "section_4": [
-      {
-        "type": "title",
-        "text": "Reusability"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/composables",
-        "label": "Composables"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/custom-directives",
-        "label": "Custom Directives"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/plugins",
-        "label": "Plugins"
-      }
-    ],
-    "section_5": [
-      {
-        "type": "title",
-        "text": "Built-in Components"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/transition",
-        "label": "Transition"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/transition-group",
-        "label": "Transition Group"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/keep-alive",
-        "label": "Keep Alive"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/teleport",
-        "label": "Teleport"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/suspense",
-        "label": "Suspense"
       }
     ]
-  },
-  "footer": {
-    "copyright": {
-      "links": [
-        {
-          "type": "a",
-          "icon": "github",
-          "url": "",
-          "target": "_blank"
-        },
-        {
-          "type": "a",
-          "icon": "slack",
-          "url": "",
-          "target": "_blank"
-        }
-      ],
-      "text": "Zero Docs copyright stuff"
-    }
-  },
-  "404_error_message": "<span class='bubble right'>404</span>",
-  "404_hero_button": {
-    "type": "nuxt-link",
-    "href": "/",
-    "label": "Back to home"
-  }
+  ]
 }

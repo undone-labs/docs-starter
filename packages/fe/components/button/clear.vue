@@ -109,12 +109,12 @@ const props = defineProps({
     display: flex;
     align-items: center;
   }
-  :deep(.text) {
-    color: var(--primary-text-color);
+  :deep(.button-label) {
     @include navigation;
+    color: var(--primary-text-color);
   }
   &:hover {
-    :deep(.text) {
+    :deep(.button-label) {
       color: var(--brand-color);
       transition: color .25s ease;
     }

@@ -1,5 +1,3 @@
-<template>
-  <div :class="`page`">
-    INDEX PAGE
-  </div>
-</template>
+<script setup>
+navigateTo('/introduction')
+</script>

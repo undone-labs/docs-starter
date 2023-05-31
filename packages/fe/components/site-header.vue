@@ -39,7 +39,6 @@
 <script setup>
 // ======================================================================= Setup
 const store = useGeneralStore()
-store.getBaseData('general')
 
 // ======================================================================== Data
 const { general: generalSiteContent } = store.siteContent

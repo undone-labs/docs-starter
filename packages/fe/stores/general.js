@@ -30,6 +30,7 @@ const getBaseData = (payload) => {
 const setTheme = (newTheme) => {
   theme.value = newTheme
   localStorage.setItem('theme', newTheme)
+  document.documentElement.className = newTheme
 }
 
 // ////////////////////////////////////////////////////////////// setSiteContent

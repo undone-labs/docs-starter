@@ -1,8 +1,8 @@
 <template>
   <component
-    :is="tag"
-    :to="tag === 'nuxt-link' ? to : false"
-    :href="tag === 'a' || tag === 'nuxt-link' ? to : false"
+    :is="component"
+    :to="tag === 'nuxt-link' ? to : undefined"
+    :href="tag === 'a' ? to : undefined"
     :disabled="disabled || loading"
     :target="target"
     :class="['button', { selected }]"
@@ -14,9 +14,12 @@
 </template>
 
 <script setup>
+// ===================================================================== Imports
+
+
 // ======================================================================= Props
 const props = defineProps({
-  tag: { // button, 'a' or nuxt-link
+  tag: { // 'button', 'a' or 'nuxt-link'
     type: String,
     required: false,
     default: 'button'
@@ -52,12 +55,16 @@ const emit = defineEmits(['clicked'])
 
 // ======================================================================= Setup
 const { $button } = useNuxtApp()
-const id = props.loader || 'asd' // self.$uuid.v4()
-const button = $button(id).get()
-if (!button) {
-  await $button(id).register()
-}
+const id = props.loader || useUuid().v4()
+const button = await $button(id).register()
 const loading = button && button.loading
+
+// ==================================================================== Computed
+const component = computed(() => {
+  const tag = props.tag
+  if (tag !== 'nuxt-link') { return tag }
+  return resolveComponent('NuxtLink')
+})
 
 // ===================================================================== Methods
 const clickHandler = (e) => {

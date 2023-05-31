@@ -1,45 +1,34 @@
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
-import CloneDeep from 'lodash/cloneDeep'
+import CloneDeep from 'lodash.cloneDeep'
 import { defineNuxtPlugin } from '#imports'
 import { useZeroButtonStore } from '../stores/button.js'
 
 // ////////////////////////////////////////////////////////////// [Class] Button
 // -----------------------------------------------------------------------------
-const Button = (store, id) => {
-  let button = store.buttons.find(button => button.id === id)
+const Button = (id, store) => {
+  let button = store.buttons[id]
   return {
     // ================================================================ register
     async register () {
-      if (!button) {
-        this.set({
-          id,
-          loading: false
-        })
-      }
+      if (button) { return this.get() }
+      return await this.set({ id, loading: false })
     },
 
     // ============================================================== deregister
-    // async deregister () {
-    //   if (button) {
-    //     await store.dispatch('button/removeButton', id)
-    //   }
-    // },
+    async deregister () {
+      await store.removeButton(id)
+    },
 
     // ===================================================================== get
     get () {
-      return button
+      return Object.assign(this, button)
     },
 
     // ===================================================================== set
     async set (incoming) {
-      await store.setButton(Object.assign(CloneDeep(button || {}), incoming))
-      button = store.butons.find(button => button.id === id)
-    },
-
-    // ================================================================= loading
-    loading () {
-      return button.loading
+      button = await store.setButton(Object.assign(CloneDeep(button || {}), incoming))
+      return this.get()
     }
   }
 }
@@ -50,7 +39,7 @@ export default defineNuxtPlugin(() => {
   const store = useZeroButtonStore()
   return {
     provide: {
-      button: (id) => Button(store, id)
+      button: (id) => Button(id, store)
     }
   }
 })

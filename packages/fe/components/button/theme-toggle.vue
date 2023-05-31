@@ -21,14 +21,14 @@ import { storeToRefs } from 'pinia'
 // ======================================================================= Setup
 const store = useGeneralStore()
 
-// ======================================================================= Data
+// ======================================================================== Data
 const { theme } = storeToRefs(store)
 
 // ======================================================================= Hooks
 onMounted(() => {
   const initialTheme = localStorage.getItem('theme')
-  if (initialTheme !== theme) {
-    toggleTheme()
+  if (initialTheme) {
+    store.setTheme(initialTheme)
   }
 })
 
@@ -36,7 +36,6 @@ onMounted(() => {
 const toggleTheme = () => {
   const toggle = theme.value === 'light' ? 'dark' : 'light'
   store.setTheme(toggle)
-  document.documentElement.className = toggle
 }
 </script>
 
