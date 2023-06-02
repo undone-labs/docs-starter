@@ -1,27 +1,17 @@
 <template>
   <aside class="sidebar">
 
-    <ContentNavigation v-slot="{ navigation }">
-      <section
-        v-for="section in navigation"
-        :key="section._path"
-        class="section">
+    <div class="navigation-wrapper">
+      <div class="gradient top" />
+      <ContentNav />
+      <div class="gradient bottom" />
+    </div>
 
-        <h2
-          class="title"
-          v-html="section.title" />
-
-        <ButtonClear
-          v-for="link in section.children"
-          :key="link._path"
-          :to="link._path"
-          tag="nuxt-link"
-          class="link">
-          <div class="button-label" v-html="link.title" />
-        </ButtonClear>
-
-      </section>
-    </ContentNavigation>
+    <div class="magellan-menu-wrapper">
+      <div class="gradient top" />
+      <MagellanMenu />
+      <div class="gradient bottom" />
+    </div>
 
   </aside>
 </template>
@@ -29,51 +19,71 @@
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: calc((100vw - $gridWidth) / 2);
   width: $sidebarWidth;
   height: 100%;
-  padding: 2.5rem;
-  padding-top: $siteHeaderHeight;
-  padding-bottom: 8rem;
   border-right: 1px solid var(--divider);
-  overflow-y: scroll;
   @include gridMaxMQ {
     left: 0;
   }
 }
 
-.section {
-  &:not(:first-of-type) {
-    padding-top: 1rem;
+#content-nav,
+#magellan-menu {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 2rem;
+  padding-left: 0;
+  @include customMaxMQ($gridWidth + 1rem) {
+    padding-left: 2rem;
   }
 }
 
-.title {
-  @include sidebarSectionTitle;
-  padding: toRem(4) 0;
-  margin: 0;
+.gradient {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+  pointer-events: none;
+  z-index: 100;
+  &.top {
+    top: 0;
+    background: linear-gradient(to bottom, white, rgba(white, 0));
+  }
+  &.bottom {
+    bottom: 0;
+    background: linear-gradient(to top, white, rgba(white, 0));
+  }
 }
 
-.link {
-  display: block;
-  &:hover:not(.router-link-active) {
-    cursor: pointer;
-    .button-label {
-      color: var(--primary-text-color);
-      transition: color .25s ease;
+// //////////////////////////////////////////////////////// [Navigation] content
+.navigation-wrapper {
+  position: relative;
+  max-height: calc(100vh * 0.618);
+}
+
+// /////////////////////////////////////////////////////// [Navigation] magellan
+.magellan-menu-wrapper {
+  position: relative;
+  min-height: calc(100vh * 0.382);
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 1px);
+    right: 0;
+    height: 1px;
+    width: calc(100% + (100vw - $gridWidth) / 2);
+    background-color: var(--divider);
+    @include gridMaxMQ {
+      width: calc(100% + (100vw * 0.041665));
     }
   }
-  &.router-link-active {
-    .button-label {
-      color: var(--brand-color);
-      font-weight: 600;
-    }
+  .gradient.top {
+    top: 1px;
   }
-}
-
-:deep(.button-label) {
-  @include sidebar;
 }
 </style>

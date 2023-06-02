@@ -7,7 +7,7 @@
     <div class="grid">
 
       <!-- ========================================================= Content -->
-      <div class="col-6" data-push-left="off-3">
+      <div class="col-6" data-push-left="off-2">
         <ContentDoc v-slot="{ doc }">
           <ContentRendererMarkdown
             :value="doc.body"
@@ -16,7 +16,7 @@
       </div>
 
       <!-- ========================================================= Preview -->
-      <div class="col-3">
+      <div class="col-4">
         <div class="preview">
           Preview
         </div>

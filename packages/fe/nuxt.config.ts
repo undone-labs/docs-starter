@@ -115,5 +115,10 @@ export default defineNuxtConfig({
     autoImports: [
       'defineStore' // import { defineStore } from 'pinia'
     ]
+  },
+  // //////////////////////////////////////////////////// [Module] @nuxt/content
+  // ---------------------------------------------------------------------------
+  content: {
+    watch: false
   }
 })

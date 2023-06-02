@@ -7,7 +7,7 @@ $gridWidth: 86rem;
 $standardGutter: 0.75rem;
 
 $siteHeaderHeight: 3.5rem;
-$sidebarWidth: $gridWidth * 0.25;
+$sidebarWidth: $gridWidth * 0.16667;
 $bodyOffsetTop: $siteHeaderHeight + 1.5rem;
 
 // --------------------------------------------------------------------- Colours
@@ -59,7 +59,7 @@ $replace4: #000000;
   --link-hover-color: #{$oceanGreen};
   --code-text-color: #{$bismark};
   --code-background-color: #{$seashell};
-  --divider: #3c3c3c1f;
+  --divider: #d0d7de;
 }
 
 .dark {

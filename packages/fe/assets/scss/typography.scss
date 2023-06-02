@@ -221,8 +221,15 @@ button {
 
 @mixin sidebar {
   @include navigation;
-  color: var(--sidebar-text-color);
   padding: toRem(4) 0;
+  color: var(--sidebar-text-color);
+  text-align: left;
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 
 // -------------------------------------------------------- Magellan Menu Mixins
