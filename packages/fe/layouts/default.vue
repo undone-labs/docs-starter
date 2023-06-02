@@ -3,10 +3,12 @@
 
     <SiteHeader />
 
-    <div class="grid">
+    <slot />
+
+    <!-- <div class="grid">
       <div class="col-3">
 
-        <Sidebar />
+
 
       </div>
       <div class="col-9">
@@ -14,7 +16,7 @@
         <slot />
 
       </div>
-    </div>
+    </div> -->
 
   </div>
 </template>

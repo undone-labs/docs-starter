@@ -5,6 +5,10 @@
 
 //////////////////////////////////////////////////////////////////////// General
 //------------------------------------------------------------------------------
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   &.no-scroll {
@@ -240,15 +244,10 @@ span.error {
 }
 
 [class~="grid"], [class*="grid-"], [class*="grid_"] {
-  width: $containerWidth;
+  width: $gridWidth;
   margin: 0 auto;
-  @include containerMaxMQ {
+  @include gridMaxMQ {
     padding: 0 4.1665%;
-    width: 100%;
-  }
-  [class~="grid"], [class*="grid-"], [class*="grid_"] {
-    width: 100%;
-    padding: 0;
   }
   &[class*="-noGutter"] {
     margin: 0 auto;

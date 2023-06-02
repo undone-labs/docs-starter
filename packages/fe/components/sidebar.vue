@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <aside class="sidebar">
 
     <ContentNavigation v-slot="{ navigation }">
       <section
@@ -23,19 +23,25 @@
       </section>
     </ContentNavigation>
 
-  </div>
+  </aside>
 </template>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .sidebar {
   position: fixed;
-  top: $siteHeaderHeight;
-  width: 100%;
-  height: calc(100vh - $siteHeaderHeight);
-  overflow-x: hidden;
-  overflow-y: auto;
+  top: 0;
+  left: calc((100vw - $gridWidth) / 2);
+  width: $sidebarWidth;
+  height: 100%;
+  padding: 2.5rem;
+  padding-top: $siteHeaderHeight;
+  padding-bottom: 8rem;
   border-right: 1px solid var(--divider);
+  overflow-y: scroll;
+  @include gridMaxMQ {
+    left: 0;
+  }
 }
 
 .section {

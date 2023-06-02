@@ -1,39 +1,30 @@
 <template>
-  <div id="site-header" class="grid-max-height">
+  <header id="site-header">
 
-    <div class="grid-noGutter max-height">
-      <div class="col">
-        <div class="inner-container">
+    <!-- ============================================================== Logo -->
+    <NuxtLink to="/" class="logo-link">
+      <Logo class="logo" />
+    </NuxtLink>
 
-          <!-- ======================================================== Logo -->
-          <NuxtLink to="/" class="logo-link">
-            <Logo class="logo" />
-          </NuxtLink>
-
-          <!-- =================================================== Nav links -->
-          <nav id="site-nav">
-            <div class="button-list">
-              <ButtonClear
-                v-for="(link, index) in links"
-                v-bind="link"
-                :key="index"
-                ref="navItems"
-                theme="nav"
-                class="site-nav-link">
-                <div class="text" v-html="link.label" />
-              </ButtonClear>
-            </div>
-          </nav>
-
-          <!-- =============================================== Theme toggler -->
-          <ButtonThemeToggle />
-
-        </div>
-
+    <!-- ========================================================= Nav links -->
+    <nav id="site-nav">
+      <div class="button-list">
+        <ButtonClear
+          v-for="(link, index) in links"
+          v-bind="link"
+          :key="index"
+          ref="navItems"
+          theme="nav"
+          class="site-nav-link">
+          <div class="text" v-html="link.label" />
+        </ButtonClear>
       </div>
-    </div>
+    </nav>
 
-  </div>
+    <!-- ===================================================== Theme toggler -->
+    <ButtonThemeToggle />
+
+  </header>
 </template>
 
 <script setup>
@@ -47,27 +38,22 @@ const links = Navigation.header
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: $siteHeaderHeight;
-  z-index: 1000;
-  border-bottom: 1px solid var(--divider);
-  background-color: var(--background-color);
-}
-
-.inner-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 0 1rem;
-  @include small {
-    flex-wrap: wrap;
-    padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: calc((100% - $gridWidth) / 2 + $sidebarWidth);
+  width: calc(100% - (100% - $gridWidth) / 2 - $sidebarWidth);
+  height: $siteHeaderHeight;
+  padding: 0 2.5rem;
+  border-bottom: 1px solid var(--divider);
+  background-color: var(--background-color);
+  z-index: 1000;
+  @include gridMaxMQ {
+    left: $sidebarWidth;
+    width: calc(100% - $sidebarWidth);
   }
 }
 
