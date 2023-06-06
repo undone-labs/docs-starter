@@ -19,12 +19,12 @@
           <div class="button-label" v-html="link.title" />
         </ButtonClear>
 
-        <ButtonClear
+        <!-- <ButtonClear
           v-for="(num, index) in 100"
           :key="index"
           class="link">
           <div class="button-label" v-html="'This is a link'" />
-        </ButtonClear>
+        </ButtonClear> -->
 
       </section>
     </ContentNavigation>
