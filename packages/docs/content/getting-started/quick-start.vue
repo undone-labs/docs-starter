@@ -1,5 +1,5 @@
 <template>
   <div>
-    Introduction preview
+    Quick Start preview
   </div>
 </template>

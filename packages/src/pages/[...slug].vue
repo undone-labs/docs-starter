@@ -42,7 +42,9 @@
           <!-- ===================================================== Preview -->
           <div class="col-4">
             <div class="preview">
-              <component v-if="previewExists" :is="previewComponentName" />
+              <component
+                v-if="getPreviewComponentName(section._path)"
+                :is="getPreviewComponentName(section._path)" />
             </div>
           </div>
 
@@ -75,10 +77,6 @@ const pageSlug = dirNameSplit[1] // get page slug
 const QueryBuilderParams = {
   path: `/docs/content/${dirSlug}`
 }
-
-const componentList = ctx.appContext.components
-const previewComponentName = 'Doczilla' + pageSlug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
-const previewExists = componentList.hasOwnProperty(previewComponentName)
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
@@ -146,6 +144,18 @@ const detectPageScrollTop = () => {
   scroll.value = useThrottle(scrollHandler, 100)
   window.addEventListener('scroll', scroll.value)
 }
+
+/**
+ * @method getPreviewComponentName
+ */
+const getPreviewComponentName = (path) => {
+  const componentList = ctx.appContext.components
+  const slug = path.split('/').pop()
+  const previewComponentName = 'Doczilla' + slug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join('')
+  const previewExists = componentList.hasOwnProperty(previewComponentName)
+  if (previewExists) { return previewComponentName }
+  return false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -165,8 +175,13 @@ const detectPageScrollTop = () => {
 }
 
 .preview {
+  height: 100%;
   @include gridMaxMQ {
     padding-right: 0;
+  }
+  > div {
+    position: sticky;
+    top: $siteHeaderHeight + 1rem;
   }
 }
 
