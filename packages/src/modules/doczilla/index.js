@@ -43,6 +43,9 @@ const copySrcDirToTargetDir = (nuxt) => {
 
 // ////////////////////////////////////////// registerTargetDirWithContentModule
 const registerTargetDirWithContentModule = (nuxt) => {
+  if (!nuxt.options.hasOwnProperty('content')) {
+    nuxt.options.content = {}
+  }
   const sources = nuxt.options.content.sources || {}
   nuxt.options.content.sources = Object.assign(sources, {
     docs: {
@@ -51,7 +54,6 @@ const registerTargetDirWithContentModule = (nuxt) => {
       base: resolve(nuxt.options.vite.root, 'docs')
     }
   })
-  console.log(nuxt.options.content)
 }
 
 // ////////////////////////////////////////////////////////// registerComponents
