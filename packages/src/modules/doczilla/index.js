@@ -7,8 +7,7 @@ import Fs from 'fs-extra'
 import {
   defineNuxtModule,
   createResolver,
-  extendPages,
-  addComponent
+  addComponentsDir
 } from '@nuxt/kit'
 
 const { resolve } = createResolver(import.meta.url)
@@ -38,7 +37,7 @@ const copySrcDirToTargetDir = (nuxt) => {
   const packageRootPath = nuxt.options.vite.root
   const contentSrcDirPath = resolve(packageRootPath, '../docs')
   const docsDirPath = resolve(packageRootPath, 'docs')
-  Fs.copy(contentSrcDirPath, docsDirPath)
+  Fs.copySync(contentSrcDirPath, docsDirPath)
 }
 
 // ////////////////////////////////////////// registerTargetDirWithContentModule
@@ -56,14 +55,13 @@ const registerTargetDirWithContentModule = (nuxt) => {
   })
 }
 
-// ////////////////////////////////////////////////////////// registerComponents
-const registerComponent = (submodule, components) => {
-  if (!components) { return }
-  components.forEach((component) => {
-    addComponent({
-      name: component.name,
-      filePath: resolve(submodule, 'components', component.file)
-    })
+// ///////////////////////////////////////////////// registerTargetDirComponents
+const registerTargetDirComponents = (nuxt) => {
+  addComponentsDir({
+    path: resolve(nuxt.options.vite.root, 'docs/content'),
+    pathPrefix: false,
+    prefix: 'Doczilla',
+    global: true
   })
 }
 
@@ -76,30 +74,7 @@ const setup = (options, nuxt) => {
     deleteTargetDir(nuxt)
     copySrcDirToTargetDir(nuxt)
     registerTargetDirWithContentModule(nuxt)
-    // const content = compileContent(nuxt, contentPath)
-    // // console.log(content)
-    // // const manifest =
-    // content.forEach((pages) => {
-    //   // console.log(section)
-    //   pages.forEach((page) => {
-    //     console.log(page)
-    //     registerRoute(nuxt, page, contentPath)
-    //   })
-    // })
-
-    // console.log(content)
-    // const submodules = Fs.readdirSync(modulePath)
-    // const len = submodules.length
-    // for (let i = 0; i < len; i++) {
-    //   const submodule = submodules[i]
-    //   const path = `${modulePath}/${submodule}`
-    //   if (Fs.statSync(path).isDirectory()) {
-    //     const config = await import(`${path}/index.js`)
-    //     registerPlugins(submodule, config.plugins)
-    //     registerStores(submodule, config.stores)
-    //     registerComponents(submodule, config.components)
-    //   }
-    // }
+    registerTargetDirComponents(nuxt)
   } catch (e) {
     console.log('\n')
     console.log(e)

@@ -42,7 +42,7 @@
           <!-- ===================================================== Preview -->
           <div class="col-4">
             <div class="preview">
-              Preview
+              <component v-if="previewExists" :is="previewComponentName" />
             </div>
           </div>
 
@@ -67,11 +67,18 @@ const sections = ref([])
 const loaded = ref(false)
 const scroll = ref(null)
 const route = useRoute()
+const ctx = getCurrentInstance()
+const dirNameSplit = route.path.slice(1).split('/')
+const dirSlug = dirNameSplit[0] // get subdirectory slug
+const pageSlug = dirNameSplit[1] // get page slug
 
-const dirSlug = route.path.slice(1).split('/')[0] // get subdirectory slug
 const QueryBuilderParams = {
   path: `/docs/content/${dirSlug}`
 }
+
+const componentList = ctx.appContext.components
+const previewComponentName = 'Doczilla' + pageSlug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
+const previewExists = componentList.hasOwnProperty(previewComponentName)
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
