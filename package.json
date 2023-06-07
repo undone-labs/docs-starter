@@ -8,7 +8,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "dev-fe": "npm run dev -w fe"
+    "dev": "npm run dev -w src"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "keywords": [],
   "workspaces": [
-    "packages/fe"
+    "packages/src"
   ],
   "devDependencies": {
     "nuxt": "^3.5.2"

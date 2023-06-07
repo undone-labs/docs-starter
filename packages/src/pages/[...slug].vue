@@ -1,44 +1,65 @@
 <template>
   <main class="page">
 
-    <!-- ============================================================ Header -->
     <SiteHeader />
 
-    <div class="grid">
+    <ContentList :query="QueryBuilderParams" v-slot="{ list }">
 
-      <!-- ========================================================= Content -->
-      <div class="col-6" data-push-left="off-2">
-        <div class="content">
-          <ContentDoc v-slot="{ doc }">
-            <h1
-              :id="doc._dir"
-              ref="heading"
-              class="heading">
-              {{ getHeading(doc._dir) }}
-            </h1>
-
-            <ContentRendererMarkdown
-              :value="doc.body"
-              id="markdown"
-              class="markdown" />
-
-          </ContentDoc>
+      <!-- ========================================================== Header -->
+      <header>
+        <div class="grid">
+          <div class="col-6" data-push-left="off-2">
+            <div class="content">
+              <h1
+                :id="dirSlug"
+                ref="heading"
+                class="heading">
+                {{ pageHeading }}
+              </h1>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <!-- ========================================================= Preview -->
-      <div class="col-4">
-        <div class="preview">
-          Preview
+      <!-- ======================================================== Sections -->
+      <section
+        v-for="section in list"
+        :key="section._path"
+        class="section">
+
+        <div class="grid">
+
+          <!-- ===================================================== Content -->
+          <div class="col-6" data-push-left="off-2">
+            <div class="content">
+              <ContentRendererMarkdown
+                :value="section.body"
+                id="markdown"
+                class="markdown" />
+            </div>
+          </div>
+
+          <!-- ===================================================== Preview -->
+          <div class="col-4">
+            <div class="preview">
+              Preview
+            </div>
+          </div>
+
         </div>
-      </div>
 
-    </div>
+      </section>
+
+    </ContentList>
 
   </main>
 </template>
 
 <script setup>
+// ======================================================================= Setup
+// import { QueryBuilderParams } from '@nuxt/content/dist/runtime/types'
+// const query: QueryBuilderParams = { path: '/articles', where: [{ layout: 'article' }], limit: 5, sort: [{ date: -1 }] }
+
 // ======================================================================= Setup
 definePageMeta({
   layout: 'docs'
@@ -51,8 +72,28 @@ const loaded = ref(false)
 const scroll = ref(null)
 const route = useRoute()
 
+const dirSlug = route.path.slice(1).split('/')[0] // get subdirectory slug
+const QueryBuilderParams = {
+  path: `/docs/content/${dirSlug}`
+}
+
+// const match =
+// const { data: contentQuery } = await useAsyncData('content-query', () => {
+//   return queryContent(`/docs/content/${dirSlug}`).find()
+//   // console.log(asd)
+//   // return asd
+// })
+// const contentQuery = await
+// console.log(contentQuery.value)
+
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
+const docPath = computed(() => `/docs/content${route.path}`)
+
+const pageHeading = computed(() => {
+  const converted = dirSlug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
+  return converted.join(' ')
+})
 
 // ======================================================================= Hooks
 onMounted(() => {
@@ -66,18 +107,6 @@ onMounted(() => {
 })
 
 // ===================================================================== Methods
-/**
- *
- * @method getHeading
- *
- * @param {string} dirName
- * @returns {string}
- */
-const getHeading = (dirName) => {
-  const converted = dirName.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
-  return converted.join(' ')
-}
-
 /**
  * @method intersectionObserveHeadings
  * @see {@link https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/} for a thorough overview of how the IntersectionObserver works
@@ -127,16 +156,18 @@ const detectPageScrollTop = () => {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// Content
+.page {
+  padding-top: $bodyOffsetTop;
+  padding-bottom: 5rem;
+}
+
+.header,
 .content,
 .preview {
-  padding: $bodyOffsetTop 2rem 0 2rem;
+  padding: 0 2rem 0 2rem;
   @include gridMaxMQ {
     padding-left: 0;
   }
-}
-
-.content {
-  padding-bottom: 5rem;
 }
 
 .preview {

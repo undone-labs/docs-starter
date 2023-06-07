@@ -81,19 +81,8 @@ export default defineNuxtConfig({
   // /////////////////////////////////////////////////////////////////// Modules
   // ---------------------------------------------------------------------------
   modules: [
-    // '@nuxtjs/style-resources', // https://github.com/nuxt-community/style-resources-module/
-    // '@nuxtjs/axios', // https://axios.nuxtjs.org/
-    // 'nuxt-socket-io', // https://nuxt-socket-io.netlify.app/
-    // '@nuxtjs/gtm', // https://github.com/nuxt-community/gtm-module#nuxtjsgtm
-    // '~/modules/toaster',
-    // '~/modules/slider',
-    // '~/modules/alert',
-    // '~/modules/auth',
-    // '~/modules/search',
-    // '~/modules/form',
-    // '~/modules/button',
-    // '~/modules/ls'
     '@pinia/nuxt',
+    '~/modules/doczilla/index.js',
     '@nuxt/content',
     '~/modules/zero-components/index.js'
   ],
@@ -107,7 +96,8 @@ export default defineNuxtConfig({
           additionalData: '@import "@/assets/scss/variables.scss";'
         }
       }
-    }
+    },
+    assetsInclude: ['**/*.md']
   },
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt
   // ---------------------------------------------------------------------------
@@ -119,6 +109,13 @@ export default defineNuxtConfig({
   // //////////////////////////////////////////////////// [Module] @nuxt/content
   // ---------------------------------------------------------------------------
   content: {
-    watch: false
+    watch: false,
+    sources: {
+      docs: {
+        driver: 'fs',
+        prefix: '/docs', // All contents inside this source will be prefixed with `/docs`
+        base: resolve(__dirname, 'docs')
+      }
+    }
   }
 })

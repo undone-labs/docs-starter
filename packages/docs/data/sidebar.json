@@ -1,0 +1,13 @@
+[
+  [
+    {
+      "type": "title",
+      "label": "Getting Started"
+    },
+    {
+      "type": "nuxt-link",
+      "href": "/introduction",
+      "label": "Introduction"
+    }
+  ]
+]

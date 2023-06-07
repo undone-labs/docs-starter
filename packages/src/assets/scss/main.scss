@@ -449,13 +449,6 @@ span.error {
   h1 > .heading-anchor {
     @include h1;
   }
-  h2 {
-    &:not(:first-child) {
-      margin: 4rem 0 1.8rem;
-      padding-top:1.8rem;
-      border-top: 1px solid var(--divider);
-    }
-  }
   h2,
   h2 > .heading-anchor {
     @include h2;
