@@ -57,10 +57,6 @@
 
 <script setup>
 // ======================================================================= Setup
-// import { QueryBuilderParams } from '@nuxt/content/dist/runtime/types'
-// const query: QueryBuilderParams = { path: '/articles', where: [{ layout: 'article' }], limit: 5, sort: [{ date: -1 }] }
-
-// ======================================================================= Setup
 definePageMeta({
   layout: 'docs'
 })
@@ -76,15 +72,6 @@ const dirSlug = route.path.slice(1).split('/')[0] // get subdirectory slug
 const QueryBuilderParams = {
   path: `/docs/content/${dirSlug}`
 }
-
-// const match =
-// const { data: contentQuery } = await useAsyncData('content-query', () => {
-//   return queryContent(`/docs/content/${dirSlug}`).find()
-//   // console.log(asd)
-//   // return asd
-// })
-// const contentQuery = await
-// console.log(contentQuery.value)
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)

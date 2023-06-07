@@ -109,13 +109,6 @@ export default defineNuxtConfig({
   // //////////////////////////////////////////////////// [Module] @nuxt/content
   // ---------------------------------------------------------------------------
   content: {
-    watch: false,
-    sources: {
-      docs: {
-        driver: 'fs',
-        prefix: '/docs', // All contents inside this source will be prefixed with `/docs`
-        base: resolve(__dirname, 'docs')
-      }
-    }
+    watch: false
   }
 })

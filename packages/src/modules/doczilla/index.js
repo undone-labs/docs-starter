@@ -7,10 +7,8 @@ import Fs from 'fs-extra'
 import {
   defineNuxtModule,
   createResolver,
-  extendPages
-  // addPlugin,
-  // addImports,
-  // addComponent
+  extendPages,
+  addComponent
 } from '@nuxt/kit'
 
 const { resolve } = createResolver(import.meta.url)
@@ -25,97 +23,57 @@ const meta = {
   }
 }
 
-// const plugins = ['index', 'fetch-auth']
-// const stores = [
-//   { slug: 'zero-button', name: 'useZeroButtonStore' }
-// ]
-
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-// ///////////////////////////////////////////////////////////// registerPlugins
-// const registerPlugins = (submodule, plugins) => {
-//   if (!plugins) { return }
-//   plugins.forEach((plugin) => {
-//     addPlugin(resolve(`${submodule}/plugins/${plugin.file}`))
-//   })
-// }
-
-// ////////////////////////////////////////////////////////////// compileContent
-const compileContent = (nuxt, contentPath) => {
-  const sections = Fs.readdirSync(contentPath)
-  const len = sections.length
-  const compiled = []
-  for (let i = 0; i < len; i++) {
-    const section = sections[i]
-    const parsedName = section.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
-    const sectionPath = resolve(`${contentPath}/${section}`)
-    const entries = Fs.readdirSync(sectionPath)
-    const pages = entries.reduce((acc, entry) => {
-      const split = entry.split('.')
-      const slug = split[0]
-      const ext = split[1]
-      if (!acc.hasOwnProperty(slug)) { acc[slug] = {} }
-      if (ext === 'md') {
-        acc[slug].name = `${section}-${slug}`
-        acc[slug].path = `/${section}/${slug}`
-      } else {
-        acc[slug].component = `DoczillaPreview${slug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join('.')}`
-      }
-      return acc
-    }, {})
-    compiled.push(Object.values(pages))
-  }
-  return compiled
-}
-
-// /////////////////////////////////////////////////////////////// registerRoute
-const registerRoute = (nuxt, page, contentPath) => {
-  extendPages((pages) => {
-    console.log(`${nuxt.options.vite.root}/pages/[...slug].vue`)
-    pages.push({
-      name: page.name,
-      path: page.path,
-      file: resolve(`${nuxt.options.vite.root}/pages/[...slug].vue`),
-      payload: 'asd'
-    })
-  })
-}
-
-// ////////////////////////////////////////////////////////// registerComponents
-// const registerComponent = (submodule, components) => {
-//   if (!components) { return }
-//   components.forEach((component) => {
-//     addComponent({
-//       name: component.name,
-//       filePath: resolve(`${submodule}/components/${component.file}`)
-//     })
-//   })
-// }
-
 // ///////////////////////////////////////////////////////////// deleteTargetDir
 const deleteTargetDir = (nuxt) => {
-  const path = resolve(`${nuxt.options.vite.root}/docs`)
+  const path = resolve(nuxt.options.vite.root, 'docs')
   if (Fs.existsSync(path)) {
     Fs.removeSync(path)
   }
 }
 
-// ///////////////////////////////////////////////////// copySrcDirToTargetDir
+// /////////////////////////////////////////////////////// copySrcDirToTargetDir
 const copySrcDirToTargetDir = (nuxt) => {
   const packageRootPath = nuxt.options.vite.root
-  const contentSrcDirPath = resolve(`${packageRootPath}/../docs`)
-  const docsDirPath = resolve(`${packageRootPath}/docs`)
+  const contentSrcDirPath = resolve(packageRootPath, '../docs')
+  const docsDirPath = resolve(packageRootPath, 'docs')
   Fs.copy(contentSrcDirPath, docsDirPath)
+}
+
+// ////////////////////////////////////////// registerTargetDirWithContentModule
+const registerTargetDirWithContentModule = (nuxt) => {
+  const sources = nuxt.options.content.sources || {}
+  nuxt.options.content.sources = Object.assign(sources, {
+    docs: {
+      driver: 'fs',
+      prefix: '/docs', // All contents inside this source will be prefixed with `/docs`
+      base: resolve(nuxt.options.vite.root, 'docs')
+    }
+  })
+  console.log(nuxt.options.content)
+}
+
+// ////////////////////////////////////////////////////////// registerComponents
+const registerComponent = (submodule, components) => {
+  if (!components) { return }
+  components.forEach((component) => {
+    addComponent({
+      name: component.name,
+      filePath: resolve(submodule, 'components', component.file)
+    })
+  })
 }
 
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
 const setup = (options, nuxt) => {
   try {
+    const contentPath = resolve(nuxt.options.vite.root, '../docs/content')
+    if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
     deleteTargetDir(nuxt)
     copySrcDirToTargetDir(nuxt)
-    // const contentPath = resolve(`${nuxt.options.vite.root}/../src/content`)
-    // if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
+    registerTargetDirWithContentModule(nuxt)
     // const content = compileContent(nuxt, contentPath)
     // // console.log(content)
     // // const manifest =
