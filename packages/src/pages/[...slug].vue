@@ -78,14 +78,11 @@ const QueryBuilderParams = {
   path: `/docs/content/${dirSlug}`
 }
 
+const pageHeading = useToPascalCase(dirSlug, ' ')
+
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 const docPath = computed(() => `/docs/content${route.path}`)
-
-const pageHeading = computed(() => {
-  const converted = dirSlug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1)))
-  return converted.join(' ')
-})
 
 // ======================================================================= Hooks
 onMounted(() => {
@@ -151,8 +148,7 @@ const detectPageScrollTop = () => {
  */
 const getPreviewComponentName = (path) => {
   const componentList = ctx.appContext.components
-  const slug = path.split('/').pop()
-  const previewComponentName = 'Doczilla' + slug.split('-').map(word => (word.charAt(0).toUpperCase() + word.slice(1))).join('')
+  const previewComponentName = 'Doczilla' + useToPascalCase(path.split('/').pop())
   const previewExists = componentList.hasOwnProperty(previewComponentName)
   if (previewExists) { return previewComponentName }
   return false
