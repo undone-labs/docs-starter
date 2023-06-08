@@ -88,9 +88,9 @@ export default defineNuxtConfig({
   // ---------------------------------------------------------------------------
   modules: [
     '@pinia/nuxt',
-    '~/modules/doczilla/index.js',
+    '~/modules/doczilla',
     '@nuxt/content',
-    '~/modules/zero-components/index.js',
+    '~/modules/zero-components',
     'nuxt-simple-sitemap'
   ],
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt

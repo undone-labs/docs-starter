@@ -24,22 +24,6 @@ const meta = {
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-// ///////////////////////////////////////////////////////////// deleteTargetDir
-const deleteTargetDir = (nuxt) => {
-  const path = resolve(nuxt.options.vite.root, 'docs')
-  if (Fs.existsSync(path)) {
-    Fs.removeSync(path)
-  }
-}
-
-// /////////////////////////////////////////////////////// copySrcDirToTargetDir
-const copySrcDirToTargetDir = (nuxt) => {
-  const packageRootPath = nuxt.options.vite.root
-  const contentSrcDirPath = resolve(packageRootPath, '../docs')
-  const docsDirPath = resolve(packageRootPath, 'docs')
-  Fs.copySync(contentSrcDirPath, docsDirPath)
-}
-
 // ////////////////////////////////////////// registerTargetDirWithContentModule
 const registerTargetDirWithContentModule = (nuxt) => {
   if (!nuxt.options.hasOwnProperty('content')) {
@@ -71,8 +55,6 @@ const setup = (options, nuxt) => {
   try {
     const contentPath = resolve(nuxt.options.vite.root, '../docs/content')
     if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
-    deleteTargetDir(nuxt)
-    copySrcDirToTargetDir(nuxt)
     registerTargetDirWithContentModule(nuxt)
     registerTargetDirComponents(nuxt)
   } catch (e) {
