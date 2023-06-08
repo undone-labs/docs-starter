@@ -36,7 +36,7 @@
 #magellan-menu {
   height: 100%;
   overflow-y: scroll;
-  padding: 2rem;
+  padding: $sidebarPadding;
   padding-left: 0;
   @include customMaxMQ($gridWidth + 1rem) {
     padding-left: 2rem;

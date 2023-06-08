@@ -73,6 +73,7 @@ const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
 const dirSlug = dirNameSplit[0] // get subdirectory slug
 const pageSlug = dirNameSplit[1] // get page slug
+const generalStore = useGeneralStore()
 
 const QueryBuilderParams = {
   path: `/docs/content/${dirSlug}`
@@ -113,11 +114,13 @@ const intersectionObserveHeadings = () => {
     if (intersectingTop) {
       if (entryId !== hash) {
         history.replaceState({}, null, `${route.path}#${entryId}`)
+        generalStore.setActiveUrlHash(entryId)
       } else {
         const index = sections.value.findIndex(section => section.id === entryId)
         if (index !== 0) {
           const current = sections.value[index - 1]
           history.replaceState({}, null, `${route.path}#${current.id}`)
+          generalStore.setActiveUrlHash(current.id)
         }
       }
     }
@@ -137,6 +140,7 @@ const detectPageScrollTop = () => {
     const y = window.pageYOffset || document.documentElement.scrollTop
     if (y <= headerHeight.value) {
       history.replaceState({}, null, route.path)
+      generalStore.setActiveUrlHash(false)
     }
   }
   scroll.value = useThrottle(scrollHandler, 100)

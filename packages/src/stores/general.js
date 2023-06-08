@@ -6,6 +6,7 @@ import { ref } from '#imports'
 // -----------------------------------------------------------------------------
 const clipboard = ref(false)
 const theme = ref('light')
+const activeUrlHash = ref(false)
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
@@ -14,6 +15,11 @@ const setTheme = (newTheme) => {
   theme.value = newTheme
   localStorage.setItem('theme', newTheme)
   document.documentElement.className = newTheme
+}
+
+// //////////////////////////////////////////////////////////////////// setTheme
+const setActiveUrlHash = (hash) => {
+  activeUrlHash.value = hash
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard
@@ -28,6 +34,8 @@ export const useGeneralStore = defineStore('general', () => ({
   // ----- state
   clipboard,
   theme,
+  activeUrlHash,
   // ----- actions
-  setTheme
+  setTheme,
+  setActiveUrlHash
 }))

@@ -19,23 +19,23 @@
 import { storeToRefs } from 'pinia'
 
 // ======================================================================= Setup
-const store = useGeneralStore()
+const generalStore = useGeneralStore()
 
 // ======================================================================== Data
-const { theme } = storeToRefs(store)
+const { theme } = storeToRefs(generalStore)
 
 // ======================================================================= Hooks
 onMounted(() => {
   const initialTheme = localStorage.getItem('theme')
   if (initialTheme) {
-    store.setTheme(initialTheme)
+    generalStore.setTheme(initialTheme)
   }
 })
 
 // ===================================================================== Methods
 const toggleTheme = () => {
   const toggle = theme.value === 'light' ? 'dark' : 'light'
-  store.setTheme(toggle)
+  generalStore.setTheme(toggle)
 }
 </script>
 
