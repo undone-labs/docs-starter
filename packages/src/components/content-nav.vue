@@ -12,7 +12,7 @@
       <ButtonClear
         v-for="link in section.children"
         :key="link._path"
-        :to="link._path"
+        :to="getLink(link._path)"
         tag="nuxt-link"
         class="link">
         <div class="button-label" v-html="link.title" />
@@ -39,6 +39,14 @@ const navigationDocs = computed(() => {
   const docs = parent.children.find(entry => entry._path === '/docs/content')
   return docs.children
 })
+
+// ===================================================================== Methods
+/**
+ * @method getLink
+ */
+const getLink = (path) => {
+  return path.replace('/docs/content', '')
+}
 </script>
 
 <style lang="scss" scoped>

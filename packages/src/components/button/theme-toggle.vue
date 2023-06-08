@@ -33,6 +33,9 @@ onMounted(() => {
 })
 
 // ===================================================================== Methods
+/**
+ * @method toggleTheme
+ */
 const toggleTheme = () => {
   const toggle = theme.value === 'light' ? 'dark' : 'light'
   generalStore.setTheme(toggle)

@@ -29,6 +29,7 @@ const activeLinkMarkerHeight = ref('0px')
 const generalStore = useGeneralStore()
 const { activeUrlHash } = storeToRefs(generalStore)
 
+// ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
   if (!activeUrlHash.value) { return false }
   const activeLinkIndex = Array.from(linkElements.value).findIndex((link) => {
