@@ -32,6 +32,7 @@
 <script setup>
 // ======================================================================== Data
 const { data: navigationAll } = await useAsyncData('navigation', () => fetchContentNavigation())
+
 // ==================================================================== Computed
 const navigationDocs = computed(() => {
   const parent = navigationAll.value.find(entry => entry._path === '/docs')

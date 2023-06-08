@@ -26,12 +26,25 @@ export default defineNuxtConfig({
   // ---------------------------------------------------------------------------
   runtimeConfig: {
     public: {
-      frontendUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
+      siteUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
       serverFlag: env,
       seo: {
         siteName: seo.siteName
       }
     }
+  },
+  // ////////////////////////////////////////////////////////// Server & Bundler
+  // ---------------------------------------------------------------------------
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // make SCSS variables globally accessible
+          additionalData: '@import "@/assets/scss/variables.scss";'
+        }
+      }
+    },
+    assetsInclude: ['**/*.md']
   },
   // //////////////////////////////////////////////////////////////// Dev Server
   // ---------------------------------------------------------------------------
@@ -77,21 +90,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '~/modules/doczilla/index.js',
     '@nuxt/content',
-    '~/modules/zero-components/index.js'
+    '~/modules/zero-components/index.js',
+    'nuxt-simple-sitemap'
   ],
-  // /////////////////////////////////////////////////////////////// Vite Config
-  // ---------------------------------------------------------------------------
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          // make SCSS variables globally accessible
-          additionalData: '@import "@/assets/scss/variables.scss";'
-        }
-      }
-    },
-    assetsInclude: ['**/*.md']
-  },
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt
   // ---------------------------------------------------------------------------
   pinia: {
@@ -103,5 +104,10 @@ export default defineNuxtConfig({
   // ---------------------------------------------------------------------------
   content: {
     watch: false
+  },
+  // ////////////////////////////////////////////////////////// [Module] sitemap
+  // ---------------------------------------------------------------------------
+  sitemap: {
+    xls: false
   }
 })

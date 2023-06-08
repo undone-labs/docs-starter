@@ -102,6 +102,7 @@ onMounted(() => {
 /**
  * @method intersectionObserveHeadings
  * @see {@link https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/} for a thorough overview of how the IntersectionObserver works
+ * @todo Not sure if I need the "loaded" debounce in [...slug].vue
  */
 const intersectionObserveHeadings = () => {
   const intersectionObserver = new IntersectionObserver((entries) => {
