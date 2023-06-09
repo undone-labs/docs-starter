@@ -7,6 +7,11 @@ module.exports = {
     './.nuxt/.eslint.nuxt3-globals.json',
     'plugin:vue/essential'
   ],
+  ignorePatterns: [
+    '.nuxt/',
+    '.output/',
+    'dist/'
+  ],
   rules: {
     'no-console': process.env.NODE_ENV !== 'development' ? 'error' : 'off',
     'vue/html-closing-bracket-newline': ['error', {

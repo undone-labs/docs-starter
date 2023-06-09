@@ -89,7 +89,8 @@ export default defineNuxtConfig({
     '@/modules/doczilla',
     '@nuxt/content',
     '@/modules/zero-components',
-    'nuxt-simple-sitemap'
+    'nuxt-simple-robots', // https://github.com/harlan-zw/nuxt-simple-robots
+    'nuxt-simple-sitemap' // https://github.com/harlan-zw/nuxt-simple-sitemap
   ],
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt
   // ---------------------------------------------------------------------------

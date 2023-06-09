@@ -25,6 +25,7 @@
     "fs-extra": "^11.1.1",
     "nodemon": "^2.0.22",
     "nuxt": "^3.4.0",
+    "nuxt-simple-robots": "^2.3.0",
     "nuxt-simple-sitemap": "^2.6.2",
     "sass": "^1.62.0"
   }
