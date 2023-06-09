@@ -3,7 +3,7 @@
 
     <SiteHeader />
 
-    <ContentList :query="QueryBuilderParams" v-slot="{ list }">
+    <ContentList v-slot="{ list }" :query="QueryBuilderParams">
 
       <!-- ========================================================== Header -->
       <header>
@@ -33,8 +33,8 @@
           <div class="col-6" data-push-left="off-2">
             <div class="content">
               <ContentRendererMarkdown
-                :value="section.body"
                 id="markdown"
+                :value="section.body"
                 class="markdown" />
             </div>
           </div>
@@ -43,8 +43,8 @@
           <div class="col-4">
             <div class="preview">
               <component
-                v-if="getPreviewComponentName(section._path)"
-                :is="getPreviewComponentName(section._path)" />
+                :is="getPreviewComponentName(section._path)"
+                v-if="getPreviewComponentName(section._path)" />
             </div>
           </div>
 
@@ -72,7 +72,6 @@ const route = useRoute()
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
 const dirSlug = dirNameSplit[0] // get subdirectory slug
-const pageSlug = dirNameSplit[1] // get page slug
 const generalStore = useGeneralStore()
 
 const QueryBuilderParams = {
@@ -83,7 +82,6 @@ const pageHeading = useToPascalCase(dirSlug, ' ')
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
-const docPath = computed(() => `/docs/content${route.path}`)
 
 // ======================================================================= Hooks
 onMounted(() => {

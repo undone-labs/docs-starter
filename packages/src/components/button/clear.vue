@@ -1,7 +1,7 @@
 <template>
   <ZeroButton
-    v-bind="props"
     v-slot="{ loading }"
+    v-bind="props"
     :class="['button-x', `theme__${props.theme}`]">
     <div class="inner-content">
 

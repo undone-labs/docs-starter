@@ -8,9 +8,9 @@
     <button
       v-for="(link, index) in magellanLinks"
       :key="index"
+      ref="linkElements"
       :class="['link', link.level, { active: hashIsActive(link.hash) }]"
       :hash="link.hash.slice(1)"
-      ref="linkElements"
       @click="link.hash">
       {{ link.text }}
     </button>

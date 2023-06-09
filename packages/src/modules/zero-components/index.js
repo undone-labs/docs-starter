@@ -24,11 +24,6 @@ const meta = {
   }
 }
 
-const plugins = ['index', 'fetch-auth']
-const stores = [
-  { slug: 'zero-button', name: 'useZeroButtonStore' }
-]
-
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////// registerPlugins
@@ -62,7 +57,7 @@ const registerStores = (submodule, stores) => {
 
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
-const setup = async (options, nuxt) => {
+const setup = async () => {
   const modulePath = resolve()
   const submodules = Fs.readdirSync(modulePath)
   const len = submodules.length

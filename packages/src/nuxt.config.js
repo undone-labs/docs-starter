@@ -1,7 +1,3 @@
-// ///////////////////////////////////////////////////////////////////// Imports
-// -----------------------------------------------------------------------------
-import { resolve } from 'path'
-
 // /////////////////////////////////////////////////////////// Variables & Setup
 // -----------------------------------------------------------------------------
 const env = process.env.SERVER_ENV
@@ -88,9 +84,11 @@ export default defineNuxtConfig({
   // ---------------------------------------------------------------------------
   modules: [
     '@pinia/nuxt',
-    '~/modules/doczilla',
+    '@/modules/eslint-nuxt3-globals',
+    '@nuxtjs/eslint-module',
+    '@/modules/doczilla',
     '@nuxt/content',
-    '~/modules/zero-components',
+    '@/modules/zero-components',
     'nuxt-simple-sitemap'
   ],
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt
