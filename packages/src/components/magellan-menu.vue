@@ -11,7 +11,7 @@
       ref="linkElements"
       :class="['link', link.level, { active: hashIsActive(link.hash) }]"
       :hash="link.hash.slice(1)"
-      @click="link.hash">
+      @click="goToSection(link.hash)">
       {{ link.text }}
     </button>
 
@@ -26,6 +26,8 @@ import { storeToRefs } from 'pinia'
 const magellanLinks = ref([])
 const linkElements = ref(null)
 const activeLinkMarkerHeight = ref('0px')
+// const router = useRouter()
+// const route = useRoute()
 const generalStore = useGeneralStore()
 const { activeUrlHash } = storeToRefs(generalStore)
 
@@ -70,6 +72,16 @@ const compileMagellanLinks = () => {
 const hashIsActive = (hash) => {
   if (!activeUrlHash.value || !hash) { return false }
   return hash.slice(1) === activeUrlHash.value
+}
+
+/**
+ * @method goToSection
+ */
+const goToSection = (hash) => {
+  const element = document.getElementById(hash.slice(1))
+  element.scrollIntoView({
+    behavior: 'smooth'
+  })
 }
 </script>
 

@@ -108,7 +108,7 @@ const intersectionObserveHeadings = () => {
     const entry = entries[0]
     const entryId = entry.target.id
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
-    const hash = window.location.hash.replace('#', '')
+    const hash = window.location.hash.slice(1)
     if (intersectingTop) {
       if (entryId !== hash) {
         history.replaceState({}, null, `${route.path}#${entryId}`)
