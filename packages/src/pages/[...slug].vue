@@ -64,9 +64,9 @@ definePageMeta({
 })
 
 // ======================================================================== Data
+const intersectionObserver = ref(null)
 const headerHeight = ref(0)
 const sections = ref([])
-const loaded = ref(false)
 const scroll = ref(null)
 const route = useRoute()
 const ctx = getCurrentInstance()
@@ -75,7 +75,7 @@ const dirSlug = dirNameSplit[0] // get subdirectory slug
 const generalStore = useGeneralStore()
 
 const QueryBuilderParams = {
-  path: `/docs/content/${dirSlug}`
+  path: `/docs/content${route.path}`
 }
 
 const pageHeading = useToPascalCase(dirSlug, ' ')
@@ -88,9 +88,13 @@ onMounted(() => {
   const header = document.getElementById('site-header')
   headerHeight.value = header.offsetHeight
   sections.value = Array.from(document.querySelectorAll('.markdown h2,h3,h4,h5,h6'))
-  nextTick(() => {
-    intersectionObserveHeadings()
-    detectPageScrollTop()
+  intersectionObserveHeadings()
+  detectPageScrollTop()
+})
+
+onBeforeUnmount(() => {
+  sections.value.forEach((section) => {
+    intersectionObserver.value.unobserve(section)
   })
 })
 
@@ -98,17 +102,13 @@ onMounted(() => {
 /**
  * @method intersectionObserveHeadings
  * @see {@link https://www.smashingmagazine.com/2018/01/deferring-lazy-loading-intersection-observer-api/} for a thorough overview of how the IntersectionObserver works
- * @todo Not sure if I need the "loaded" debounce in [...slug].vue
  */
 const intersectionObserveHeadings = () => {
-  const intersectionObserver = new IntersectionObserver((entries) => {
-    if (!loaded.value) { loaded.value = true; return }
+  intersectionObserver.value = new IntersectionObserver((entries) => {
     const entry = entries[0]
     const entryId = entry.target.id
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.replace('#', '')
-    // console.log(entryId, entry.intersectionRatio, entry.isIntersecting)
-    // if (!entry.isIntersecting) { return }
     if (intersectingTop) {
       if (entryId !== hash) {
         history.replaceState({}, null, `${route.path}#${entryId}`)
@@ -126,7 +126,7 @@ const intersectionObserveHeadings = () => {
     rootMargin: `${-headerHeightOffset.value}px 0px 0px 0px`
   })
   sections.value.forEach((section) => {
-    intersectionObserver.observe(section)
+    intersectionObserver.value.observe(section)
   })
 }
 
