@@ -5,7 +5,7 @@
       :class="['active-link-marker', { hide: !activeUrlHash }]"
       :style="{ height: activeLinkMarkerHeight, transform: activeLinkMarkerPosition }" />
 
-    <button
+    <!-- <button
       v-for="(link, index) in magellanLinks"
       :key="index"
       ref="linkElements"
@@ -13,7 +13,20 @@
       :hash="link.hash.slice(1)"
       @click="goToSection(link.hash)">
       {{ link.text }}
-    </button>
+    </button> -->
+
+    <!-- {{ getLink(magellanLinks[0].hash) }} -->
+
+    <ButtonClear
+      v-for="(link, index) in magellanLinks"
+      :key="index"
+      tag="nuxt-link"
+      :to="link.hash"
+      :class="['link', link.level, { active: hashIsActive(link.hash) }]"
+      :hash="link.hash.slice(1)"
+      class="link">
+      <div class="button-label" v-html="link.text" />
+    </ButtonClear>
 
   </nav>
 </template>
@@ -24,28 +37,33 @@ import { storeToRefs } from 'pinia'
 
 // ======================================================================== Data
 const magellanLinks = ref([])
-const linkElements = ref(null)
+// const linkElements = ref(null)
 const activeLinkMarkerHeight = ref('0px')
 // const router = useRouter()
-// const route = useRoute()
+const route = useRoute()
 const generalStore = useGeneralStore()
 const { activeUrlHash } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value) { return false }
-  const activeLinkIndex = Array.from(linkElements.value).findIndex((link) => {
-    return link.getAttribute('hash') === activeUrlHash.value
-  })
-  return `translateY(${activeLinkIndex * 100}%)`
+  // if (!activeUrlHash.value) { return false }
+  // const activeLinkIndex = Array.from(linkElements.value).findIndex((link) => {
+  //   console.log(link)
+  //   return link.getAttribute('hash') === activeUrlHash.value
+  // })
+  return `translateY(${0 * 100}%)`
 })
 
 // ======================================================================= Hooks
 onMounted(() => {
   magellanLinks.value = compileMagellanLinks()
   nextTick(() => {
-    if (linkElements.value) {
-      activeLinkMarkerHeight.value = `${linkElements.value[0].offsetHeight}px`
+    const linkElements = document.querySelector('#magellan-menu .link')
+    // console.log(linkElements)
+    // console.log(linkElements.value[0].$el)
+    if (linkElements) {
+      // console.log(linkElements.value[0].value)
+      activeLinkMarkerHeight.value = `${linkElements[0].offsetHeight}px`
     }
   })
 })
@@ -77,12 +95,19 @@ const hashIsActive = (hash) => {
 /**
  * @method goToSection
  */
-const goToSection = (hash) => {
-  const element = document.getElementById(hash.slice(1))
-  element.scrollIntoView({
-    behavior: 'smooth'
-  })
-}
+// const goToSection = (hash) => {
+//   const element = document.getElementById(hash.slice(1))
+//   element.scrollIntoView({
+//     behavior: 'smooth'
+//   })
+// }
+
+/**
+ * @method getLink
+ */
+// const getLink = (hash) => {
+//   return `${route.path}${hash}` // path.replace('/docs/content', '')
+// }
 </script>
 
 <style lang="scss" scoped>

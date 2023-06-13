@@ -69,6 +69,8 @@ const headerHeight = ref(0)
 const sections = ref([])
 const scroll = ref(null)
 const route = useRoute()
+const navigatedByRoute = ref(false)
+const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
 const dirSlug = dirNameSplit[0] // get subdirectory slug
@@ -83,13 +85,24 @@ const pageHeading = useToPascalCase(dirSlug, ' ')
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 
+// ==================================================================== Watchers
+watch(route, (route) => {
+  if (navigatedByRouteDebounce.value) { clearTimeout(navigatedByRouteDebounce.value) }
+  navigatedByRouteDebounce.value = setTimeout(() => {
+    navigatedByRoute.value = false
+    clearTimeout(navigatedByRouteDebounce.value)
+  }, 100)
+  navigatedByRoute.value = true
+  generalStore.setActiveUrlHash(route.hash.slice(1))
+})
+
 // ======================================================================= Hooks
 onMounted(() => {
   const header = document.getElementById('site-header')
   headerHeight.value = header.offsetHeight
   sections.value = Array.from(document.querySelectorAll('.markdown h2,h3,h4,h5,h6'))
   intersectionObserveHeadings()
-  detectPageScrollTop()
+  detectPageScrolledToTop()
 })
 
 onBeforeUnmount(() => {
@@ -109,18 +122,31 @@ const intersectionObserveHeadings = () => {
     const entryId = entry.target.id
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.slice(1)
-    if (intersectingTop) {
+    let activeUrlHash = hash
+    let activePath
+    // console.log('→', entryId, intersectingTop, navigatedByRoute.value)
+    /**
+     * While scrolling, update URL hash from DOM and use hash from DOM headings.
+     * This does not fire if navigating via the magellan nav.
+     */
+    if (!navigatedByRoute.value && intersectingTop) {
       if (entryId !== hash) {
-        history.replaceState({}, null, `${route.path}#${entryId}`)
-        generalStore.setActiveUrlHash(entryId)
+        activePath = `${route.path}#${entryId}`
+        activeUrlHash = entryId
       } else {
         const index = sections.value.findIndex(section => section.id === entryId)
         if (index !== 0) {
           const current = sections.value[index - 1]
-          history.replaceState({}, null, `${route.path}#${current.id}`)
-          generalStore.setActiveUrlHash(current.id)
+          activePath = `${route.path}#${current.id}`
+          activeUrlHash = current.id
+        } else {
+          activeUrlHash = false
         }
       }
+    }
+    if (!navigatedByRoute.value && activeUrlHash) {
+      history.replaceState({}, null, activePath)
+      generalStore.setActiveUrlHash(activeUrlHash)
     }
   }, {
     rootMargin: `${-headerHeightOffset.value}px 0px 0px 0px`
@@ -131,9 +157,9 @@ const intersectionObserveHeadings = () => {
 }
 
 /**
- * @method detectPageScrollTop
+ * @method detectPageScrolledToTop
  */
-const detectPageScrollTop = () => {
+const detectPageScrolledToTop = () => {
   const scrollHandler = () => {
     const y = window.pageYOffset || document.documentElement.scrollTop
     if (y <= headerHeight.value) {

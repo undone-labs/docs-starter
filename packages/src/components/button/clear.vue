@@ -59,7 +59,7 @@ const props = defineProps({
 .button {
   white-space: nowrap;
   cursor: pointer;
-  &:not([disabled]) {
+  &:not([disabled="true"]) {
     &:hover {
       .button-content {
         transition: 150ms ease-in;
@@ -70,7 +70,7 @@ const props = defineProps({
       @include focusBoxShadow;
     }
   }
-  &[disabled] {
+  &[disabled="true"] {
     box-shadow: none;
     opacity: 0.5;
     cursor: no-drop;
