@@ -7,6 +7,7 @@ import { ref } from '#imports'
 const clipboard = ref(false)
 const theme = ref('light')
 const activeUrlHash = ref(false)
+const magellanLinks = ref([])
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
@@ -17,9 +18,22 @@ const setTheme = (newTheme) => {
   document.documentElement.className = newTheme
 }
 
-// //////////////////////////////////////////////////////////////////// setTheme
+// //////////////////////////////////////////////////////////// setActiveUrlHash
 const setActiveUrlHash = (hash) => {
   activeUrlHash.value = hash
+}
+
+// //////////////////////////////////////////////////////// compileMagellanLinks
+const compileMagellanLinks = () => {
+  const headings = Array.from(document.querySelectorAll('.markdown *[id]'))
+  magellanLinks.value = headings.reduce((acc, item) => {
+    acc.push({
+      level: `level-${item.localName}`,
+      hash: `#${item.id}`,
+      text: item.textContent
+    })
+    return acc
+  }, [])
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard
@@ -35,7 +49,9 @@ export const useGeneralStore = defineStore('general', () => ({
   clipboard,
   theme,
   activeUrlHash,
+  magellanLinks,
   // ----- actions
   setTheme,
-  setActiveUrlHash
+  setActiveUrlHash,
+  compileMagellanLinks
 }))

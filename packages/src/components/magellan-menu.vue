@@ -3,19 +3,7 @@
 
     <div
       :class="['active-link-marker', { hide: !activeUrlHash }]"
-      :style="{ height: activeLinkMarkerHeight, transform: activeLinkMarkerPosition }" />
-
-    <!-- <button
-      v-for="(link, index) in magellanLinks"
-      :key="index"
-      ref="linkElements"
-      :class="['link', link.level, { active: hashIsActive(link.hash) }]"
-      :hash="link.hash.slice(1)"
-      @click="goToSection(link.hash)">
-      {{ link.text }}
-    </button> -->
-
-    <!-- {{ getLink(magellanLinks[0].hash) }} -->
+      :style="{ height: activeLinkMarkerHeight, top: activeLinkMarkerPosition }" />
 
     <ButtonClear
       v-for="(link, index) in magellanLinks"
@@ -23,7 +11,8 @@
       tag="nuxt-link"
       :to="link.hash"
       :class="['link', link.level, { active: hashIsActive(link.hash) }]"
-      :hash="link.hash.slice(1)"
+      :link-hash="link.hash.slice(1)"
+      :link-index="index"
       class="link">
       <div class="button-label" v-html="link.text" />
     </ButtonClear>
@@ -36,54 +25,27 @@
 import { storeToRefs } from 'pinia'
 
 // ======================================================================== Data
-const magellanLinks = ref([])
-// const linkElements = ref(null)
+const linkElement = ref(null)
 const activeLinkMarkerHeight = ref('0px')
-// const router = useRouter()
-const route = useRoute()
 const generalStore = useGeneralStore()
-const { activeUrlHash } = storeToRefs(generalStore)
+const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  // if (!activeUrlHash.value) { return false }
-  // const activeLinkIndex = Array.from(linkElements.value).findIndex((link) => {
-  //   console.log(link)
-  //   return link.getAttribute('hash') === activeUrlHash.value
-  // })
-  return `translateY(${0 * 100}%)`
+  if (!activeUrlHash.value || !linkElement.value) { return false }
+  const buttonTop = linkElement.value.getBoundingClientRect().top
+  const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
+  return `${buttonTop - parentTop}px`
 })
 
-// ======================================================================= Hooks
-onMounted(() => {
-  magellanLinks.value = compileMagellanLinks()
-  nextTick(() => {
-    const linkElements = document.querySelector('#magellan-menu .link')
-    // console.log(linkElements)
-    // console.log(linkElements.value[0].$el)
-    if (linkElements) {
-      // console.log(linkElements.value[0].value)
-      activeLinkMarkerHeight.value = `${linkElements[0].offsetHeight}px`
-    }
-  })
+// ==================================================================== Watchers
+watch(activeUrlHash, (hash) => {
+  if (!hash) { return false }
+  linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
+  activeLinkMarkerHeight.value = `${linkElement.value.offsetHeight}px`
 })
 
 // ===================================================================== Methods
-/**
- * @method compileMagellanLinks
- */
-const compileMagellanLinks = () => {
-  const headings = Array.from(document.querySelectorAll('.markdown *[id]'))
-  return headings.reduce((acc, item) => {
-    acc.push({
-      level: `level-${item.localName}`,
-      hash: `#${item.id}`,
-      text: item.textContent
-    })
-    return acc
-  }, [])
-}
-
 /**
  * @method hashIsActive
  */
@@ -91,23 +53,6 @@ const hashIsActive = (hash) => {
   if (!activeUrlHash.value || !hash) { return false }
   return hash.slice(1) === activeUrlHash.value
 }
-
-/**
- * @method goToSection
- */
-// const goToSection = (hash) => {
-//   const element = document.getElementById(hash.slice(1))
-//   element.scrollIntoView({
-//     behavior: 'smooth'
-//   })
-// }
-
-/**
- * @method getLink
- */
-// const getLink = (hash) => {
-//   return `${route.path}${hash}` // path.replace('/docs/content', '')
-// }
 </script>
 
 <style lang="scss" scoped>
@@ -136,5 +81,10 @@ const hashIsActive = (hash) => {
   &.active {
     text-decoration: underline;
   }
+}
+
+.button-label {
+  white-space: break-spaces;
+  line-height: 1.2;
 }
 </style>

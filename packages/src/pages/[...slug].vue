@@ -98,11 +98,14 @@ watch(route, (route) => {
 
 // ======================================================================= Hooks
 onMounted(() => {
-  const header = document.getElementById('site-header')
-  headerHeight.value = header.offsetHeight
-  sections.value = Array.from(document.querySelectorAll('.markdown h2,h3,h4,h5,h6'))
-  intersectionObserveHeadings()
-  detectPageScrolledToTop()
+  nextTick(() => {
+    const header = document.getElementById('site-header')
+    headerHeight.value = header.offsetHeight
+    sections.value = Array.from(document.querySelectorAll('.markdown h2,h3,h4,h5,h6'))
+    intersectionObserveHeadings()
+    detectPageScrolledToTop()
+    generalStore.compileMagellanLinks()
+  })
 })
 
 onBeforeUnmount(() => {
