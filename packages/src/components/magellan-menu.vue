@@ -27,12 +27,13 @@ import { storeToRefs } from 'pinia'
 // ======================================================================== Data
 const linkElement = ref(null)
 const activeLinkMarkerHeight = ref('0px')
+const route = useRoute()
 const generalStore = useGeneralStore()
 const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value || !linkElement.value) { return false }
+  if (!activeUrlHash.value || !linkElement.value) { return `0px` }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
   return `${buttonTop - parentTop}px`
@@ -43,6 +44,11 @@ watch(activeUrlHash, (hash) => {
   if (!hash) { return false }
   linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
   activeLinkMarkerHeight.value = `${linkElement.value.offsetHeight}px`
+})
+
+watch(route, () => {
+  const firstLinkElement = document.querySelector(`[link-hash]`)
+  activeLinkMarkerHeight.value = `${firstLinkElement.offsetHeight}px`
 })
 
 // ===================================================================== Methods
