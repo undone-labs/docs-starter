@@ -11,7 +11,7 @@
           <div class="col-6" data-push-left="off-2">
             <div class="content">
               <h1
-                :id="dirSlug"
+                :id="pageSlug"
                 ref="heading"
                 class="heading">
                 {{ pageHeading }}
@@ -73,14 +73,14 @@ const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
-const dirSlug = dirNameSplit[0] // get subdirectory slug
+const pageSlug = dirNameSplit[1]
 const generalStore = useGeneralStore()
 
 const QueryBuilderParams = {
   path: `/docs/content${route.path}`
 }
 
-const pageHeading = useToPascalCase(dirSlug, ' ')
+const pageHeading = useToPascalCase(pageSlug, ' ')
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
