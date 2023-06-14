@@ -1,8 +1,6 @@
 <template>
   <main class="page">
 
-    <SiteHeader />
-
     <ContentList v-slot="{ list }" :query="QueryBuilderParams">
 
       <!-- ========================================================== Header -->

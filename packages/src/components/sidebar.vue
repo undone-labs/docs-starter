@@ -26,6 +26,7 @@
   left: calc((100vw - $gridWidth) / 2);
   width: $sidebarWidth;
   height: 100%;
+  padding-top: $siteHeaderHeight;
   border-right: 1px solid var(--divider);
   @include gridMaxMQ {
     left: 0;
