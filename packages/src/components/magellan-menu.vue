@@ -33,7 +33,7 @@ const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value || !linkElement.value) { return `0px` }
+  if (!activeUrlHash.value || !linkElement.value) { return `32px` }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
   return `${buttonTop - parentTop}px`
