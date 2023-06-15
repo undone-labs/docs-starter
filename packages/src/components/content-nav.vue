@@ -19,7 +19,7 @@
       </ButtonClear>
 
       <!-- <ButtonClear
-        v-for="(num, index) in 100"
+        v-for="(num, index) in 20"
         :key="index"
         class="link">
         <div class="button-label" v-html="'This is a link'" />

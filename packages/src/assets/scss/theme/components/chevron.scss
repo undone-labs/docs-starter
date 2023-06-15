@@ -1,0 +1,20 @@
+.chevron {
+  position: relative;
+  right: 2px;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  border-color: black;
+  transition: 250ms ease-out;
+  &.up,
+  &.down {
+    transition: 250ms ease-in;
+  }
+  &.up {
+    transform: translateY(2px) rotate(-45deg);
+  }
+  &.down {
+    transform: translateY(-2px) rotate(135deg);
+  }
+}

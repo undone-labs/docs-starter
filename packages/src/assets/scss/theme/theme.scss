@@ -1,0 +1,30 @@
+//////////////////////////////////////////////////////////////////////// General
+// -----------------------------------------------------------------------------
+body {
+  @include selection-light;
+  color: var(--primary-text-color);
+  font-family: $fontInter;
+  background-color: var(--background-color);
+  transition: background-color 250ms;
+}
+
+pre,
+code {
+  font-family: $fontMenlo;
+}
+
+///////////////////////////////////////////////////////////////////// Components
+// -----------------------------------------------------------------------------
+.magnify-onhover {
+  transition: 250ms ease-out;
+  &:hover {
+    transition: 250ms ease-in;
+    transform: scale(1.05);
+  }
+}
+
+@import 'components/chevron';
+@import 'components/markdown';
+@import 'components/toast';
+@import 'components/tooltip';
+@import 'components/video-wrapper';

@@ -35,8 +35,8 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          // make SCSS variables globally accessible
-          additionalData: '@import "@/assets/scss/variables.scss";'
+          // make SCSS variables, functions and mixins globally accessible
+          additionalData: '@import "@/assets/scss/settings.scss";'
         }
       }
     },

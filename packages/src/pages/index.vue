@@ -1,7 +1,7 @@
 <template>
-  <div class="page">
+  <main class="page">
 
     Just another index page
 
-  </div>
+  </main>
 </template>
