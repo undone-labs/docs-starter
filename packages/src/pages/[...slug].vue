@@ -71,7 +71,7 @@ const pageSlug = dirNameSplit[1]
 const generalStore = useGeneralStore()
 const pageHeading = useToPascalCase(pageSlug, ' ')
 
-const { data: content } = useAsyncData('content', () => {
+const { data: content } = await useAsyncData('content', () => {
   return queryContent(`/docs/content${route.path}`).find()
 })
 
@@ -91,7 +91,7 @@ watch(route, (route) => {
 
 // ======================================================================= Hooks
 onMounted(async () => {
-  // Need the following line due to the following issue: https://github.com/nuxt/content/issues/1799
+  // Need the following line for HMR to play nice with @nuxt/content module due to the following issue: https://github.com/nuxt/content/issues/1799
   await new Promise((resolve) => setTimeout(resolve))
   await nextTick(() => {
     const header = document.getElementById('site-header')
@@ -99,7 +99,7 @@ onMounted(async () => {
     sections.value = Array.from(document.querySelectorAll('#markdown *[id]'))
     intersectionObserveHeadings()
     detectPageScrolledToTop()
-    generalStore.compileMagellanLinks()
+    generalStore.compileMagellanLinks(sections.value)
   })
 })
 
@@ -122,12 +122,12 @@ const intersectionObserveHeadings = () => {
     const hash = window.location.hash.slice(1)
     let activeUrlHash = hash
     let activePath
-    // console.log('→', entryId, intersectingTop, navigatedByRoute.value)
+    // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
     /**
      * While scrolling, update URL hash from DOM and use hash from DOM headings.
      * This does not fire if navigating via the magellan nav.
      */
-    if (!navigatedByRoute.value && intersectingTop) {
+    if (intersectingTop && !navigatedByRoute.value) {
       if (entryId !== hash) {
         activePath = `${route.path}#${entryId}`
         activeUrlHash = entryId
@@ -158,8 +158,7 @@ const intersectionObserveHeadings = () => {
  * @method detectPageScrolledToTop
  */
 const detectPageScrolledToTop = () => {
-  if (sections.value.length === 0) { return }
-  const lastMagellanNavItemId = sections.value.pop().id
+  const lastMagellanNavItemId = sections.value.slice(-1).pop().id
   const scrollHandler = () => {
     const y = window.scrollY
     const viewportHeight = window.innerHeight
@@ -201,6 +200,12 @@ const getPreviewComponentName = (path) => {
   padding: 0 2rem 0 2rem;
   @include gridMaxMQ {
     padding-left: 0;
+  }
+}
+
+:deep(.content) {
+  h2, h3, h4, h5, h6 {
+    scroll-margin-top: $siteHeaderHeight + 1.75rem;
   }
 }
 

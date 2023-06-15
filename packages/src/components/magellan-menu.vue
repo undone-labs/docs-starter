@@ -41,8 +41,8 @@ const activeLinkMarkerPosition = computed(() => {
 
 // ==================================================================== Watchers
 watch(activeUrlHash, (hash) => {
-  if (!hash) { return false }
   linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
+  if (!hash || !linkElement.value) { return false }
   activeLinkMarkerHeight.value = `${linkElement.value.offsetHeight}px`
 })
 
