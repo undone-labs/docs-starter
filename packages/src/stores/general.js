@@ -25,7 +25,6 @@ const setActiveUrlHash = (hash) => {
 
 // //////////////////////////////////////////////////////// compileMagellanLinks
 const compileMagellanLinks = (headings) => {
-  // const headings = Array.from(document.querySelectorAll('#markdown *[id]'))
   magellanLinks.value = headings.reduce((acc, item) => {
     acc.push({
       level: `level-${item.localName}`,
@@ -34,7 +33,6 @@ const compileMagellanLinks = (headings) => {
     })
     return acc
   }, [])
-  // console.log(magellanLinks.value)
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard

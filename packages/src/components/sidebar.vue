@@ -64,13 +64,13 @@
 // //////////////////////////////////////////////////////// [Navigation] content
 .navigation-wrapper {
   position: relative;
-  max-height: calc(100vh * 0.618);
+  overflow: hidden;
 }
 
 // /////////////////////////////////////////////////////// [Navigation] magellan
 .magellan-menu-wrapper {
   position: relative;
-  min-height: calc(100vh * 0.382);
+  max-height: calc(100vh * 0.382);
   &:after {
     content: '';
     position: absolute;
