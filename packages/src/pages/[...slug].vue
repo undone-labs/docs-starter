@@ -1,56 +1,52 @@
 <template>
   <main class="page">
 
-    <ContentList v-slot="{ list }" :query="QueryBuilderParams">
-
-      <!-- ========================================================== Header -->
-      <header>
-        <div class="grid">
-          <div class="col-6" data-push-left="off-2">
-            <div class="content">
-              <h1
-                :id="pageSlug"
-                ref="heading"
-                class="heading">
-                {{ pageHeading }}
-              </h1>
-            </div>
+    <!-- ============================================================ Header -->
+    <header>
+      <div class="grid">
+        <div class="col-6" data-push-left="off-2">
+          <div class="content">
+            <h1
+              :id="pageSlug"
+              ref="heading"
+              class="heading">
+              {{ pageHeading }}
+            </h1>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <!-- ======================================================== Sections -->
-      <section
-        v-for="section in list"
-        :key="section._path"
-        class="section">
+    <!-- ========================================================== Sections -->
+    <section
+      v-for="section in content"
+      :key="section._path"
+      class="section">
 
-        <div class="grid">
+      <div class="grid">
 
-          <!-- ===================================================== Content -->
-          <div class="col-6" data-push-left="off-2">
-            <div class="content">
-              <ContentRendererMarkdown
-                id="markdown"
-                :value="section.body"
-                class="markdown" />
-            </div>
+        <!-- ======================================================= Content -->
+        <div class="col-6" data-push-left="off-2">
+          <div class="content">
+            <ContentRendererMarkdown
+              id="markdown"
+              :value="section.body"
+              class="markdown" />
           </div>
-
-          <!-- ===================================================== Preview -->
-          <div class="col-4">
-            <div class="preview">
-              <component
-                :is="getPreviewComponentName(section._path)"
-                v-if="getPreviewComponentName(section._path)" />
-            </div>
-          </div>
-
         </div>
 
-      </section>
+        <!-- ======================================================= Preview -->
+        <div class="col-4">
+          <div class="preview">
+            <component
+              :is="getPreviewComponentName(section._path)"
+              v-if="getPreviewComponentName(section._path)" />
+          </div>
+        </div>
 
-    </ContentList>
+      </div>
+
+    </section>
 
   </main>
 </template>
@@ -73,12 +69,11 @@ const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
 const pageSlug = dirNameSplit[1]
 const generalStore = useGeneralStore()
-
-const QueryBuilderParams = {
-  path: `/docs/content${route.path}`
-}
-
 const pageHeading = useToPascalCase(pageSlug, ' ')
+
+const { data: content } = useAsyncData('content', () => {
+  return queryContent(`/docs/content${route.path}`).find()
+})
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
@@ -95,11 +90,13 @@ watch(route, (route) => {
 })
 
 // ======================================================================= Hooks
-onMounted(() => {
-  nextTick(() => {
+onMounted(async () => {
+  // Need the following line due to the following issue: https://github.com/nuxt/content/issues/1799
+  await new Promise((resolve) => setTimeout(resolve))
+  await nextTick(() => {
     const header = document.getElementById('site-header')
     headerHeight.value = header.offsetHeight
-    sections.value = Array.from(document.querySelectorAll('.markdown h2,h3,h4,h5,h6'))
+    sections.value = Array.from(document.querySelectorAll('#markdown *[id]'))
     intersectionObserveHeadings()
     detectPageScrolledToTop()
     generalStore.compileMagellanLinks()
@@ -161,11 +158,18 @@ const intersectionObserveHeadings = () => {
  * @method detectPageScrolledToTop
  */
 const detectPageScrolledToTop = () => {
+  if (sections.value.length === 0) { return }
+  const lastMagellanNavItemId = sections.value.pop().id
   const scrollHandler = () => {
-    const y = window.pageYOffset || document.documentElement.scrollTop
+    const y = window.scrollY
+    const viewportHeight = window.innerHeight
+    const bodyHeight = document.body.offsetHeight
     if (y <= headerHeight.value) {
       history.replaceState({}, null, route.path)
       generalStore.setActiveUrlHash(false)
+    } else if (y + viewportHeight >= bodyHeight) {
+      history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
+      generalStore.setActiveUrlHash(lastMagellanNavItemId)
     }
   }
   scroll.value = useThrottle(scrollHandler, 100)

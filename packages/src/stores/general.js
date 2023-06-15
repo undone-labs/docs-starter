@@ -25,7 +25,7 @@ const setActiveUrlHash = (hash) => {
 
 // //////////////////////////////////////////////////////// compileMagellanLinks
 const compileMagellanLinks = () => {
-  const headings = Array.from(document.querySelectorAll('.markdown *[id]'))
+  const headings = Array.from(document.querySelectorAll('#markdown *[id]'))
   magellanLinks.value = headings.reduce((acc, item) => {
     acc.push({
       level: `level-${item.localName}`,
