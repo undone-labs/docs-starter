@@ -1,21 +1,21 @@
 <template>
   <nav id="content-nav">
     <section
-      v-for="section in navigationDocs"
-      :key="section._path"
+      v-for="(section, dirSlug) in Sidebar"
+      :key="dirSlug"
       class="section">
 
       <h2
         class="title"
-        v-html="section.title" />
+        v-html="section.label" />
 
       <ButtonClear
         v-for="link in section.children"
-        :key="link._path"
-        :to="getLink(link._path)"
-        tag="nuxt-link"
+        :key="generateLink(dirSlug, link.href)"
+        :to="generateLink(dirSlug, link.href)"
+        :tag="link.type"
         class="link">
-        <div class="button-label" v-html="link.title" />
+        <div class="button-label" v-html="link.label" />
       </ButtonClear>
 
       <!-- <ButtonClear
@@ -30,22 +30,15 @@
 </template>
 
 <script setup>
-// ======================================================================== Data
-const { data: navigationAll } = await useAsyncData('navigation', () => fetchContentNavigation())
-
-// ==================================================================== Computed
-const navigationDocs = computed(() => {
-  const parent = navigationAll.value.find(entry => entry._path === '/docs')
-  const docs = parent.children.find(entry => entry._path === '/docs/content')
-  return docs.children
-})
+// ===================================================================== Imports
+import Sidebar from '@/docs/data/sidebar.json'
 
 // ===================================================================== Methods
 /**
- * @method getLink
+ * @method generateLink
  */
-const getLink = (path) => {
-  return path.replace('/docs/content', '')
+const generateLink = (dirSlug, href) => {
+  return `/${dirSlug}${href}`
 }
 </script>
 

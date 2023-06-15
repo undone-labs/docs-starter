@@ -1,13 +1,32 @@
-[
-  [
-    {
-      "type": "title",
-      "label": "Getting Started"
-    },
-    {
-      "type": "nuxt-link",
-      "href": "/introduction",
-      "label": "Introduction"
-    }
-  ]
-]
+{
+  "getting-started": {
+    "label": "Getting Started",
+    "children": [
+      {
+        "type": "nuxt-link",
+        "href": "/introduction",
+        "label": "Introduction"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "/quick-start",
+        "label": "Quick Start"
+      }
+    ]
+  },
+  "essentials": {
+    "label": "Essentials",
+    "children": [
+      {
+        "type": "nuxt-link",
+        "href": "/creating-an-application",
+        "label": "Creating an Application"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "/template-syntax",
+        "label": "Template Syntax"
+      }
+    ]
+  }
+}
