@@ -29,7 +29,7 @@ const linkElement = ref(null)
 const magellanMenu = ref(null)
 const activeLinkMarkerHeight = ref('0px')
 const scrollTop = ref(0)
-const magellanMenuScroll = ref(null)
+const scrollMagellanMenuEventListenerFunction = ref(null)
 const route = useRoute()
 const generalStore = useGeneralStore()
 const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
@@ -56,10 +56,14 @@ watch(route, () => {
 
 // ======================================================================= Hooks
 onMounted(() => {
-  magellanMenuScroll.value = useThrottle(function () {
+  scrollMagellanMenuEventListenerFunction.value = useThrottle(function () {
     scrollTop.value = this.scrollTop
   }, 100)
-  magellanMenu.value.addEventListener('scroll', magellanMenuScroll.value)
+  magellanMenu.value.addEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
 })
 
 // ===================================================================== Methods

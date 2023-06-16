@@ -61,7 +61,7 @@ definePageMeta({
 const intersectionObserver = ref(null)
 const headerHeight = ref(0)
 const sections = ref([])
-const scroll = ref(null)
+const scrollWindowEventListenerFunction = ref(null)
 const route = useRoute()
 const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
@@ -98,7 +98,7 @@ onMounted(async () => {
     headerHeight.value = header.offsetHeight
     sections.value = Array.from(document.querySelectorAll('#markdown *[id]'))
     intersectionObserveHeadings()
-    detectPageScrolledToTop()
+    detectPageScrolledToEdgesOfViewport()
     generalStore.compileMagellanLinks(sections.value)
   })
 })
@@ -107,6 +107,7 @@ onBeforeUnmount(() => {
   sections.value.forEach((section) => {
     intersectionObserver.value.unobserve(section)
   })
+  window.removeEventListener('scroll', scrollWindowEventListenerFunction.value)
 })
 
 // ===================================================================== Methods
@@ -155,9 +156,9 @@ const intersectionObserveHeadings = () => {
 }
 
 /**
- * @method detectPageScrolledToTop
+ * @method detectPageScrolledToEdgesOfViewport
  */
-const detectPageScrolledToTop = () => {
+const detectPageScrolledToEdgesOfViewport = () => {
   const lastMagellanNavItemId = sections.value.slice(-1).pop().id
   const scrollHandler = () => {
     const y = window.scrollY
@@ -171,8 +172,8 @@ const detectPageScrolledToTop = () => {
       generalStore.setActiveUrlHash(lastMagellanNavItemId)
     }
   }
-  scroll.value = useThrottle(scrollHandler, 100)
-  window.addEventListener('scroll', scroll.value)
+  scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)
+  window.addEventListener('scroll', scrollWindowEventListenerFunction.value)
 }
 
 /**
