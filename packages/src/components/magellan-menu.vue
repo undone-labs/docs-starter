@@ -1,5 +1,5 @@
 <template>
-  <nav id="magellan-menu">
+  <nav ref="magellanMenu" id="magellan-menu">
 
     <div
       :class="['active-link-marker', { hide: !activeUrlHash }]"
@@ -26,7 +26,10 @@ import { storeToRefs } from 'pinia'
 
 // ======================================================================== Data
 const linkElement = ref(null)
+const magellanMenu = ref(null)
 const activeLinkMarkerHeight = ref('0px')
+const scrollTop = ref(0)
+const magellanMenuScroll = ref(null)
 const route = useRoute()
 const generalStore = useGeneralStore()
 const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
@@ -36,7 +39,7 @@ const activeLinkMarkerPosition = computed(() => {
   if (!activeUrlHash.value || !linkElement.value) { return `32px` }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
-  return `${buttonTop - parentTop}px`
+  return `${buttonTop - parentTop + scrollTop.value}px`
 })
 
 // ==================================================================== Watchers
@@ -49,6 +52,14 @@ watch(activeUrlHash, (hash) => {
 watch(route, () => {
   const firstLinkElement = document.querySelector(`[link-hash]`)
   activeLinkMarkerHeight.value = `${firstLinkElement.offsetHeight}px`
+})
+
+// ======================================================================= Hooks
+onMounted(() => {
+  magellanMenuScroll.value = useThrottle(function () {
+    scrollTop.value = this.scrollTop
+  }, 100)
+  magellanMenu.value.addEventListener('scroll', magellanMenuScroll.value)
 })
 
 // ===================================================================== Methods
