@@ -18,12 +18,12 @@
         <div class="button-label" v-html="link.label" />
       </ButtonClear>
 
-      <ButtonClear
+      <!-- <ButtonClear
         v-for="(num, index) in 20"
         :key="index"
         class="link">
         <div class="button-label" v-html="'This is a link'" />
-      </ButtonClear>
+      </ButtonClear> -->
 
     </section>
   </nav>
