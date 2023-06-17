@@ -1,21 +1,21 @@
 <template>
   <nav id="content-nav">
     <section
-      v-for="(section, dirSlug) in Sidebar"
-      :key="dirSlug"
+      v-for="directory in navigation"
+      :key="directory.slug"
       class="section">
 
       <h2
         class="title"
-        v-html="section.label" />
+        v-html="directory.title" />
 
       <ButtonClear
-        v-for="link in section.children"
-        :key="generateLink(dirSlug, link.href)"
-        :to="generateLink(dirSlug, link.href)"
+        v-for="link in directory.children"
+        :key="generateLink(directory.slug, link.href)"
+        :to="generateLink(directory.slug, link.href)"
         :tag="link.type"
         class="link">
-        <div class="button-label" v-html="link.label" />
+        <div class="button-label" v-html="link.title" />
       </ButtonClear>
 
       <!-- <ButtonClear
@@ -30,8 +30,15 @@
 </template>
 
 <script setup>
-// ===================================================================== Imports
-import Sidebar from '@/docs/data/sidebar.json'
+// ======================================================================== Data
+const { data: sidebar } = await useAsyncData('sidebar', () => {
+  const queryWithout = ['title', '_dir', '_draft', '_extension', '_file', '_id', '_locale', '_partial', '_path', '_source', '_type']
+  return queryContent('/docs/data/sidebar')
+    .without(queryWithout)
+    .findOne()
+})
+
+const navigation = sidebar.value.body
 
 // ===================================================================== Methods
 /**

@@ -1,32 +1,34 @@
-{
-  "getting-started": {
-    "label": "Getting Started",
+[
+  {
+    "title": "Getting Started",
+    "slug": "getting-started",
     "children": [
       {
         "type": "nuxt-link",
         "href": "/introduction",
-        "label": "Introduction"
+        "title": "Introduction"
       },
       {
         "type": "nuxt-link",
         "href": "/quick-start",
-        "label": "Quick Start"
+        "title": "Quick Start"
       }
     ]
   },
-  "essentials": {
-    "label": "Essentials",
+  {
+    "title": "Essentials",
+    "slug": "essentials",
     "children": [
       {
         "type": "nuxt-link",
         "href": "/creating-an-application",
-        "label": "Creating an Application"
+        "title": "Creating an Application"
       },
       {
         "type": "nuxt-link",
         "href": "/template-syntax",
-        "label": "Template Syntax"
+        "title": "Template Syntax"
       }
     ]
   }
-}
+]
