@@ -63,6 +63,7 @@
 
 // //////////////////////////////////////////////////////// [Navigation] content
 .navigation-wrapper {
+  flex: 1;
   position: relative;
   overflow: hidden;
 }
