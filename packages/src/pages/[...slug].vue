@@ -49,7 +49,7 @@
     </section>
 
     <div class="grid">
-      <div class="col-6" data-push-left="off-2">        
+      <div class="col-6" data-push-left="off-2">
         <Pagination />
       </div>
     </div>
@@ -165,21 +165,23 @@ const intersectionObserveHeadings = () => {
  * @method detectPageScrolledToEdgesOfViewport
  */
 const detectPageScrolledToEdgesOfViewport = () => {
-  const lastMagellanNavItemId = sections.value.slice(-1).pop().id
-  const scrollHandler = () => {
-    const y = window.scrollY
-    const viewportHeight = window.innerHeight
-    const bodyHeight = document.body.offsetHeight
-    if (y <= headerHeight.value) {
-      history.replaceState({}, null, route.path)
-      generalStore.setActiveUrlHash(false)
-    } else if (y + viewportHeight >= bodyHeight) {
-      history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
-      generalStore.setActiveUrlHash(lastMagellanNavItemId)
+  if (sections.value.length) {
+    const lastMagellanNavItemId = sections.value.slice(-1).pop().id
+    const scrollHandler = () => {
+      const y = window.scrollY
+      const viewportHeight = window.innerHeight
+      const bodyHeight = document.body.offsetHeight
+      if (y <= headerHeight.value) {
+        history.replaceState({}, null, route.path)
+        generalStore.setActiveUrlHash(false)
+      } else if (y + viewportHeight >= bodyHeight) {
+        history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
+        generalStore.setActiveUrlHash(lastMagellanNavItemId)
+      }
     }
+    scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)
+    window.addEventListener('scroll', scrollWindowEventListenerFunction.value)
   }
-  scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)
-  window.addEventListener('scroll', scrollWindowEventListenerFunction.value)
 }
 
 /**

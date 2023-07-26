@@ -38,7 +38,6 @@ const { data: sidebar } = await useAsyncData('sidebar', () => {
     .without(queryWithout)
     .findOne()
 })
-
 const rawNavigation = sidebar.value.body
 const navigation = rawNavigation.reduce((acc, directory) => {
   const dirSlug = directory.slug
@@ -60,7 +59,7 @@ const lastNavItem = navigation.slice(-1)[0]
 const route = useRoute()
 const currentPath = route.path
 const currentPathIndex = navigation.findIndex(page => page.path === currentPath)
-const currentPage = navigation[currentPathIndex]
+// const currentPage = navigation[currentPathIndex]
 
 const onFirstPage = currentPathIndex === 0
 const onLastPage = currentPathIndex === navItemCount - 1
