@@ -15,5 +15,9 @@
       "to": "/faq",
       "label": "FAQ"
     }
-  ]
+  ],
+  "toolbar": {
+    "github_url": "https://github.com/undone-labs/docs-starter",
+    "language_options": ["EN", "中文", "ES"]
+  }
 }
