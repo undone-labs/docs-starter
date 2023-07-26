@@ -38,6 +38,7 @@ const { data: sidebar } = await useAsyncData('sidebar', () => {
     .without(queryWithout)
     .findOne()
 })
+
 const rawNavigation = sidebar.value.body
 const navigation = rawNavigation.reduce((acc, directory) => {
   const dirSlug = directory.slug
