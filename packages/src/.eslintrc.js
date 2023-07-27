@@ -38,6 +38,7 @@ module.exports = {
       "singleline": {
         "max": 3
       }
-    }]
+    }],
+    'vue/script-setup-uses-vars': 'error'
   }
 }

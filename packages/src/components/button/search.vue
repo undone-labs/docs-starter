@@ -11,7 +11,7 @@
       {{ text }}
     </div>
 
-    <div v-if="keyCommand" class ="key-command">
+    <div v-if="keyCommand" class="key-command">
       {{ keyCommand }}
     </div>
 

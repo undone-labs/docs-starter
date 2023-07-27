@@ -5,7 +5,7 @@
     @option-selected="handleOptionSelect">
 
     <template #toggle-button="{ togglePanel, panelOpen, selected }">
-      <button @click="togglePanel" class="selector">
+      <button class="selector" @click="togglePanel">
         <span class="selection">{{ selected }}</span>
         <IconChevron :class="['chevron', { up: panelOpen }]" />
       </button>

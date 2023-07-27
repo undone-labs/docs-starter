@@ -1,5 +1,7 @@
 <template>
-  <div :class="['dropdown-panel', `toggle-on-${toggleOn}`]">
+  <div
+    v-click-outside="closePanel"
+    :class="['dropdown-panel', `toggle-on-${toggleOn}`]">
 
     <slot
       name="toggle-button"
@@ -75,7 +77,7 @@ const togglePanel = () => {
  * @method closePanel
  */
 const closePanel = () => {
-  if (props.toggleOn.value === 'click') {
+  if (props.toggleOn === 'click' && panelOpen.value) {
     panelOpen.value = false
   }
 }
