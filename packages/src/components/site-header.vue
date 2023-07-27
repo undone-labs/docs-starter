@@ -36,6 +36,8 @@
           <IconGithub />
         </ZeroButton>
 
+        <ButtonSearch />
+
         <DropdownSelector :options="languageOptions" />
 
       </div>

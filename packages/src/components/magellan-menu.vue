@@ -1,5 +1,5 @@
 <template>
-  <nav ref="magellanMenu" id="magellan-menu">
+  <nav id="magellan-menu" ref="magellanMenu">
 
     <div
       :class="['active-link-marker', { hide: !activeUrlHash }]"
