@@ -60,7 +60,7 @@ const lastNavItem = navigation.slice(-1)[0]
 const route = useRoute()
 const currentPath = route.path
 const currentPathIndex = navigation.findIndex(page => page.path === currentPath)
-const currentPage = navigation[currentPathIndex]
+// const currentPage = navigation[currentPathIndex]
 
 const onFirstPage = currentPathIndex === 0
 const onLastPage = currentPathIndex === navItemCount - 1

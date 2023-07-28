@@ -7,5 +7,7 @@
 
     <slot />
 
+    <SiteFooter />
+
   </div>
 </template>

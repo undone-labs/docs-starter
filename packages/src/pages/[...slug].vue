@@ -49,7 +49,7 @@
     </section>
 
     <div class="grid">
-      <div class="col-6" data-push-left="off-2">        
+      <div class="col-6" data-push-left="off-2">
         <Pagination />
       </div>
     </div>
