@@ -5,6 +5,8 @@
 
     <slot />
 
+    <SiteFooter />
+
   </div>
 </template>
 
