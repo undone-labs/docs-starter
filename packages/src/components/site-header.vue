@@ -22,7 +22,26 @@
     </nav>
 
     <!-- ===================================================== Theme toggler -->
-    <ButtonThemeToggle />
+    <div id="site-toolbar">
+      <div class="toolbar-list">
+
+        <ButtonThemeToggle />
+
+        <ZeroButton
+          tag="a"
+          :to="githubUrl"
+          target="_blank"
+          :disabled="!githubUrl"
+          class="github-link">
+          <IconGithub />
+        </ZeroButton>
+
+        <ButtonSearch />
+
+        <DropdownSelector :options="languageOptions" />
+
+      </div>
+    </div>
 
   </header>
 </template>
@@ -33,6 +52,9 @@ import Navigation from '@/data/components/navigation'
 
 // ======================================================================== Data
 const links = Navigation.header
+const githubUrl = Navigation.toolbar.github_url
+const languageOptions = Navigation.toolbar.language_options
+
 </script>
 
 <style lang="scss" scoped>
@@ -57,6 +79,32 @@ const links = Navigation.header
   //   left: $sidebarWidth;
   //   width: calc(100% - $sidebarWidth);
   // }
+}
+
+// /////////////////////////////////////////////////////////////////// Site Logo
+.logo-link {
+  position: relative;
+  z-index: 10000;
+  display: block;
+  height: 75%;
+}
+
+.logo {
+  display: block;
+  height: 100%;
+  transition: 150ms ease-out;
+  &:hover {
+    transition: 150ms ease-in;
+    transform: scale(1.05);
+  }
+  :deep(path) {
+    transition: 150ms ease-out;
+    fill: var(--primary-text-color);
+  }
+  :deep(rect) {
+    transition: 150ms ease-out;
+    stroke: var(--primary-text-color);
+  }
 }
 
 // ////////////////////////////////////////////////////////////////// Navigation
@@ -89,20 +137,23 @@ const links = Navigation.header
   }
 }
 
-.logo-link {
-  position: relative;
-  z-index: 10000;
-  display: block;
-  height: 75%;
-}
-
-.logo {
-  display: block;
-  height: 100%;
-  transition: 150ms ease-out;
-  &:hover {
-    transition: 150ms ease-in;
-    transform: scale(1.05);
+// ///////////////////////////////////////////////////////////////////// Toolbar
+.toolbar-list {
+  display: flex;
+  align-items: center;
+  & > * {
+    &:not(:last-child) {
+      margin-right: toRem(38);
+    }
   }
 }
+
+.github-link {
+  display: flex;
+  :deep(path) {
+    transition: 150ms ease-out;
+    fill: var(--primary-text-color);
+  }
+}
+
 </style>
