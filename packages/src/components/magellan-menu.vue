@@ -3,7 +3,7 @@
 
     <div
       :class="['active-link-marker', { hide: !activeUrlHash }]"
-      :style="{ height: activeLinkMarkerHeight, top: activeLinkMarkerPosition }" />
+      :style="{ height: `${activeLinkMarkerHeight}px`, top: `${activeLinkMarkerPosition}px` }" />
 
     <ButtonClear
       v-for="(link, index) in magellanLinks"
@@ -27,7 +27,7 @@ import { storeToRefs } from 'pinia'
 // ======================================================================== Data
 const linkElement = ref(null)
 const magellanMenu = ref(null)
-const activeLinkMarkerHeight = ref('0px')
+const activeLinkMarkerHeight = ref(0)
 const scrollTop = ref(0)
 const scrollMagellanMenuEventListenerFunction = ref(null)
 const route = useRoute()
@@ -36,22 +36,38 @@ const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value || !linkElement.value) { return `32px` }
+  if (!activeUrlHash.value || !linkElement.value) { return 32 }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
-  return `${buttonTop - parentTop + scrollTop.value}px`
+  return buttonTop - parentTop + scrollTop.value
 })
 
 // ==================================================================== Watchers
 watch(activeUrlHash, (hash) => {
   linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
   if (!hash || !linkElement.value) { return false }
-  activeLinkMarkerHeight.value = `${linkElement.value.offsetHeight}px`
+  activeLinkMarkerHeight.value = linkElement.value.offsetHeight
 })
 
 watch(route, () => {
   const firstLinkElement = document.querySelector(`[link-hash]`)
-  activeLinkMarkerHeight.value = `${firstLinkElement.offsetHeight}px`
+  activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
+})
+
+watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
+  const magellanHeight = magellanMenu.value.getBoundingClientRect().height
+  const topPadding = window.getComputedStyle(magellanMenu.value).paddingTop
+  const bottomPadding = window.getComputedStyle(magellanMenu.value).paddingBottom
+  const markerTop = parseFloat(pos)
+  const markerBottom = markerTop + parseFloat(height)
+  const contentTop = parseInt(topPadding) + scrollTop.value
+  const contentHeight = magellanHeight - parseInt(bottomPadding)
+  if (markerBottom > contentHeight) {
+    magellanMenu.value.scrollTop = markerBottom - contentHeight
+  }
+  if (markerTop < contentTop) {
+    magellanMenu.value.scrollTop = magellanMenu.value.scrollTop - (contentTop - markerTop)
+  }
 })
 
 // ======================================================================= Hooks
