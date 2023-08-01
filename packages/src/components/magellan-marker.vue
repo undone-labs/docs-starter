@@ -43,7 +43,7 @@ watch(route, () => {
   top: $sidebarPadding;
   left: calc($sidebarPadding - 0.5rem);
   width: 0.25rem;
-  background-color: teal;
+  background-color: var(--link-color);
   border-radius: toRem(4);
   transition: 150ms ease-in-out;
   &.hide {

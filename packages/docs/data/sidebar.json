@@ -2,6 +2,7 @@
   {
     "title": "Nuxt Starter",
     "slug": "nuxt-starter",
+    "icon": "nuxt-starter-icon",
     "children": [
       {
         "type": "nuxt-link",
@@ -18,6 +19,7 @@
   {
     "title": "Getting Started",
     "slug": "getting-started",
+    "icon": "docs-starter-icon",
     "children": [
       {
         "type": "nuxt-link",
@@ -39,6 +41,7 @@
   {
     "title": "Essentials",
     "slug": "essentials",
+    "icon": "directory-starter-icon",
     "children": [
       {
         "type": "nuxt-link",

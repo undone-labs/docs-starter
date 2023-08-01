@@ -104,7 +104,7 @@ const props = defineProps({
 }
 
 // ////////////////////////////////////////////////////////////////////// Themes
-.theme__nav {
+.theme__clear {
   .button-content {
     display: flex;
     align-items: center;
@@ -115,7 +115,7 @@ const props = defineProps({
   }
   &:hover {
     :deep(.text) {
-      color: var(--brand-color);
+      color: var(--link-color);
       transition: color .25s ease;
     }
   }

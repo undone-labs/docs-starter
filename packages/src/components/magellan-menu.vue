@@ -1,6 +1,10 @@
 <template>
   <nav id="magellan-menu" ref="magellanMenu">
 
+    <div class="title">
+      ON THIS PAGE
+    </div>
+
     <div
       :class="['active-link-marker', { hide: !activeUrlHash }]"
       :style="{ height: `${activeLinkMarkerHeight}px`, top: `${activeLinkMarkerPosition}px` }" />
@@ -36,7 +40,7 @@ const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value || !linkElement.value) { return 32 }
+  if (!activeUrlHash.value || !linkElement.value) { return 52 }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
   return buttonTop - parentTop + scrollTop.value
@@ -99,12 +103,19 @@ const hashIsActive = (hash) => {
   overflow-y: scroll;
 }
 
+.title {
+  position: absolute;
+  top: toRem(21);
+  @include h6;
+  opacity: 0.7;
+}
+
 .active-link-marker {
   position: absolute;
-  top: $sidebarPadding;
+  top: calc($sidebarPadding + 1.25rem);
   left: calc($sidebarPadding - 0.5rem);
   width: 0.25rem;
-  background-color: teal;
+  background-color: var(--link-color);
   border-radius: toRem(4);
   transition: 150ms ease-in-out;
   &.hide {
@@ -115,8 +126,12 @@ const hashIsActive = (hash) => {
 .link {
   @include sidebar;
   display: block;
+  margin-left: toRem(14);
+  padding: toRem(3) 0;
   &.active {
-    text-decoration: underline;
+    :deep(.button-label) {
+      font-weight: 700;
+    }
   }
 }
 

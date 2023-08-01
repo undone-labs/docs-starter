@@ -44,6 +44,10 @@
   }
 }
 
+#magellan-menu {
+  padding-top: calc($sidebarPadding + 1.25rem);
+}
+
 .gradient {
   position: absolute;
   left: 0;

@@ -46,11 +46,40 @@
     @include p1Link;
   }
 
-  h2.heading-anchor > a {
+  h1.heading-anchor > a,
+  h2.heading-anchor > a,
+  h3.heading-anchor > a,
+  h4.heading-anchor > a,
+  h5.heading-anchor > a,
+  h6.heading-anchor > a {
     display: block;
     @include h2;
     margin-bottom: toRem(20);
     color: var(--primary-text-color);
+  }
+
+  h1.heading-anchor > a {
+    @include h1;
+  }
+
+  h2.heading-anchor > a {
+    @include h2;
+  }
+
+  h3.heading-anchor > a {
+    @include h3;
+  }
+
+  h4.heading-anchor > a {
+    @include h4;
+  }
+
+  h5.heading-anchor > a {
+    @include h5;
+  }
+
+  h6.heading-anchor > a {
+    @include h6;
   }
 
   // =================================================================== General
@@ -63,13 +92,15 @@
   code {
     background-color: var(--code-background-color);
     color: var(--code-text-color);
-    padding: 0.3125rem 0.625rem;
-    border-radius: 0.25rem;
+    padding: toRem(30) toRem(29) toRem(22) toRem(29);
+    margin-bottom: 1.25rem;
+    border-radius: 0.625rem;
     font-size: 0.75rem;
   }
 
   pre code {
     padding: 0;
+    margin: 0;
     background-color: transparent;
   }
 
@@ -154,6 +185,46 @@
         margin: 0;
         border-radius: 50%;
         background-color: var(--primary-text-color);
+      }
+    }
+  }
+
+  // ==================================================================== Tables
+  table {
+    border-top: solid 2px var(--divider);
+    border-bottom: solid 2px var(--divider);
+    margin-bottom: 1.25rem;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: toRem(4) toRem(122) toRem(4) toRem(14);
+  }
+
+  th {
+    @include h5;
+    padding-top: 0.5rem;
+  }
+
+  td {
+    @include p2;
+  }
+
+  thead > tr {
+    background-color: var(--primary-background-color);
+  }
+
+  tbody > tr {
+    &:nth-child(odd) {
+      background-color: var(--secondary-background-color);
+    }
+    &:nth-child(even) {
+      background-color: var(--primary-background-color);
+    }
+    &:last-child {
+      td {
+        padding-bottom: 0.5rem;
       }
     }
   }
