@@ -1,108 +1,111 @@
 // ////////////////////////////////////////////////////////////////// Typography
 // -----------------------------------------------------------------------------
 // ==================================================================== Families
-$fontInter: 'Inter', sans-serif, monospace;
-$fontMenlo: 'Menlo', sans-serif, monospace;
+$fontDIN: 'DIN', sans-serif, monospace;
 
 $fontAssetPath: 'assets/fonts';
 
-// ======================================================================= Inter
+//////////////////////////////////////////////////////////////////////////// DIN
+// -----------------------------------------------------------------------------
 @font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Light.ttf') format('truetype');
-  font-weight: 300;
+  font-family: 'DIN';
   font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-Regular.otf') format('opentype'),
+       url('#{$fontAssetPath}/DIN/DIN-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Regular.ttf') format('truetype');
+  font-family: 'DIN';
+  font-style: italic;
   font-weight: 400;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-RegularItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'DIN';
   font-style: normal;
-}
-
-@font-face {
-  font-family: 'InterItalic';
-  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
-  font-weight: 400;
-  font-variation-settings: "slnt" -10;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Medium.ttf') format('truetype');
   font-weight: 500;
-  font-style: bold;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-Medium.otf') format('opentype'),
+       url('#{$fontAssetPath}/DIN/DIN-Medium.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'InterItalic';
-  src: url('#{$fontAssetPath}/inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-family: 'DIN';
+  font-style: italic;
   font-weight: 500;
-  font-variation-settings: "slnt" -10;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-MediumItalic.otf') format('opentype');
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: bold;
+  font-family: 'DIN Alternate';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-MediumAlternate.otf') format('opentype'),
+       url('#{$fontAssetPath}/DIN/DIN-MediumAlternate.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/inter/Inter-Bold.ttf') format('truetype');
+  font-family: 'DIN';
+  font-style: normal;
   font-weight: 700;
-  font-style: bold;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-Bold.otf') format('opentype'),
+       url('#{$fontAssetPath}/DIN/DIN-Bold.ttf') format('truetype');
 }
 
-// ======================================================================= Menlo
 @font-face {
-  font-family: 'Menlo';
-  src: url('#{$fontAssetPath}/menlo/Menlo-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
+  font-family: 'DIN';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/DIN/DIN-BoldItalic.otf') format('opentype');
 }
 
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
 // -----------------------------------------------------------------------------
 @mixin h1 {
-  font-size: toRem(38);
-  line-height: leading(53, 38);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: toRem(36);
+  line-height: leading(50, 36);
+  font-weight: 700;
+  letter-spacing: 0em;
 }
 
 @mixin h2 {
-  font-size: toRem(24);
-  line-height: leading(36, 24);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: toRem(30);
+  line-height: leading(42, 30);
+  font-weight: 700;
+  letter-spacing: 0em;
 }
 
 @mixin h3 {
-  font-size: toRem(19);
-  line-height: leading(28, 19);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin: 3rem 0 1.25rem;
+  font-size: toRem(24);
+  line-height: leading(34, 24);
+  font-weight: 500;
+  letter-spacing: 0em;
+  margin-bottom: 1.25rem;
 }
 
 @mixin h4 {
-  font-size: toRem(17);
-  line-height: leading(25, 17);
-  font-weight: 600;
-}
-
-@mixin h5 { // needs to be updated
-  font-size: toRem(20);
-  line-height: leading(30, 20);
+  font-size: toRem(18);
+  line-height: leading(25, 18);
   font-weight: 500;
 }
 
-@mixin h6 { // needs to be updated
-  font-size: toRem(18);
-  line-height: leading(30, 18);
+@mixin h5 {
+  font-size: toRem(16);
+  line-height: leading(24, 16);
+  font-weight: 500;
+}
+
+@mixin h6 {
+  font-size: toRem(16);
+  line-height: leading(24, 16);
   font-weight: 500;
 }
 
@@ -121,7 +124,7 @@ $fontAssetPath: 'assets/fonts';
 }
 
 @mixin inlineCode {
-  font-family: $fontMenlo;
+  // font-family: $fontMenlo;
   color: var(--code-text-color);
   background-color: var(--code-background-color);
   padding: 0.12rem 0.45rem;
@@ -202,9 +205,9 @@ button {
 // /////////////////////////////////////////////////////////// Navigation Mixins
 // -----------------------------------------------------------------------------
 @mixin navigation {
-  font-size: toRem(13);
-  line-height: leading(20, 13);
-  font-weight: 500;
+  font-size: toRem(16);
+  line-height: leading(25, 16);
+  font-weight: 700;
 }
 
 // ============================================================== Sidebar Mixins

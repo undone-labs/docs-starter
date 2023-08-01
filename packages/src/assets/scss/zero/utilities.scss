@@ -7,9 +7,9 @@
 // /////////////////////////////////////////////////////////////////// Variables
 // -----------------------------------------------------------------------------
 // ===================================================================== General
-$siteHeaderHeight: 3.5rem;
+$siteHeaderHeight: toRem(78);
 $sidebarWidth: $gridWidth * 0.16667;
-$bodyOffsetTop: $siteHeaderHeight + 3rem;
+$bodyOffsetTop: calc($siteHeaderHeight + 3rem);
 $sidebarPadding: 2rem;
 
 // ===================================================================== Colours
@@ -24,24 +24,17 @@ $gray700: #616161;
 $gray800: #424242;
 $gray900: #212121;
 
-$shamrock: #42D392; // rgb(66, 211, 146)
-$mingGreen: #42b883; // rgb(66, 184, 131)
-$oceanGreen: #33a06f; // rgb(51, 160, 111)
-
+$blueRibbon: #0046F9; // rgb(0, 70, 249)
+$dodgerBlue: #5196FF; // rgb(81, 150, 255)
+$blueViolet: #615FB1; // rgb(97, 95, 177)
+$portage: #908EF6; // rgb(144, 142, 246)
+$wildSand: #F5F5F5; // rgb(245, 245, 245)
 $white: #FFFFFF; // rgb(255, 255, 255)
-$whiteText: #ffffffde; // rgba(255, 255, 255, 0.87)
-$alabaster: #f9f9f9; // rgb(249, 249, 249)
-$cloudBurst: #213547; // rgb(33, 53, 71)
-$softBlack: #0000008c; // rgba(0, 0, 0, .55)
-$shishaCoal: #3c3c3cb3; // rgba(60, 60, 60, 0.7)
-$bismark: #476582; // rgb(71, 101, 130)
-$seashell: #F1F1F1; // rgb(241, 241, 241)
-
-$codGray: #1A1A1A; // rgb(26, 26, 26)
-$mineShaft: #242424; // rgb(36, 36, 36)
-$gallery: #ebebeb99; // rgba(235, 235, 235, 0.6)
-$regentStBlue: #aac8e4; // rgb(170, 200 228)
-$tricornBlack: #2f2f2f; // rgb(47, 47, 47)
+$alto: #D3D3D3; // rgb(211, 211, 211)
+$codGray: #181818; // rgb(24, 24, 24)
+$mineShaft: #303030; // rgb(48, 48, 48)
+$melrose: #B2CDFF; // rgb(178, 205, 255)
+$bayOfMany: #1E3F82; // rgb(30, 63, 130)
 
 $replace1: #D9D9D9;
 $replace2: #C6C6C6;
@@ -50,30 +43,31 @@ $replace4: #000000;
 
 // ====================================================================== Themes
 :root {
-  --brand-color: #{$mingGreen};
+  --brand-color: #{$blueRibbon}; // done 
   --shadow-1: 0 1px 2px rgba(0, 0, 0, .04), 0 1px 2px rgba(0, 0, 0, .06);
-  --background-color: #{$white};
-  --secondary-background-color: #{$alabaster};
-  --primary-text-color: #{$cloudBurst};
-  --secondary-text-color: #{$softBlack};
-  --sidebar-text-color: #{$shishaCoal};
-  --link-color: var(--brand-color);
-  --link-hover-color: #{$oceanGreen};
-  --code-text-color: #{$bismark};
-  --code-background-color: #{$seashell};
-  --divider: #d0d7de;
+  --background-color: #{$wildSand}; // done
+  --secondary-background-color: #{$white}; // done
+  --primary-text-color: #{$codGray}; // done
+  --secondary-text-color: #{$codGray}; // done
+  --sidebar-text-color: #{$codGray}; // done
+  --link-color: #{$blueRibbon}; // done
+  --link-hover-color: #{$melrose}; // done
+  --code-text-color: #{$blueViolet}; // done
+  --code-background-color: #{$mineShaft}; // done
+  --divider: #{$alto}; // done
 }
 
 .dark {
-  --background-color: #{$codGray};
-  --secondary-background-color: #{$mineShaft};
-  --primary-text-color: #{$whiteText};
-  --secondary-text-color: #{$gallery};
-  --sidebar-text-color: #{$gallery};
-  --link-hover-color: #{$shamrock};
-  --code-text-color: #{$regentStBlue};
-  --code-background-color: #{$tricornBlack};
-  --divider: #5454547a;
+  --background-color: #{$codGray}; // done
+  --secondary-background-color: #{$mineShaft}; // done
+  --primary-text-color: #{$wildSand}; // done
+  --secondary-text-color: #{$wildSand}; // done
+  --sidebar-text-color: #{$wildSand}; // done
+  --link-color: #{$dodgerBlue}; // done
+  --link-hover-color: #{$bayOfMany}; // done
+  --code-text-color: #{$portage}; // done
+  --code-background-color: #{$mineShaft}; // done
+  --divider: #{$mineShaft}; // done
 }
 
 // ===================================================================== Styling

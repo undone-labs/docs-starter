@@ -1,5 +1,21 @@
 [
   {
+    "title": "Nuxt Starter",
+    "slug": "nuxt-starter",
+    "children": [
+      {
+        "type": "nuxt-link",
+        "href": "/introduction",
+        "title": "Introduction"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "/test",
+        "title": "Test"
+      }
+    ]
+  },
+  {
     "title": "Getting Started",
     "slug": "getting-started",
     "children": [
@@ -12,6 +28,11 @@
         "type": "nuxt-link",
         "href": "/quick-start",
         "title": "Quick Start"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "/test",
+        "title": "Test"
       }
     ]
   },
