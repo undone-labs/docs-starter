@@ -11,25 +11,43 @@
 const Path = require('path')
 const Fs = require('fs-extra')
 
+// /////////////////////////////////////////////////////////////////// Variables
+// -----------------------------------------------------------------------------
+const packages = [
+  {
+    src: '../../../docs',
+    dest: '../../docs'
+  },
+  {
+    src: '../../../theme',
+    dest: '../../assets/scss/theme'
+  }
+]
+
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////// deleteTargetDir
 const deleteTargetDir = () => {
-  const path = Path.resolve(__dirname, '../../docs')
-  if (Fs.existsSync(path)) {
-    Fs.removeSync(path)
+  for (let i = 0; i < packages.length; i++) {
+    const path = Path.resolve(__dirname, packages[i].dest)
+    if (Fs.existsSync(path)) {
+      Fs.removeSync(path)
+    }
   }
 }
 
 // /////////////////////////////////////////////////////// copySrcDirToTargetDir
 const copySrcDirToTargetDir = () => {
-  const contentSrcDirPath = Path.resolve(__dirname, '../../../docs')
-  const docsDirPath = Path.resolve(__dirname, '../../docs')
-  Fs.copySync(contentSrcDirPath, docsDirPath)
+  for (let i = 0; i < packages.length; i++) {
+    const contentSrcDirPath = Path.resolve(__dirname, packages[i].src)
+    const destDirPath = Path.resolve(__dirname, packages[i].dest)
+    Fs.copySync(contentSrcDirPath, destDirPath)
+  }
 }
 
 // ////////////////////////////////////////////// syncContentDirWhenOnFileChange
 (function syncContentDirWhenOnFileChange () {
+  console.log('hit')
   deleteTargetDir()
   copySrcDirToTargetDir()
 })()

@@ -35,6 +35,11 @@
         "type": "nuxt-link",
         "href": "/test",
         "title": "Test"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "https://example.com",
+        "title": "hi"
       }
     ]
   },
