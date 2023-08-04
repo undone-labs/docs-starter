@@ -55,7 +55,9 @@ watch(activeUrlHash, (hash) => {
 
 watch(route, () => {
   const firstLinkElement = document.querySelector(`[link-hash]`)
-  activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
+  if (firstLinkElement) {
+    activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
+  }
 })
 
 watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
