@@ -5,9 +5,15 @@
  * Variables specifying the font family declaration ($fontPrimary) and the 
  * location of the source font files ($fontAssetPath)
  */
-// $fontPrimary: ''; 
-// $fontAssetPath: 'assets/fonts'; 
 
+// $fontPrimary: ''; 
+// $fontAssetPath: 'assets/fonts';
+
+/*
+ * Include @font-face declarations and font file imports using 
+ * $fontAssetPath here below:
+ */
+ 
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
 // -----------------------------------------------------------------------------
 
