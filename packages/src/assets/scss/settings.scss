@@ -27,3 +27,5 @@ $baseLetterSpacing: 0px;
 @import 'core/utilities';
 @import 'zero/utilities'; // core utility overrides can be included here
 @import 'zero/typography';
+@import 'theme/utilities';
+@import 'theme/typography';

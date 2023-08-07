@@ -19,13 +19,18 @@ const packages = [
     dest: '../../docs'
   },
   {
-    src: '../../../theme',
+    src: '../../../themes',
     dest: '../../assets/scss/theme'
   }
 ]
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
+const getConfig = async () => {
+  const kit = await import('@nuxt/kit')
+  return kit.loadNuxtConfig()
+}
+
 // ///////////////////////////////////////////////////////////// deleteTargetDir
 const deleteTargetDir = () => {
   for (let i = 0; i < packages.length; i++) {
@@ -37,17 +42,26 @@ const deleteTargetDir = () => {
 }
 
 // /////////////////////////////////////////////////////// copySrcDirToTargetDir
-const copySrcDirToTargetDir = () => {
+const copySrcDirToTargetDir = (nuxtConfig) => {
   for (let i = 0; i < packages.length; i++) {
-    const contentSrcDirPath = Path.resolve(__dirname, packages[i].src)
+    let contentSrcDirPath
+    if (packages[i].src.endsWith('/themes')) {
+      const overrideTheme = nuxtConfig.overrideTheming.themeName
+      const theme = overrideTheme &&
+        Fs.existsSync(Path.resolve(__dirname, `${packages[i].src}/${overrideTheme}`)) ?
+        overrideTheme : 'default'
+      contentSrcDirPath = Path.resolve(__dirname, `${packages[i].src}/${theme}`)
+    } else {
+      contentSrcDirPath = Path.resolve(__dirname, packages[i].src)
+    }
     const destDirPath = Path.resolve(__dirname, packages[i].dest)
     Fs.copySync(contentSrcDirPath, destDirPath)
   }
 }
 
 // ////////////////////////////////////////////// syncContentDirWhenOnFileChange
-(function syncContentDirWhenOnFileChange () {
-  console.log('hit')
+(async function syncContentDirWhenOnFileChange () {
+  const nuxtConfig = await getConfig()
   deleteTargetDir()
-  copySrcDirToTargetDir()
+  copySrcDirToTargetDir(nuxtConfig)
 })()
