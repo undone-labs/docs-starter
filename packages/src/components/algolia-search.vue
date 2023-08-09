@@ -3,7 +3,43 @@
     <div class="search-container">
       <ais-instant-search :index-name="indexName" :search-client="algolia">
         <ais-search-box />
-        <ais-hits />
+        <div class="results-container">
+          <div class="results-dropdown">
+            <ais-hits>
+              <template #default="{ items }">
+                <section
+                  v-for="item in items"
+                  :key="item.objectID"
+                  class="hit-section">
+                  <div>{{ logItem(item) }}</div>
+                  <div class="hit-source">
+                    {{ item.title }}
+                  </div>
+                  <ul class="hits-list">
+                    <li
+                      v-for="hit in getHits(item)"
+                      :key="hit">
+                      <nuxt-link to="/">
+                        <div class="hit-container">
+                          <div class="icon">
+                            icon
+                          </div>
+                          <div class="content">
+                            <span class="hit-title" v-html="hit.title.value"></span>
+                            <span class="hit-path">{{ item.title }}</span>
+                          </div>
+                          <div class="action">
+                            go
+                          </div>
+                        </div>
+                      </nuxt-link>
+                    </li>
+                  </ul>
+                </section>
+              </template>
+            </ais-hits>
+          </div>
+        </div>
       </ais-instant-search>
     </div>
   </div>
@@ -81,12 +117,22 @@ onBeforeMount(() => {
   }
 })
 
+// ===================================================================== Methods
+const logItem = (item) => {
+  console.log(item)
+  return ''
+}
+
+const getHits = (item) => {
+  return item._highlightResult.children.filter(e => e.title.matchLevel !== 'none')
+}
+
 </script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .search-modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -97,7 +143,7 @@ onBeforeMount(() => {
   transition: 400ms ease;
   &.active {
     visibility: visible;
-    z-index: 100;
+    z-index: 1001;
     opacity: 1;
   }
 }
@@ -126,5 +172,20 @@ onBeforeMount(() => {
 
 :deep(.ais-Hits-item) {
   width: unset;
+}
+
+.hit-container {
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.hit-title,
+.hit-path {
+  display: block;
 }
 </style>
