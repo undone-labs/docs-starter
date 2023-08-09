@@ -119,5 +119,8 @@ export default defineNuxtConfig({
     instantSearch: {
       theme: 'algolia'
     }
+    // docSearch: {
+    //   indexName: 'test_DOCS',
+    // }
   }
 })

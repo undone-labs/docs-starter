@@ -37,6 +37,7 @@
         </ZeroButton>
 
         <ButtonSearch />
+        <!-- <AlgoliaDocSearch /> -->
 
         <DropdownSelector :options="languageOptions" />
 

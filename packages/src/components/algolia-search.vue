@@ -65,7 +65,7 @@ const { data: algoliaState } = await useAsyncData('algolia-state', async () => {
         render() {
           return h(AisInstantSearchSsr, null, () => [
             // Include any vue-instantsearch components that you use including each refinement attribute
-            h(AisHits),
+            h(AisHits)
           ]);
         },
       },
