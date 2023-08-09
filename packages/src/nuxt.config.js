@@ -90,7 +90,8 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@/modules/zero-components',
     'nuxt-simple-robots', // https://github.com/harlan-zw/nuxt-simple-robots
-    'nuxt-simple-sitemap' // https://github.com/harlan-zw/nuxt-simple-sitemap
+    'nuxt-simple-sitemap', // https://github.com/harlan-zw/nuxt-simple-sitemap
+    '@nuxtjs/algolia'
   ],
   // ////////////////////////////////////////////////////// [Module] @pinia/nuxt
   // ---------------------------------------------------------------------------
@@ -109,5 +110,14 @@ export default defineNuxtConfig({
   },
   // ////////////////////////////////////////////////////////// [Module] sitemap
   // ---------------------------------------------------------------------------
-  sitemap: {}
+  sitemap: {},
+  // ////////////////////////////////////////////////// [Module] @nuxtjs/algolia
+  // ---------------------------------------------------------------------------
+  algolia: {
+    apiKey: process.env.ALGOLIA_API_KEY,
+    applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    instantSearch: {
+      theme: 'algolia'
+    }
+  }
 })

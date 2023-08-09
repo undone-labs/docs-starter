@@ -5,6 +5,8 @@
 
     <Sidebar />
 
+    <AlgoliaSearch />
+
     <slot />
 
     <SiteFooter />

@@ -8,6 +8,7 @@ const clipboard = ref(false)
 const theme = ref('light')
 const activeUrlHash = ref(false)
 const magellanLinks = ref([])
+const searchModalActive = ref(false)
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
@@ -35,6 +36,11 @@ const compileMagellanLinks = (headings) => {
   }, [])
 }
 
+// //////////////////////////////////////////////////////// setSearchModalActive
+const setSearchModalActive = () => {
+  searchModalActive.value = !searchModalActive.value
+}
+
 // //////////////////////////////////////////////////////////////// setClipboard
 // const setClipboard = (text) => {
 //   this.$addTextToClipboard(text)
@@ -49,8 +55,10 @@ export const useGeneralStore = defineStore('general', () => ({
   theme,
   activeUrlHash,
   magellanLinks,
+  searchModalActive,
   // ----- actions
   setTheme,
   setActiveUrlHash,
-  compileMagellanLinks
+  compileMagellanLinks,
+  setSearchModalActive
 }))
