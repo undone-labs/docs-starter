@@ -1,5 +1,7 @@
 <template>
-  <div :class="['search-modal', { active: searchModalActive }]">
+  <div
+    :class="['search-modal', { active: searchModalActive }]"
+    @click.self="closeModal">
     <div class="search-container">
       <ais-instant-search :index-name="indexName" :search-client="algolia">
         <ais-search-box />
@@ -127,6 +129,10 @@ const getHits = (item) => {
   return item._highlightResult.children.filter(e => e.title.matchLevel !== 'none')
 }
 
+const closeModal = () => {
+  generalStore.setSearchModalActive()
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -140,7 +146,7 @@ const getHits = (item) => {
   visibility: hidden;
   z-index: -1;
   opacity: 0;
-  transition: 400ms ease;
+  transition: 250ms ease;
   &.active {
     visibility: visible;
     z-index: 1001;
@@ -159,6 +165,7 @@ const getHits = (item) => {
   background-color: var(--background-color);
   border: solid 1px var(--divider);
   border-radius: 0.625rem;
+  z-index: 10;
 }
 
 :deep(.ais-SearchBox) {
