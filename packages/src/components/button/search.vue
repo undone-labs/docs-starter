@@ -3,15 +3,15 @@
     class="search-button"
     @click="handleClick">
 
-    <div v-if="icon" class="search-icon">
+    <div v-if="props.icon" class="search-icon">
       <IconSearch />
     </div>
 
-    <div v-if="text" class="text">
+    <div v-if="props.text" class="text">
       {{ text }}
     </div>
 
-    <div v-if="keyCommand" class="key-command">
+    <div v-if="props.keyCommand" class="key-command">
       <span>{{ keyCommand }}</span>
     </div>
 
