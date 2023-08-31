@@ -7,7 +7,7 @@
         <div class="col-6" data-push-left="off-2">
           <div class="content">
             <h1
-              :id="pageSlug"
+              :id="'pageSlug'"
               ref="heading"
               class="heading">
               {{ pageHeading }}
@@ -73,6 +73,7 @@ const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
+
 const pageSlug = dirNameSplit[1]
 const generalStore = useGeneralStore()
 const pageHeading = useToPascalCase(pageSlug, ' ')
@@ -103,6 +104,9 @@ onMounted(async () => {
     const header = document.getElementById('site-header')
     headerHeight.value = header.offsetHeight
     sections.value = Array.from(document.querySelectorAll('#markdown *[id]'))
+    sections.value.forEach((section) => {
+      section.classList.add('heading-anchor')
+    })
     intersectionObserveHeadings()
     detectPageScrolledToEdgesOfViewport()
     generalStore.compileMagellanLinks(sections.value)

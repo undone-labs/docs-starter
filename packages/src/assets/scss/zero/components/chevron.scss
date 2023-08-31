@@ -3,6 +3,10 @@
   width: toRem(9);
   height: 0.375rem;
   transition: 250ms ease-out;
+  path {
+    transition: inherit;
+    stroke: var(--primary-text-color);
+  }
   &.up,
   &.down {
     transition: 250ms ease-in;

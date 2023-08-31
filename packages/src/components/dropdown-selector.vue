@@ -53,6 +53,7 @@ const handleOptionSelect = (val) => {
   }
   .selection {
     margin-right: toRem(5);
+    @include navigation;
   }
 }
 

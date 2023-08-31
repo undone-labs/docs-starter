@@ -104,18 +104,18 @@ const props = defineProps({
 }
 
 // ////////////////////////////////////////////////////////////////////// Themes
-.theme__nav {
+.theme__clear {
   .button-content {
     display: flex;
     align-items: center;
   }
-  :deep(.button-label) {
+  :deep(.text) {
     @include navigation;
     color: var(--primary-text-color);
   }
   &:hover {
-    :deep(.button-label) {
-      color: var(--brand-color);
+    :deep(.text) {
+      color: var(--link-color);
       transition: color .25s ease;
     }
   }

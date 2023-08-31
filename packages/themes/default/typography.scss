@@ -1,0 +1,172 @@
+// ////////////////////////////////////////////////////////////////// Typography
+// -----------------------------------------------------------------------------
+// ==================================================================== Families
+/*
+ * Variables specifying the font family declaration ($fontPrimary) and the 
+ * location of the source font files ($fontAssetPath)
+ */
+
+// $fontPrimary: ''; 
+// $fontAssetPath: 'assets/fonts';
+
+/*
+ * Include @font-face declarations and font file imports using 
+ * $fontAssetPath here below:
+ */
+ 
+// ///////////////////////////////////////////////////////// Basic Styles Mixins
+// -----------------------------------------------------------------------------
+
+/*
+ * Mixins corresponding to most commonly used html text elements:
+ */
+
+// @mixin h1 {
+//   // add your styles here
+// }
+// 
+// @mixin h2 {
+//   // add your styles here
+// }
+// 
+// @mixin h3 {
+//   // add your styles here
+// }
+
+// @mixin h4 {
+//   // add your styles here
+// }
+
+// @mixin h5 {
+//   // add your styles here
+// }
+
+// @mixin h6 {
+//   // add your styles here
+// }
+
+// @mixin p1 {
+//   // add your styles here
+// }
+
+// @mixin p2 {
+//   // add your styles here
+// }
+
+/*
+ * Mixin for text in <code> elements, see utitlies.scss to edit these vars
+ */
+
+// @mixin inlineCode {
+//   color: var(--code-text-color);
+//   background-color: var(--code-background-color);
+//   // add your styles here
+// }
+
+/*
+ * Mixin for inline link elements, see utitlies.scss to edit these vars
+ */
+// @mixin p1Link {
+//   color: var(--link-color);
+//   &:hover {
+//     color: var(--link-hover-color);
+//   }
+//   // add your styles here
+// }
+
+// ////////////////////////////////////////////////////////////////////// Sizing
+// -----------------------------------------------------------------------------
+// h1, .h1,
+// h2, .h2,
+// h3, .h3,
+// h4, .h4,
+// h5, .h5,
+// h6, .h6 {
+//   // add your styles here
+// }
+
+// h1, .h1,
+// h2, .h2,
+// h3, .h3,
+// h4, .h4,
+// h5, .h5,
+// h6, .h6 {
+//   // add your styles here
+// }
+
+// h1, .h1 {
+//   @include h1;
+// }
+
+// h2, .h2 {
+//   @include h2;
+// }
+
+// h3, .h3 {
+//   @include h3;
+// }
+
+// h4, .h4 {
+//   @include h4;
+// }
+
+// h5, .h5 {
+//   @include h5;
+// }
+
+// h6, .h6 {
+//   @include h6;
+// }
+
+// p,
+// .p1,
+// div,
+// a,
+// button {
+//   @include p1;
+// }
+
+// :not(pre) > code {
+//   @include inlineCode;
+// }
+
+// /////////////////////////////////////////////////////////// Navigation Mixins
+// -----------------------------------------------------------------------------
+/*
+ * Styles applied to navigation items/links
+ */
+// @mixin navigation {
+//   // add your styles here
+// }
+
+// ============================================================== Sidebar Mixins
+/*
+ * Styles applied to sidebar section headings
+ */
+// @mixin sidebarSectionTitle {
+//   @include h5;
+//   // add your styles here
+// }
+/*
+ * Styles applied to sidebar section items
+ */
+// @mixin sidebar {
+//   @include p2;
+//   color: var(--sidebar-text-color);
+//   // add your styles here
+// }
+
+// ======================================================== Magellan Menu Mixins
+/*
+ * Styles applied to the magellan menu
+ */
+// @mixin magellanTitle {
+//   // add your styles here
+// }
+// 
+// @mixin magellan {
+//   color: var(--sidebar-text-color);
+//   &:hover {
+//     color: var(--primary-text-color)
+//   }
+// }
