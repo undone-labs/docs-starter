@@ -54,7 +54,6 @@ import Navigation from '@/data/components/navigation'
 const links = Navigation.header
 const githubUrl = Navigation.toolbar.github_url
 const languageOptions = Navigation.toolbar.language_options
-
 </script>
 
 <style lang="scss" scoped>

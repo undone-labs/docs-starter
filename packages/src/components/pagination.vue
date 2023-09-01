@@ -1,7 +1,8 @@
 <template>
-  <nav id="pagination">
+  <nav v-if="previous || next" id="pagination">
 
     <ButtonClear
+      v-if="previous"
       :to="previous.path"
       tag="nuxt-link"
       class="navlink prev">
@@ -15,6 +16,7 @@
     </ButtonClear>
 
     <ButtonClear
+      v-if="next"
       :to="next.path"
       tag="nuxt-link"
       class="navlink next">
@@ -60,7 +62,6 @@ const lastNavItem = navigation.slice(-1)[0]
 const route = useRoute()
 const currentPath = route.path
 const currentPathIndex = navigation.findIndex(page => page.path === currentPath)
-// const currentPage = navigation[currentPathIndex]
 
 const onFirstPage = currentPathIndex === 0
 const onLastPage = currentPathIndex === navItemCount - 1

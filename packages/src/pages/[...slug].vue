@@ -7,7 +7,7 @@
         <div class="col-6" data-push-left="off-2">
           <div class="content">
             <h1
-              :id="'pageSlug'"
+              :id="pageSlug"
               ref="heading"
               class="heading">
               {{ pageHeading }}

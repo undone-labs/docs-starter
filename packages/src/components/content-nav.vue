@@ -24,18 +24,12 @@
         <div class="button-label" v-html="link.title" />
       </ButtonClear>
 
-      <!-- <ButtonClear
-        v-for="(num, index) in 20"
-        :key="index"
-        class="link">
-        <div class="button-label" v-html="'This is a link'" />
-      </ButtonClear> -->
-
     </section>
   </nav>
 </template>
 
 <script setup>
+// ===================================================================== Imports
 import { getCurrentInstance } from 'vue'
 
 // ======================================================================== Data

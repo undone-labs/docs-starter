@@ -1,3 +1,4 @@
 <script setup>
-navigateTo('/docs')
+// ======================================================================= Setup
+await navigateTo('/docs')
 </script>

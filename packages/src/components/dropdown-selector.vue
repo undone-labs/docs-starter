@@ -38,7 +38,7 @@ const props = defineProps({
 /**
  * @method handleOptionSelect
  */
-const handleOptionSelect = (val) => {}
+const handleOptionSelect = () => {}
 </script>
 
 <style lang="scss" scoped>

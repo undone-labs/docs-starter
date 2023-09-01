@@ -7,17 +7,17 @@
     },
     {
       "tag": "nuxt-link",
-      "to": "/about",
+      "to": "/docs",
       "label": "ABOUT"
     },
     {
       "tag": "nuxt-link",
-      "to": "/ecosystem",
+      "to": "/docs",
       "label": "ECOSYSTEM"
     },
     {
       "tag": "nuxt-link",
-      "to": "/api",
+      "to": "/docs",
       "label": "API"
     }
   ],
