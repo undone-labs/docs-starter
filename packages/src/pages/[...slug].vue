@@ -58,11 +58,6 @@
 </template>
 
 <script setup>
-// ======================================================================= Setup
-definePageMeta({
-  layout: 'docs'
-})
-
 // ======================================================================== Data
 const intersectionObserver = ref(null)
 const headerHeight = ref(0)

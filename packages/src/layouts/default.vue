@@ -3,16 +3,11 @@
 
     <SiteHeader />
 
+    <Sidebar />
+
     <slot />
 
     <SiteFooter />
 
   </div>
 </template>
-
-<style lang="scss" scoped>
-// ///////////////////////////////////////////////////////////////////// General
-.layout {
-  padding-top: $siteHeaderHeight;
-}
-</style>

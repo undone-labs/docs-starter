@@ -85,13 +85,14 @@
 // ===================================================================== Imports
 import Footer from '@/data/components/footer'
 
+// ======================================================================== Data
 const support = Footer.panel_left
 const help = Footer.panel_right
 const legal = Footer.panel_bottom
-
 </script>
 
 <style lang="scss" scoped>
+// ///////////////////////////////////////////////////////////////////// General
 #site-footer {
   padding-bottom: 0.625rem;
 }

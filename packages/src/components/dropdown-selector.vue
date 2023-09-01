@@ -33,13 +33,12 @@ const props = defineProps({
     default: () => []
   }
 })
+
 // ===================================================================== Methods
 /**
  * @method handleOptionSelect
  */
-const handleOptionSelect = (val) => {
-  console.log(val)
-}
+const handleOptionSelect = (val) => {}
 </script>
 
 <style lang="scss" scoped>

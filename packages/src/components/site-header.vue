@@ -2,7 +2,7 @@
   <header id="site-header">
 
     <!-- ============================================================== Logo -->
-    <NuxtLink to="/" class="logo-link">
+    <NuxtLink to="/docs" class="logo-link">
       <Logo class="logo" />
     </NuxtLink>
 
