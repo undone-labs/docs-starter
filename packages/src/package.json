@@ -4,7 +4,7 @@
     "build": "nuxt build",
     "dev": "npm run watch & nuxt dev --no-clear",
     "watch": "nodemon modules/doczilla/sync.js --watch ../docs -e md,vue,json --watch ../theme -e scss --watch modules/doczilla/sync.js",
-    "generate": "npx nuxi generate",
+    "generate": "node modules/doczilla/sync.js && npx nuxi generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },

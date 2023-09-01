@@ -46,7 +46,7 @@ const copySrcDirToTargetDir = (nuxtConfig) => {
   for (let i = 0; i < packages.length; i++) {
     let contentSrcDirPath
     if (packages[i].src.endsWith('/themes')) {
-      const overrideTheme = nuxtConfig.overrideTheming.themeName
+      const overrideTheme = nuxtConfig.overrideTheming ? nuxtConfig.overrideTheming.themeName : ''
       const theme = overrideTheme &&
         Fs.existsSync(Path.resolve(__dirname, `${packages[i].src}/${overrideTheme}`)) ?
         overrideTheme : 'default'
