@@ -1,5 +1,6 @@
 # ================================================================ [package] src
 packages/src/docs
+packages/src/data
 packages/src/.output
 packages/src/assets/scss/theme
 

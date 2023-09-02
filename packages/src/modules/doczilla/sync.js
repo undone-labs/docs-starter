@@ -19,6 +19,10 @@ const packages = [
     dest: '../../docs'
   },
   {
+    src: '../../../data',
+    dest: '../../data'
+  },
+  {
     src: '../../../themes',
     dest: '../../assets/scss/theme'
   }
