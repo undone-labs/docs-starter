@@ -68,10 +68,12 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { /* hid: 'description', */ name: 'description', content: seo.description }
+        { name: 'description', content: seo.description },
+        { name: 'msapplication-config', content: '/favicon/dark/browserconfig.xml' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon-96x96.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon/dark/favicon-96x96.png' },
+        { rel: 'manifest', href: '/favicon/dark/manifest.json' }
       ]
     }
   },
