@@ -68,9 +68,9 @@ const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
+const generalStore = useGeneralStore()
 
 const pageSlug = dirNameSplit[1]
-const generalStore = useGeneralStore()
 const pageHeading = useToPascalCase(pageSlug, ' ')
 
 const { data: content } = await useAsyncData('content', () => {
@@ -81,7 +81,7 @@ const { data: content } = await useAsyncData('content', () => {
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 
 // ==================================================================== Watchers
-watch(route, (route) => {
+watch(route, async route => {
   if (navigatedByRouteDebounce.value) { clearTimeout(navigatedByRouteDebounce.value) }
   navigatedByRouteDebounce.value = setTimeout(() => {
     navigatedByRoute.value = false
@@ -89,7 +89,15 @@ watch(route, (route) => {
   }, 100)
   navigatedByRoute.value = true
   generalStore.setActiveUrlHash(route.hash.slice(1))
-})
+  if (process.client) {
+    await nextTick(() => {
+      const linksExist = generalStore.compileMagellanLinks()
+      if (linksExist) {
+        generalStore.setActiveLinkMarkerHeight()
+      }
+    })
+  }
+}, { immediate: true })
 
 // ======================================================================= Hooks
 onMounted(async () => {
@@ -104,7 +112,6 @@ onMounted(async () => {
     })
     intersectionObserveHeadings()
     detectPageScrolledToEdgesOfViewport()
-    generalStore.compileMagellanLinks(sections.value)
   })
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <nav id="magellan-menu" ref="magellanMenu">
+  <nav v-if="magellanLinks.length > 0" id="magellan-menu" ref="magellanMenu">
 
     <div class="title">
       ON THIS PAGE
@@ -31,12 +31,15 @@ import { storeToRefs } from 'pinia'
 // ======================================================================== Data
 const linkElement = ref(null)
 const magellanMenu = ref(null)
-const activeLinkMarkerHeight = ref(0)
 const scrollTop = ref(0)
 const scrollMagellanMenuEventListenerFunction = ref(null)
 const route = useRoute()
 const generalStore = useGeneralStore()
-const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
+const {
+  activeUrlHash,
+  magellanLinks,
+  activeLinkMarkerHeight
+} = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
@@ -51,13 +54,6 @@ watch(activeUrlHash, (hash) => {
   linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
   if (!hash || !linkElement.value) { return false }
   activeLinkMarkerHeight.value = linkElement.value.offsetHeight
-})
-
-watch(route, () => {
-  const firstLinkElement = document.querySelector(`[link-hash]`)
-  if (firstLinkElement) {
-    activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
-  }
 })
 
 watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
@@ -77,11 +73,15 @@ watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
 })
 
 // ======================================================================= Hooks
-onMounted(() => {
-  scrollMagellanMenuEventListenerFunction.value = useThrottle(function () {
-    scrollTop.value = this.scrollTop
-  }, 100)
-  magellanMenu.value.addEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
+onMounted(async () => {
+  await nextTick(async () => {
+    if (magellanMenu.value) {
+      scrollMagellanMenuEventListenerFunction.value = useThrottle(function () {
+        scrollTop.value = this.scrollTop
+      }, 100)
+      magellanMenu.value.addEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
+    }
+  })
 })
 
 onBeforeUnmount(() => {
