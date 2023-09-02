@@ -11,7 +11,9 @@
           <component :is="resolveDynamicComp(directory.icon)" class="icon" />
         </template>
 
-        <h2 class="title" v-html="directory.title" />
+        <h2
+          :class="['title', { active: routeMatchesCurrentDirectory(directory.slug) }]"
+          v-html="directory.title" />
 
       </div>
 
@@ -41,6 +43,7 @@ const { data: sidebar } = await useAsyncData('sidebar', () => {
 })
 
 const navigation = sidebar.value.body
+const route = useRoute()
 
 // ===================================================================== Methods
 /**
@@ -49,6 +52,7 @@ const navigation = sidebar.value.body
 const generateLink = (dirSlug, href) => {
   return `/${dirSlug}${href}`
 }
+
 /**
  * @method resolveDynamicComp
  */
@@ -66,6 +70,12 @@ const resolveDynamicComp = (name) => {
   return false
 }
 
+/**
+ * @method routeMatchesCurrentDirectory
+ */
+const routeMatchesCurrentDirectory = (slug) => {
+  return route.path.includes(slug)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -88,6 +98,9 @@ const resolveDynamicComp = (name) => {
   @include sidebarSectionTitle;
   padding: toRem(4) 0;
   margin: 0;
+  &.active {
+    color: var(--link-color);
+  }
 }
 
 .link {
@@ -102,13 +115,12 @@ const resolveDynamicComp = (name) => {
   &:hover:not(.router-link-active) {
     cursor: pointer;
     .button-label {
-      color: var(--primary-text-color);
-      transition: color .25s ease;
+      transition: 150ms ease-in;
+      color: var(--link-color);
     }
   }
   &.router-link-active {
     .button-label {
-      color: var(--link-color);
       font-weight: 700;
     }
   }
@@ -116,5 +128,6 @@ const resolveDynamicComp = (name) => {
 
 :deep(.button-label) {
   @include sidebar;
+  transition: 150ms ease-out;
 }
 </style>

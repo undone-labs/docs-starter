@@ -1,5 +1,13 @@
 //////////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
+html {
+  &.dark {
+    body {
+      @include selection-dark;
+    }
+  }
+}
+
 body {
   @include selection-light;
   color: var(--primary-text-color);

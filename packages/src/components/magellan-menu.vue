@@ -33,7 +33,6 @@ const linkElement = ref(null)
 const magellanMenu = ref(null)
 const scrollTop = ref(0)
 const scrollMagellanMenuEventListenerFunction = ref(null)
-const route = useRoute()
 const generalStore = useGeneralStore()
 const {
   activeUrlHash,
@@ -106,10 +105,11 @@ const hashIsActive = (hash) => {
 }
 
 .title {
+  @include h6;
   position: absolute;
   top: toRem(21);
-  @include h6;
   opacity: 0.7;
+  font-size: toRem(14);
 }
 
 .active-link-marker {
@@ -140,5 +140,6 @@ const hashIsActive = (hash) => {
 .button-label {
   white-space: break-spaces;
   line-height: 1.2;
+  font-size: toRem(14);
 }
 </style>
