@@ -225,13 +225,10 @@ const getPreviewComponentName = (path) => {
 }
 
 .preview {
-  height: 100%;
+  position: sticky;
+  top: calc(#{$siteHeaderHeight} + 1rem);
   @include gridMaxMQ {
     padding-right: 0;
-  }
-  > div {
-    position: sticky;
-    top: $siteHeaderHeight + 1rem;
   }
 }
 
