@@ -28,6 +28,7 @@
   height: 100%;
   padding-top: $siteHeaderHeight;
   border-right: 1px solid var(--divider);
+  background-color: var(--background-color);
   @include gridMaxMQ {
     left: 0;
   }

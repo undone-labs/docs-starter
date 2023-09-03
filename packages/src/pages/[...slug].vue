@@ -64,6 +64,7 @@ const headerHeight = ref(0)
 const sections = ref([])
 const scrollWindowEventListenerFunction = ref(null)
 const route = useRoute()
+const contentPath = `/docs/content${route.path}`
 const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
@@ -74,7 +75,11 @@ const pageSlug = dirNameSplit[1]
 const pageHeading = useToPascalCase(pageSlug, ' ')
 
 const { data: content } = await useAsyncData('content', () => {
-  return queryContent(`/docs/content${route.path}`).find()
+  return queryContent({
+    where: {
+      _path: { $contains: contentPath }
+    }
+  }).find()
 })
 
 // ==================================================================== Computed
@@ -209,12 +214,17 @@ const getPreviewComponentName = (path) => {
   padding-bottom: 5rem;
 }
 
-.header,
 .content,
 .preview {
   padding: 0 2rem 0 2rem;
   @include gridMaxMQ {
     padding-left: 0;
+  }
+}
+
+.section {
+  &:not(:nth-child(2)) {
+    border-top: solid 2px var(--secondary-background-color);
   }
 }
 
