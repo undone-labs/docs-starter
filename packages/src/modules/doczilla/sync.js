@@ -1,9 +1,9 @@
 /**
  * The "npm run dev" script also fires off a nodemon watcher script →
- * nodemon --watch ../docs -e md,vue --exec node src/modules/doczilla/sync.js.
- * sync.js watches .md and .vue files in the docs repo package. When changes
- * are detected, sync.js replaces the entire \@/src/docs directory with the
- * \@/docs directory
+ * nodemon modules/doczilla/sync.js --watch <entry> -e <extension>.
+ * sync.js watches .md, .vue, .json and .scss files in the docs repo package.
+ * When changes are detected, sync.js replaces the entire respective directories
+ * listed below.
  */
 
 // ///////////////////////////////////////////////////////////////////// Imports
@@ -66,11 +66,6 @@ const copySrcDirToTargetDir = () => {
         )
       })
     }
-    // if (package.src.endsWith('/themes')) {
-    //   const overrideTheme = nuxtConfig.overrideTheming.themeName
-    //   const theme = overrideTheme && Fs.existsSync(Path.resolve(__dirname, `${package.src}/${overrideTheme}`)) ? overrideTheme : 'default'
-    //   contentSrcDirPath = Path.resolve(__dirname, `${package.src}/${theme}`)
-    // }
   })
 }
 

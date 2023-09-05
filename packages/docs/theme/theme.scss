@@ -5,16 +5,12 @@
  * see utilities.scss to edit these vars
  */
 // body {
-//   @include selection-light;
-//   color: var(--primary-text-color);
-//   font-family: $fontPrimary;
-//   background-color: var(--background-color);
-//   transition: background-color 250ms;
+//   // add your styles here
 // }
-// 
+
 // pre,
 // code {
-//   font-family: $fontPrimary;
+//   // add your styles here
 // }
 
 ///////////////////////////////////////////////////////////////////// Components
@@ -23,4 +19,7 @@
  * Some existing component styles can be editted and imported from the adjacent
  * components directory. Custom files can be added and imported here too.
  */
-// @import 'components/components';
+
+@import 'components/chevron';
+@import 'components/markdown';
+@import 'components/toast';
