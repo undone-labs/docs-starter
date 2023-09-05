@@ -22,6 +22,7 @@
         :key="generateLink(directory.slug, link.href)"
         :to="generateLink(directory.slug, link.href)"
         :tag="link.type"
+        :disabled="isCurrentRoute(generateLink(directory.slug, link.href))"
         class="link">
         <div class="button-label" v-html="link.title" />
       </ButtonClear>
@@ -51,6 +52,13 @@ const generateLink = (dirSlug, href) => {
 const routeMatchesCurrentDirectory = (slug) => {
   return route.path.includes(slug)
 }
+
+/**
+ * @method isCurrentRoute
+ */
+const isCurrentRoute = (path) => {
+  return path === route.path
+}
 </script>
 
 <style lang="scss" scoped>
@@ -79,7 +87,7 @@ const routeMatchesCurrentDirectory = (slug) => {
   }
 }
 
-.link {
+:deep(.link.button) {
   display: block;
   padding: toRem(4) 0;
   &:first-child {
@@ -100,10 +108,13 @@ const routeMatchesCurrentDirectory = (slug) => {
       font-weight: 700;
     }
   }
-}
-
-:deep(.button-label) {
-  @include sidebar;
-  transition: 150ms ease-out;
+  &[disabled="true"] {
+    opacity: 1;
+    cursor: default;
+  }
+  .button-label {
+    @include sidebar;
+    transition: 150ms ease-out;
+  }
 }
 </style>
