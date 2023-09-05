@@ -39,16 +39,11 @@
 </template>
 
 <script setup>
-// ======================================================================== Data
-const { data: sidebar } = await useAsyncData('sidebar', () => {
-  const queryWithout = ['title', '_dir', '_draft', '_extension', '_file', '_id', '_locale', '_partial', '_path', '_source', '_type']
-  return queryContent('/docs/data/sidebar')
-    .without(queryWithout)
-    .findOne()
-})
+// ===================================================================== Imports
+import Sidebar from '@/docs/data/sidebar.json'
 
-const rawNavigation = sidebar.value.body
-const navigation = rawNavigation.reduce((acc, directory) => {
+// ======================================================================== Data
+const navigation = Sidebar.reduce((acc, directory) => {
   const dirSlug = directory.slug
   directory.children.forEach((page) => {
     acc.push({

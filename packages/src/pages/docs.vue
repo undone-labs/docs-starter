@@ -1,7 +1,7 @@
 <script setup>
 // ===================================================================== Imports
-import Navigation from '@/docs/data/sidebar.json'
+import Sidebar from '@/docs/data/sidebar.json'
 
 // ======================================================================= Setup
-await navigateTo(`/docs${Navigation[0].children[0].href}`)
+await navigateTo(`/docs${Sidebar[0].children[0].href}`)
 </script>

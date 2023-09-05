@@ -1,7 +1,7 @@
 <template>
   <nav id="content-nav">
     <section
-      v-for="directory in navigation"
+      v-for="directory in Sidebar"
       :key="directory.slug"
       class="section">
 
@@ -33,16 +33,9 @@
 <script setup>
 // ===================================================================== Imports
 import { getCurrentInstance } from 'vue'
+import Sidebar from '@/docs/data/sidebar.json'
 
 // ======================================================================== Data
-const { data: sidebar } = await useAsyncData('sidebar', () => {
-  const queryWithout = ['title', '_dir', '_draft', '_extension', '_file', '_id', '_locale', '_partial', '_path', '_source', '_type']
-  return queryContent('/docs/data/sidebar')
-    .without(queryWithout)
-    .findOne()
-})
-
-const navigation = sidebar.value.body
 const route = useRoute()
 
 // ===================================================================== Methods
