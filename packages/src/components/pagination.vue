@@ -46,7 +46,7 @@
 
 <script setup>
 // ===================================================================== Imports
-import Sidebar from '@/docs/data/sidebar.json'
+import Sidebar from '@/data/sidebar.json'
 
 // ======================================================================== Data
 const route = useRoute()

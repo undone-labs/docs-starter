@@ -3,7 +3,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "npm run watch & nuxt dev --no-clear",
-    "watch": "nodemon modules/doczilla/sync.js --watch ../docs --watch ../themes --watch modules/doczilla/sync.js -e md,vue,json,scss",
+    "watch": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js -e md,vue,json,scss",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"

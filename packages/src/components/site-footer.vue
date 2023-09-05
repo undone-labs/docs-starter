@@ -83,7 +83,7 @@
 
 <script setup>
 // ===================================================================== Imports
-import Footer from '@/data/components/footer'
+import Footer from '@/data/footer'
 
 // ======================================================================== Data
 const support = Footer.panel_left

@@ -13,59 +13,69 @@ const Fs = require('fs-extra')
 
 // /////////////////////////////////////////////////////////////////// Variables
 // -----------------------------------------------------------------------------
-const packages = [
+const dirs = [
   {
-    src: '../../../docs',
-    dest: '../../docs'
+    src: '../../../docs', // need this parent entry to delete entire @/src/docs dir before adding child dirs
+    dest: '../../docs',
+    children: [
+      {
+        src: '../../../docs/components',
+        dest: '../../docs/components'
+      },
+      {
+        src: '../../../docs/content',
+        dest: '../../docs/content'
+      }
+    ]
   },
   {
-    src: '../../../data',
+    src: '../../../docs/data',
     dest: '../../data'
   },
   {
-    src: '../../../themes',
+    src: '../../../docs/theme',
     dest: '../../assets/scss/theme'
   }
 ]
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-const getConfig = async () => {
-  const kit = await import('@nuxt/kit')
-  return kit.loadNuxtConfig()
-}
-
 // ///////////////////////////////////////////////////////////// deleteTargetDir
 const deleteTargetDir = () => {
-  for (let i = 0; i < packages.length; i++) {
-    const path = Path.resolve(__dirname, packages[i].dest)
+  dirs.forEach((dir) => {
+    const path = Path.resolve(__dirname, dir.dest)
     if (Fs.existsSync(path)) {
       Fs.removeSync(path)
     }
-  }
+  })
 }
 
 // /////////////////////////////////////////////////////// copySrcDirToTargetDir
-const copySrcDirToTargetDir = (nuxtConfig) => {
-  for (let i = 0; i < packages.length; i++) {
-    let contentSrcDirPath
-    if (packages[i].src.endsWith('/themes')) {
-      const overrideTheme = nuxtConfig.overrideTheming.themeName
-      const theme = overrideTheme &&
-        Fs.existsSync(Path.resolve(__dirname, `${packages[i].src}/${overrideTheme}`)) ?
-        overrideTheme : 'default'
-      contentSrcDirPath = Path.resolve(__dirname, `${packages[i].src}/${theme}`)
+const copySrcDirToTargetDir = () => {
+  dirs.forEach((dir) => {
+    const src = Path.resolve(__dirname, dir.src)
+    const dest = Path.resolve(__dirname, dir.dest)
+    const children = dir.children
+    if (!children) {
+      Fs.copySync(src, dest)
     } else {
-      contentSrcDirPath = Path.resolve(__dirname, packages[i].src)
+      children.forEach((childDir) => {
+        Fs.copySync(
+          Path.resolve(__dirname, childDir.src),
+          Path.resolve(__dirname, childDir.dest)
+        )
+      })
     }
-    const destDirPath = Path.resolve(__dirname, packages[i].dest)
-    Fs.copySync(contentSrcDirPath, destDirPath)
-  }
+    // if (package.src.endsWith('/themes')) {
+    //   const overrideTheme = nuxtConfig.overrideTheming.themeName
+    //   const theme = overrideTheme && Fs.existsSync(Path.resolve(__dirname, `${package.src}/${overrideTheme}`)) ? overrideTheme : 'default'
+    //   contentSrcDirPath = Path.resolve(__dirname, `${package.src}/${theme}`)
+    // }
+  })
 }
 
 // ////////////////////////////////////////////////// syncContentDirOnFileChange
 (async function syncContentDirOnFileChange () {
-  const nuxtConfig = await getConfig()
   deleteTargetDir()
-  copySrcDirToTargetDir(nuxtConfig)
+  copySrcDirToTargetDir()
 })()

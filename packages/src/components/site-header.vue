@@ -48,7 +48,7 @@
 
 <script setup>
 // ===================================================================== Imports
-import Navigation from '@/data/components/navigation'
+import Navigation from '@/data/navigation'
 
 // ======================================================================== Data
 const links = Navigation.header
