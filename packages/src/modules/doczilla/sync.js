@@ -63,8 +63,8 @@ const copySrcDirToTargetDir = (nuxtConfig) => {
   }
 }
 
-// ////////////////////////////////////////////// syncContentDirWhenOnFileChange
-(async function syncContentDirWhenOnFileChange () {
+// ////////////////////////////////////////////////// syncContentDirOnFileChange
+(async function syncContentDirOnFileChange () {
   const nuxtConfig = await getConfig()
   deleteTargetDir()
   copySrcDirToTargetDir(nuxtConfig)

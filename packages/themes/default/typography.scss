@@ -2,18 +2,18 @@
 // -----------------------------------------------------------------------------
 // ==================================================================== Families
 /*
- * Variables specifying the font family declaration ($fontPrimary) and the 
+ * Variables specifying the font family declaration ($fontPrimary) and the
  * location of the source font files ($fontAssetPath)
  */
 
-// $fontPrimary: ''; 
+// $fontPrimary: '';
 // $fontAssetPath: 'assets/fonts';
 
 /*
- * Include @font-face declarations and font file imports using 
+ * Include @font-face declarations and font file imports using
  * $fontAssetPath here below:
  */
- 
+
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
 // -----------------------------------------------------------------------------
 
@@ -24,11 +24,11 @@
 // @mixin h1 {
 //   // add your styles here
 // }
-// 
+//
 // @mixin h2 {
 //   // add your styles here
 // }
-// 
+//
 // @mixin h3 {
 //   // add your styles here
 // }
@@ -163,7 +163,7 @@
 // @mixin magellanTitle {
 //   // add your styles here
 // }
-// 
+//
 // @mixin magellan {
 //   color: var(--sidebar-text-color);
 //   &:hover {
