@@ -7,8 +7,8 @@
 
       <div class="section-heading">
 
-        <template v-if="resolveDynamicComp(directory.icon)">
-          <component :is="resolveDynamicComp(directory.icon)" class="icon" />
+        <template v-if="useResolveDoczillaComponent(directory.icon)">
+          <component :is="useResolveDoczillaComponent(directory.icon)" class="icon" />
         </template>
 
         <h2
@@ -32,7 +32,6 @@
 
 <script setup>
 // ===================================================================== Imports
-import { getCurrentInstance } from 'vue'
 import Sidebar from '@/docs/data/sidebar.json'
 
 // ======================================================================== Data
@@ -44,23 +43,6 @@ const route = useRoute()
  */
 const generateLink = (dirSlug, href) => {
   return `/${dirSlug}${href}`
-}
-
-/**
- * @method resolveDynamicComp
- */
-const resolveDynamicComp = (name) => {
-  if (!name) { return false }
-  const instance = getCurrentInstance()
-  const handle = useToPascalCase(name, '')
-  const compToResolve = `Doczilla${handle}`
-  if (
-    typeof instance?.appContext.components === 'object' &&
-    compToResolve in instance.appContext.components
-  ) {
-    return compToResolve
-  }
-  return false
 }
 
 /**
@@ -83,6 +65,7 @@ const routeMatchesCurrentDirectory = (slug) => {
   display: flex;
   align-items: center;
   .icon {
+    width: toRem(21);
     margin-right: toRem(14);
   }
 }

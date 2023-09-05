@@ -13,8 +13,11 @@
       <div class="page-title">
         {{ previous.title }}
       </div>
-      <div v-if="onFirstPage" class="directory-title">
-        {{ previous.dirTitle }}
+      <div v-if="previousSection" class="directory-title">
+        <template v-if="useResolveDoczillaComponent(previous.dirIcon)">
+          <component :is="useResolveDoczillaComponent(previous.dirIcon)" class="icon" />
+        </template>
+        {{ previousSection.title }}
       </div>
     </ButtonClear>
 
@@ -30,8 +33,11 @@
       <div class="page-title">
         {{ next.title }}
       </div>
-      <div v-if="onLastPage" class="directory-title">
-        {{ next.dirTitle }}
+      <div v-if="nextSection" class="directory-title">
+        <template v-if="useResolveDoczillaComponent(next.dirIcon)">
+          <component :is="useResolveDoczillaComponent(next.dirIcon)" class="icon" />
+        </template>
+        {{ nextSection.title }}
       </div>
     </ButtonClear>
 
@@ -43,31 +49,49 @@
 import Sidebar from '@/docs/data/sidebar.json'
 
 // ======================================================================== Data
-const navigation = Sidebar.reduce((acc, directory) => {
+const route = useRoute()
+const currentPath = route.path
+
+const navigation = []
+const dirCount = Sidebar.length
+const firstDir = Sidebar[0]
+const lastDir = Sidebar.slice(-1)[0]
+Sidebar.forEach((directory, dirIndex) => {
   const dirSlug = directory.slug
-  directory.children.forEach((page) => {
-    acc.push({
+  const pages = directory.children
+  pages.forEach((page, pageIndex) => {
+    const inFirstDir = dirIndex === 0
+    const inLastDir = dirIndex === dirCount - 1
+    const previousDir = inFirstDir ? lastDir : Sidebar[dirIndex - 1]
+    const nextDir = inLastDir ? firstDir : Sidebar[dirIndex + 1]
+    navigation.push({
+      ...(pageIndex === 0 && { previousDir }),
+      ...(pageIndex === pages.length - 1 && { nextDir }),
+      dirIndex,
+      pageIndex,
+      dirPageCount: pages.length,
       dirTitle: directory.title,
       dirSlug,
+      dirIcon: directory.icon,
       title: page.title,
       path: `/${dirSlug}${page.href}`
     })
   })
-  return acc
-}, [])
+})
 
 const navItemCount = navigation.length
 const firstNavItem = navigation[0]
 const lastNavItem = navigation.slice(-1)[0]
 
-const route = useRoute()
-const currentPath = route.path
 const currentPathIndex = navigation.findIndex(page => page.path === currentPath)
-
 const onFirstPage = currentPathIndex === 0
 const onLastPage = currentPathIndex === navItemCount - 1
 const previous = onFirstPage ? lastNavItem : navigation[currentPathIndex - 1]
 const next = onLastPage ? firstNavItem : navigation[currentPathIndex + 1]
+
+const currentPage = navigation.find(page => page.path === currentPath)
+const previousSection = currentPage.pageIndex === 0 ? currentPage.previousDir : undefined
+const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? currentPage.nextDir : undefined
 </script>
 
 <style lang="scss" scoped>
@@ -134,5 +158,17 @@ const next = onLastPage ? firstNavItem : navigation[currentPathIndex + 1]
   font-size: toRem(18);
   font-weight: 500;
   transition: 150ms ease-out;
+}
+
+.directory-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: toRem(14);
+  font-weight: 500;
+  .icon {
+    margin-right: 0.5rem;
+    width: toRem(16);
+  }
 }
 </style>
