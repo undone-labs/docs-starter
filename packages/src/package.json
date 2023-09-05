@@ -2,11 +2,12 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "npm run watch & nuxt dev --no-clear",
+    "dev": "npm run watch & nuxt dev --no-clear --https",
     "watch": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js -e md,vue,json,scss",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "upgrade-nuxt": "nuxi upgrade --force"
   },
   "overrides": {
     "vue": "latest"
@@ -24,7 +25,8 @@
     "eslint": "^8.42.0",
     "fs-extra": "^11.1.1",
     "nodemon": "^3.0.1",
-    "nuxt": "^3.6.3",
+    "nuxi": "^3.7.3",
+    "nuxt": "^3.7.1",
     "nuxt-simple-robots": "^2.3.0",
     "nuxt-simple-sitemap": "^2.6.2",
     "sass": "^1.62.0"
