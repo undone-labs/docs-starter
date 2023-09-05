@@ -5,8 +5,11 @@
       v-if="previous"
       :to="previous.path"
       tag="nuxt-link"
-      class="navlink prev">
-      <span class="label">Previous</span>
+      class="nav-link prev">
+      <div class="label">
+        <IconArrow class="icon-arrow left" />
+        Previous
+      </div>
       <div class="page-title">
         {{ previous.title }}
       </div>
@@ -19,8 +22,11 @@
       v-if="next"
       :to="next.path"
       tag="nuxt-link"
-      class="navlink next">
-      <span class="label">Next</span>
+      class="nav-link next">
+      <div class="label">
+        Next
+        <IconArrow class="icon-arrow right" />
+      </div>
       <div class="page-title">
         {{ next.title }}
       </div>
@@ -69,11 +75,69 @@ const previous = onFirstPage ? lastNavItem : navigation[currentPathIndex - 1]
 const next = onLastPage ? firstNavItem : navigation[currentPathIndex + 1]
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #pagination {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+:deep(.nav-link) {
+  &:hover {
+    &.prev {
+      .icon-arrow.left {
+        transition: 150ms ease-in;
+        transform: translateX(-0.5rem);
+      }
+    }
+    &.next {
+      .icon-arrow.right {
+        transition: 150ms ease-in;
+        transform: rotate(180deg) translateX(-0.5rem);
+      }
+    }
+    .page-title {
+      transition: 150ms ease-in;
+      color: $blueRibbon;
+    }
+  }
+  .button-content {
+    display: flex;
+    flex-direction: column;
+  }
+  &.prev {
+    .button-content {
+      align-items: flex-start;
+    }
+  }
+  &.next {
+    .button-content {
+      align-items: flex-end;
+    }
+  }
+}
+
+.label {
+  font-size: toRem(18);
+  font-weight: 700;
+}
+
+.icon-arrow {
+  width: toRem(14);
+  transition: 150ms ease-out;
+  &.left {
+    margin-right: toRem(11);
+  }
+  &.right {
+    margin-left: toRem(11);
+    transform: rotate(180deg);
+  }
+}
+
+.page-title {
+  font-size: toRem(18);
+  font-weight: 500;
+  transition: 150ms ease-out;
 }
 </style>
