@@ -110,6 +110,7 @@ const hashIsActive = (hash) => {
   top: toRem(21);
   opacity: 0.7;
   font-size: toRem(14);
+  transition: color 500ms;
 }
 
 .active-link-marker {

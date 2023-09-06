@@ -8,39 +8,35 @@
 
     <!-- ========================================================= Nav links -->
     <nav id="site-nav">
-      <div class="button-list">
-        <ButtonClear
-          v-for="(link, index) in links"
-          v-bind="link"
-          :key="index"
-          ref="navItems"
-          theme="nav"
-          class="site-nav-link">
-          <div class="text" v-html="link.label" />
-        </ButtonClear>
-      </div>
+      <ButtonClear
+        v-for="(link, index) in links"
+        v-bind="link"
+        :key="index"
+        ref="navItems"
+        theme="nav"
+        class="site-nav-link">
+        <div class="text" v-html="link.label" />
+      </ButtonClear>
     </nav>
 
     <!-- ===================================================== Theme toggler -->
     <div id="site-toolbar">
-      <div class="toolbar-list">
 
-        <ButtonThemeToggle />
+      <ButtonThemeToggle />
 
-        <ZeroButton
-          tag="a"
-          :to="githubUrl"
-          target="_blank"
-          :disabled="!githubUrl"
-          class="github-link">
-          <IconGithub />
-        </ZeroButton>
+      <ZeroButton
+        tag="a"
+        :to="githubUrl"
+        target="_blank"
+        :disabled="!githubUrl"
+        class="github-link">
+        <IconGithub />
+      </ZeroButton>
 
-        <ButtonSearch />
+      <ButtonSearch />
 
-        <DropdownSelector :options="languageOptions" />
+      <DropdownSelector :options="languageOptions" />
 
-      </div>
     </div>
 
   </header>
@@ -62,13 +58,13 @@ const languageOptions = Navigation.toolbar.language_options
   display: flex;
   flex-direction: row;
   justify-content: space-between;;
-  align-items: center;
+  // align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: $siteHeaderHeight;
-  padding: 1rem 2.5rem;
+  padding: 0 2.5rem;
   background-color: var(--background-color);
   border-bottom: 1px solid var(--divider);
   z-index: 1000;
@@ -100,16 +96,8 @@ const languageOptions = Navigation.toolbar.language_options
 // ////////////////////////////////////////////////////////////////// Navigation
 #site-nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-
-.button-list {
-  position: relative;
-  display: flex;
   flex-direction: row;
-  align-items: center;
+  position: relative;
   padding-left: 2rem;
   @include large {
     padding-left: 0.25rem;
@@ -117,18 +105,37 @@ const languageOptions = Navigation.toolbar.language_options
 }
 
 .site-nav-link {
-  &:not(:last-child) {
-    margin-right: 3.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  &:hover {
+    &:before {
+      transition: 150ms ease-in;
+      height: toRem(5);
+    }
   }
   @include large {
     &:not(:last-child) {
       margin-right: 2rem;
     }
   }
+  &:not(:last-child) {
+    margin-right: 3.125rem;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0px;
+    background-color: var(--theme-color);
+    transition: 150ms ease-out;
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Toolbar
-.toolbar-list {
+#site-toolbar {
   display: flex;
   align-items: center;
   & > * {

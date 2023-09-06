@@ -56,7 +56,14 @@ $toggleHeight: toRem(30);
   background-color: var(--theme-toggle__background-color);
   transition: 150ms ease-out;
   &:hover {
-    transition: 150ms ease-in;
+    .icon-container {
+      background-color: var(--theme-toggle__onHover);
+    }
+    .icon {
+      :deep(path) {
+        fill: var(--theme-toggle__icon__onHover);
+      }
+    }
   }
 }
 
@@ -72,7 +79,7 @@ $toggleHeight: toRem(30);
   background-color: var(--background-color);
   border-radius: 50%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  transition: backgorund-color 500ms, transform 150ms ease-out;
+  transition: background-color 500ms, transform 150ms ease-out;
 }
 
 .icon {
@@ -80,7 +87,8 @@ $toggleHeight: toRem(30);
   width: toRem(10);
   height: toRem(10);
   :deep(path) {
-    color: var(--theme-color);
+    transition: 500ms;
+    fill: var(--theme-color);
   }
 }
 
@@ -88,7 +96,7 @@ $toggleHeight: toRem(30);
 .light,
 .dark {
   .icon-container {
-    transition: transform 150ms ease-in;
+    transition: background-color 500ms, transform 150ms ease-in;
   }
 }
 
