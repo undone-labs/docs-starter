@@ -2,103 +2,11 @@
  * This file should NOT contain any styling (classes or IDs). It should only contain
  * variables, functions, mixins, etc. If you want to override core utility functions
  * or mixins, you can do it here by including the entity with the same name.
+ *
+ * Make sure to copy the corresponding variables from
+ * @/src/assets/scss/zero/utilities.scss prior to writing any SCSS declarations.
+ * This will ensure that this file is always in sync and correctly overriding the
+ * core theme.
  */
 
-// /////////////////////////////////////////////////////////////////// Variables
-// -----------------------------------------------------------------------------
-// ===================================================================== General
-/*
- * General layout spacing settings
- */
-// $siteHeaderHeight: toRem(78);
-// $sidebarWidth: $gridWidth * 0.16667;
-// $bodyOffsetTop: calc($siteHeaderHeight + 3rem);
-// $sidebarPadding: 2rem;
-
-// ===================================================================== Colours
-/*
- * Color variables used in light and dark mode global css variables.
- * The variables names should be replaced with color names in addition to
- * updating their values. New variable names should replace those in variable
- * declarations below.
- */
-
-// $blueRibbon: #0046F9; // rgb(0, 70, 249)
-// $dodgerBlue: #5196FF; // rgb(81, 150, 255)
-// $blueViolet: #615FB1; // rgb(97, 95, 177)
-// $portage: #908EF6; // rgb(144, 142, 246)
-// $wildSand: #F5F5F5; // rgb(245, 245, 245)
-// $alto: #D3D3D3; // rgb(211, 211, 211)
-// $codGray: #181818; // rgb(24, 24, 24)
-// $mineShaft: #303030; // rgb(48, 48, 48)
-// $melrose: #B2CDFF; // rgb(178, 205, 255)
-// $bayOfMany: #1E3F82; // rgb(30, 63, 130)
-
-// $replace1: #D9D9D9;
-// $replace2: #C6C6C6;
-// $replace3: #E8E8E8;
-// $replace4: #000000;
-
-// ====================================================================== Themes
-// :root {
-//   --background-color: #{$wildSand};
-//   --background-color__secondary: white;
-//   --theme-toggle__background-color: #{$wildSand};
-//   --theme-toggle__border-color: #{$alto};
-//   --theme-color: #{$codGray};
-//   --divider: #{$alto};
-//   --link-color: #{$blueRibbon};
-//   --link-hover-color: #{$melrose};
-//   --code-text-color: #{$portage};
-//   --code-background-color: #{$mineShaft};
-// }
-
-// .dark {
-//   --background-color: #{$codGray};
-//   --background-color__secondary: black;
-//   --theme-toggle__background-color: #383838;
-//   --theme-toggle__border-color: #5A5A5A;
-//   --theme-color: #{$wildSand};
-//   --divider: #{$mineShaft};
-//   --link-color: #{$dodgerBlue};
-//   --link-hover-color: #{$bayOfMany};
-//   --code-text-color: #{$portage};
-//   --code-background-color: #{$mineShaft};
-// }
-
-// ===================================================================== Styling
-/*
- * General use box shadow and focus ring styling.
- */
-// @mixin shadow1 {
-//   // add your styles here
-// }
-
-// @mixin shadow2 {
-//   // add your styles here
-// }
-
-// @mixin focusBoxShadow {
-//   // add your styles here
-// }
-
-// @mixin focusBoxShadowSmall {
-//   // add your styles here
-// }
-
-// @mixin focusBoxShadowLink {
-//   // add your styles here
-// }
-
-/*
- * Update color variables below with newly added variables declared above
- */
-// @mixin selection-dark {
-//   ::-moz-selection { /* add your styles here */ }
-//   ::selection { /* add your styles here */ }
-// }
-
-// @mixin selection-light {
-//   ::-moz-selection { /* add your styles here */ }
-//   ::selection { /* add your styles here */ }
-// }
+// add your utilities here

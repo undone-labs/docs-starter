@@ -1,15 +1,21 @@
 //////////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
 /*
- * fonts, text and background colours are applied here
- * see utilities.scss to edit these vars
+ * Make sure to copy the corresponding variables from
+ * @/src/assets/scss/zero/zero.scss prior to writing any global SCSS declarations.
+ * This will ensure that this file is always in sync and correctly overriding the
+ * core theme.
  */
-// body {
-//   // add your styles here
+
+// html {
+//   &.dark {
+//     body {
+//       // add your styles here
+//     }
+//   }
 // }
 
-// pre,
-// code {
+// body {
 //   // add your styles here
 // }
 
@@ -20,6 +26,4 @@
  * components directory. Custom files can be added and imported here too.
  */
 
-@import 'components/chevron';
-@import 'components/markdown';
-@import 'components/toast';
+// @import 'components/your-component';

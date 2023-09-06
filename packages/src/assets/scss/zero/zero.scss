@@ -1,5 +1,11 @@
 //////////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
+/**
+ * Fonts, text and background colours are applied here.
+ *
+ * See utilities.scss to edit these vars.
+ */
+
 html {
   &.dark {
     body {
@@ -18,10 +24,6 @@ body {
 pre,
 code {
   font-family: $fontDIN;
-}
-
-h1, h2, h3, h4, h5, h6, li, p {
-  transition: color 500ms;
 }
 
 .page {
