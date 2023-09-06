@@ -16,6 +16,11 @@ const props = defineProps({
   markdown: { // unprocessed markdown
     type: String,
     required: true
+  },
+  prefixHeadingIds: { // used to scope headings
+    type: String,
+    required: false,
+    default: ''
   }
 })
 
@@ -64,7 +69,7 @@ renderer.heading = function (text, level) {
           <path fill="#E3D3C0" d="M59.15,135.908c1.465,1.465,3.384,2.197,5.304,2.197c1.919,0,3.839-0.732,5.303-2.196l66.164-66.161c2.93-2.929,2.93-7.678,0.001-10.606c-2.929-2.93-7.678-2.929-10.606-0.001l-66.164,66.161C56.221,128.23,56.221,132.979,59.15,135.908z" />
         </svg>
       </button>
-      <h${level} id="${escapedText}">
+      <h${level} id="${props.prefixHeadingIds}${escapedText}">
         ${text}
       </h${level}>
     </div>

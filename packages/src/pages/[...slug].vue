@@ -19,7 +19,7 @@
 
     <!-- ========================================================== Sections -->
     <section
-      v-for="section in content"
+      v-for="(section, index) in content"
       :key="section._path"
       class="section">
 
@@ -31,6 +31,7 @@
             <MarkdownParser
               id="markdown"
               :markdown="section.body"
+              :prefix-heading-ids="content.length > 1 ? `section-${index + 1}-` : ''"
               class="markdown" />
           </div>
         </div>
