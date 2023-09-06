@@ -88,7 +88,6 @@ $fontAssetPath: 'assets/fonts';
   line-height: leading(34, 24);
   font-weight: 500;
   letter-spacing: 0em;
-  margin-bottom: 1.25rem;
 }
 
 @mixin h4 {
@@ -120,7 +119,6 @@ $fontAssetPath: 'assets/fonts';
   line-height: leading(21, 14);
   font-weight: 400;
   letter-spacing: 0.2px;
-  // margin-bottom: 1.2rem;
 }
 
 @mixin inlineCode {

@@ -55,10 +55,17 @@ const registerStores = (submodule, stores) => {
   })
 }
 
+// //////////////////////////////////////////////////////////////////// runHooks
+const runHooks = (nuxt) => {
+  nuxt.hook('content:context', (contentContext) => {
+    contentContext.transformers.push(resolve('nuxt-content-transformers/output-raw-markdown.js'))
+  })
+}
+
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
-const setup = async () => {
-  const modulePath = resolve()
+const setup = async (options, nuxt) => {
+  const modulePath = `${resolve()}/components`
   const submodules = Fs.readdirSync(modulePath)
   const len = submodules.length
   for (let i = 0; i < len; i++) {
@@ -66,11 +73,12 @@ const setup = async () => {
     const path = `${modulePath}/${submodule}`
     if (Fs.statSync(path).isDirectory()) {
       const config = await import(`${path}/index.js`)
-      registerPlugins(submodule, config.plugins)
-      registerStores(submodule, config.stores)
-      registerComponents(submodule, config.components)
+      registerPlugins(`components/${submodule}`, config.plugins)
+      registerStores(`components/${submodule}`, config.stores)
+      registerComponents(`components/${submodule}`, config.components)
     }
   }
+  runHooks(nuxt)
 }
 
 // ////////////////////////////////////////////////////////////////////// Export

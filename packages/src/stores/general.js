@@ -47,10 +47,9 @@ const setActiveLinkMarkerHeight = () => {
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard
-// const setClipboard = (text) => {
-//   this.$addTextToClipboard(text)
-//   commit('SET_CLIPBOARD', text)
-// }
+const setClipboard = (text) => {
+  clipboard.value = text
+}
 
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
@@ -65,5 +64,6 @@ export const useGeneralStore = defineStore('general', () => ({
   setTheme,
   setActiveUrlHash,
   compileMagellanLinks,
-  setActiveLinkMarkerHeight
+  setActiveLinkMarkerHeight,
+  setClipboard
 }))

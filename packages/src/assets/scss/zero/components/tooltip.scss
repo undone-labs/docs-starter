@@ -22,12 +22,13 @@
     top: calc(100% + 2px);
     border-left: 0.5rem solid transparent;
     border-right: 0.5rem solid transparent;
-    border-bottom: 0.375rem solid salmon;
+    border-bottom: 0.375rem solid var(--primary-text-color);
   }
   &:after {
     content: attr(data-tooltip);
     top: calc(100% + 0.5rem);
-    background-color: salmon;
+    color: var(--background-color);
+    background-color: var(--primary-text-color);
     font-family: inherit;
     font-size: 0.625rem;
     white-space: nowrap;

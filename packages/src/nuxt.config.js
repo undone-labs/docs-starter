@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
+      frontendUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
       serverFlag: env,
       seo: {
         siteName: seo.siteName
@@ -89,8 +90,8 @@ export default defineNuxtConfig({
     '@/modules/eslint-nuxt3-globals',
     '@nuxtjs/eslint-module',
     '@/modules/doczilla',
+    '@/modules/zero',
     '@nuxt/content',
-    '@/modules/zero-components',
     'nuxt-simple-robots', // https://github.com/harlan-zw/nuxt-simple-robots
     'nuxt-simple-sitemap' // https://github.com/harlan-zw/nuxt-simple-sitemap
   ],

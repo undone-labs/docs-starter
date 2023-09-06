@@ -28,9 +28,9 @@
         <!-- ======================================================= Content -->
         <div class="col-6" data-push-left="off-2">
           <div class="content">
-            <ContentRendererMarkdown
+            <MarkdownParser
               id="markdown"
-              :value="section.body"
+              :markdown="section.body"
               class="markdown" />
           </div>
         </div>
