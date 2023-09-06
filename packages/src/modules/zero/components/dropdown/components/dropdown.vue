@@ -17,7 +17,8 @@
         <slot
           name="dropdown-panel"
           :close-panel="closePanel"
-          :set-selected="setSelected">
+          :set-selected="setSelected"
+          :is-selected="isSelected">
         </slot>
       </div>
 
@@ -68,26 +69,39 @@ onMounted(() => {
 /**
  * @method togglePanel
  */
+
 const togglePanel = () => {
   if (props.toggleOn === 'click') {
     panelOpen.value = !panelOpen.value
   }
 }
+
 /**
  * @method closePanel
  */
+
 const closePanel = () => {
   if (props.toggleOn === 'click' && panelOpen.value) {
     panelOpen.value = false
   }
 }
+
 /**
  * @method setSelected
  */
-const setSelected = (val) => {
+
+const setSelected = (value) => {
   if (props.displaySelected) {
-    selected.value = val
+    selected.value = value
   }
+}
+
+/**
+ * @method isSelected
+ */
+
+const isSelected = (value) => {
+  return value === selected.value
 }
 </script>
 
