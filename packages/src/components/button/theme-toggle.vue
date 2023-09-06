@@ -50,13 +50,12 @@ $toggleHeight: toRem(30);
   display: flex;
   width: toRem(50);
   height: $toggleHeight;
-  border: 2px solid var(--divider);
+  border: 2px solid var(--theme-toggle__border-color);
   border-radius: toRem(17.5);
   box-sizing: border-box;
-  background-color: var(--background-color);
+  background-color: var(--theme-toggle__background-color);
   transition: 150ms ease-out;
   &:hover {
-    // border-color: var(--primary-text-color);
     transition: 150ms ease-in;
   }
 }
@@ -70,10 +69,10 @@ $toggleHeight: toRem(30);
   height: calc(#{$toggleHeight} - 8px);
   margin-top: 2px;
   margin-left: 2px;
-  background-color: var(--secondary-background-color);
+  background-color: var(--background-color);
   border-radius: 50%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  transition: transform 150ms ease-out;
+  transition: backgorund-color 500ms, transform 150ms ease-out;
 }
 
 .icon {
@@ -81,7 +80,7 @@ $toggleHeight: toRem(30);
   width: toRem(10);
   height: toRem(10);
   :deep(path) {
-    color: var(--primary-text-color);
+    color: var(--theme-color);
   }
 }
 

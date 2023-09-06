@@ -69,9 +69,10 @@ const languageOptions = Navigation.toolbar.language_options
   width: 100%;
   height: $siteHeaderHeight;
   padding: 1rem 2.5rem;
-  border-bottom: 1px solid var(--divider);
   background-color: var(--background-color);
+  border-bottom: 1px solid var(--divider);
   z-index: 1000;
+  transition: background-color 500ms, border-color 500ms;
 }
 
 // /////////////////////////////////////////////////////////////////// Site Logo
@@ -89,13 +90,10 @@ const languageOptions = Navigation.toolbar.language_options
     transition: 150ms ease-in;
     transform: scale(1.05);
   }
-  :deep(path) {
-    transition: 150ms ease-out;
-    fill: var(--primary-text-color);
-  }
+  :deep(path),
   :deep(rect) {
-    transition: 150ms ease-out;
-    stroke: var(--primary-text-color);
+    transition: fill 500ms;
+    fill: var(--theme-color);
   }
 }
 
@@ -144,8 +142,7 @@ const languageOptions = Navigation.toolbar.language_options
   display: flex;
   :deep(path) {
     transition: 150ms ease-out;
-    fill: var(--primary-text-color);
+    fill: var(--theme-color);
   }
 }
-
 </style>

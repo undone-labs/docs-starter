@@ -228,15 +228,15 @@ button {
   letter-spacing: 0.4px;
 }
 
-@mixin magellan {
-  font-size: toRem(13);
-  line-height: leading(24, 13);
-  font-weight: 500;
+@mixin magellanLink {
+  font-size: toRem(14);
+  line-height: 1.2;
   letter-spacing: 0.2px;
-  color: var(--sidebar-text-color);
+  white-space: break-spaces;
+  color: var(--theme-color);
   &:hover {
     cursor: pointer;
-    color: var(--primary-text-color)
+    color: var(--link-color);
   }
 }
 

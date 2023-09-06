@@ -119,7 +119,7 @@ const hashIsActive = (hash) => {
   width: 0.25rem;
   background-color: var(--link-color);
   border-radius: toRem(4);
-  transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out, background-color 500ms;
   &.hide {
     opacity: 0;
   }
@@ -138,8 +138,6 @@ const hashIsActive = (hash) => {
 }
 
 .button-label {
-  white-space: break-spaces;
-  line-height: 1.2;
-  font-size: toRem(14);
+  @include magellanLink;
 }
 </style>

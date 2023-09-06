@@ -8,7 +8,7 @@
       <div class="section-heading">
 
         <template v-if="useResolveDoczillaComponent(directory.icon)">
-          <component :is="useResolveDoczillaComponent(directory.icon)" class="icon" />
+          <component :is="useResolveDoczillaComponent(directory.icon)" class="icon-directory" />
         </template>
 
         <h2
@@ -72,9 +72,20 @@ const isCurrentRoute = (path) => {
 .section-heading {
   display: flex;
   align-items: center;
-  .icon {
-    width: toRem(21);
-    margin-right: toRem(14);
+}
+
+:deep(.icon-directory) {
+  width: toRem(21);
+  margin-right: toRem(14);
+  path,
+  rect {
+    transition: 500ms;
+  }
+  path {
+    fill: var(--theme-color);
+  }
+  rect {
+    stroke: var(--theme-color);
   }
 }
 
@@ -82,6 +93,7 @@ const isCurrentRoute = (path) => {
   @include sidebarSectionTitle;
   padding: toRem(4) 0;
   margin: 0;
+  transition: color 200ms;
   &.active {
     color: var(--link-color);
   }
@@ -99,7 +111,7 @@ const isCurrentRoute = (path) => {
   &:hover:not(.router-link-active) {
     cursor: pointer;
     .button-label {
-      transition: 150ms ease-in;
+      transition: 500ms ease-in;
       color: var(--link-color);
     }
   }
@@ -114,7 +126,7 @@ const isCurrentRoute = (path) => {
   }
   .button-label {
     @include sidebar;
-    transition: 150ms ease-out;
+    transition: color 500ms;
   }
 }
 </style>

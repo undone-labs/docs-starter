@@ -35,7 +35,7 @@
       </div>
       <div v-if="nextSection" class="directory-title">
         <template v-if="useResolveDoczillaComponent(next.dirIcon)">
-          <component :is="useResolveDoczillaComponent(next.dirIcon)" class="icon" />
+          <component :is="useResolveDoczillaComponent(next.dirIcon)" class="icon-directory" />
         </template>
         {{ nextSection.title }}
       </div>
@@ -118,12 +118,13 @@ const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? cur
     }
     .page-title {
       transition: 150ms ease-in;
-      color: $blueRibbon;
+      color: var(--link-color);
     }
   }
   .button-content {
     display: flex;
     flex-direction: column;
+    transition: none;
   }
   &.prev {
     .button-content {
@@ -137,12 +138,18 @@ const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? cur
   }
 }
 
+.label,
+.page-title,
+.directory-title {
+  transition: 500ms;
+}
+
 .label {
   font-size: toRem(18);
   font-weight: 700;
 }
 
-.icon-arrow {
+:deep(.icon-arrow) {
   width: toRem(14);
   transition: 150ms ease-out;
   &.left {
@@ -152,12 +159,15 @@ const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? cur
     margin-left: toRem(11);
     transform: rotate(180deg);
   }
+  path {
+    fill: var(--theme-color);
+    transition: 500ms;
+  }
 }
 
 .page-title {
   font-size: toRem(18);
   font-weight: 500;
-  transition: 150ms ease-out;
 }
 
 .directory-title {
@@ -166,9 +176,20 @@ const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? cur
   align-items: center;
   font-size: toRem(14);
   font-weight: 500;
-  .icon {
-    margin-right: 0.5rem;
-    width: toRem(16);
+}
+
+:deep(.icon-directory) {
+  margin-right: 0.5rem;
+  width: toRem(16);
+  path,
+  rect {
+    transition: 500ms;
+  }
+  path {
+    fill: var(--theme-color);
+  }
+  rect {
+    stroke: var(--theme-color);
   }
 }
 </style>

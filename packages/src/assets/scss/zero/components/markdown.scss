@@ -62,7 +62,7 @@
     display: block;
     @include h2;
     margin-bottom: toRem(20);
-    color: var(--primary-text-color);
+    color: var(--theme-color);
   }
 
   h1.heading-anchor > a {
@@ -92,7 +92,7 @@
   // =================================================================== General
   hr {
     margin-bottom: 2rem;
-    border: solid 1px var(--secondary-background-color);
+    border: solid 1px var(--background-color__secondary);
   }
 
   pre,
@@ -131,7 +131,7 @@
       padding-left: toRem(22);
       margin: 0;
       &:before {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         left: 0.5rem;
@@ -141,7 +141,7 @@
         margin: 0;
         transform: translateY(-25%);
         border-radius: 50%;
-        background-color: var(--primary-text-color);
+        background-color: var(--theme-color);
       }
     }
   }
@@ -153,7 +153,7 @@
   li > ul > li {
     &:before {
       background-color: transparent;
-      border: solid 1px var(--primary-text-color);
+      border: solid 1px var(--theme-color);
     }
   }
 
@@ -168,7 +168,7 @@
     margin: 0 toRem(-42);
     padding: toRem(21) toRem(23);
     border-radius: toRem(10);
-    background-color: var(--secondary-background-color);
+    background-color: var(--background-color__secondary);
     p {
       @include h4;
       margin-bottom: toRem(9);
@@ -191,7 +191,7 @@
         height: 4px;
         margin: 0;
         border-radius: 50%;
-        background-color: var(--primary-text-color);
+        background-color: var(--theme-color);
       }
     }
   }
@@ -219,15 +219,15 @@
   }
 
   thead > tr {
-    background-color: var(--primary-background-color);
+    background-color: var(--background-color);
   }
 
   tbody > tr {
     &:nth-child(odd) {
-      background-color: var(--secondary-background-color);
+      background-color: var(--background-color__secondary);
     }
     &:nth-child(even) {
-      background-color: var(--primary-background-color);
+      background-color: var(--background-color);
     }
     &:last-child {
       td {
@@ -265,7 +265,7 @@
     svg {
       width: 1.25rem;
       path {
-        fill: var(--primary-text-color);
+        fill: var(--theme-color);
       }
     }
     h1, h2, h3, h4, h5, h6 {

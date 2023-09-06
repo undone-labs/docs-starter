@@ -224,7 +224,8 @@ const getPreviewComponentName = (path) => {
 
 .section {
   &:not(:nth-child(2)) {
-    border-top: solid 2px var(--secondary-background-color);
+    border-top: solid 2px var(--background-color__secondary);
+    transition: border-color 500ms;
   }
 }
 
