@@ -230,7 +230,7 @@ const getPreviewComponentName = (path) => {
 
 :deep(.content) {
   h2, h3, h4, h5, h6 {
-    scroll-margin-top: $siteHeaderHeight + 1.75rem;
+    scroll-margin-top: calc(#{$siteHeaderHeight} + 1.75rem);
   }
 }
 
