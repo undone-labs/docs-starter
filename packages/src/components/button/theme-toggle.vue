@@ -6,9 +6,9 @@
     @click="toggleTheme">
     <span class="icon-container">
 
-      <IconSun v-if="theme === 'light'" class="icon" />
+      <IconSun v-if="theme === 'light'" class="icon sun" />
 
-      <IconMoon v-if="theme === 'dark'" class="icon" />
+      <IconMoon v-if="theme === 'dark'" class="icon moon" />
 
     </span>
   </button>
@@ -43,58 +43,65 @@ const toggleTheme = () => {
 </script>
 
 <style lang="scss" scoped>
+$toggleHeight: toRem(30);
+
 // ///////////////////////////////////////////////////////////////////// General
 #theme-toggle {
   display: flex;
-  width: toRem(70);
-  height: toRem(35);
+  width: toRem(50);
+  height: $toggleHeight;
   border: 2px solid var(--divider);
   border-radius: toRem(17.5);
   box-sizing: border-box;
   background-color: var(--background-color);
+  transition: 150ms ease-out;
   &:hover {
     // border-color: var(--primary-text-color);
-    transition: 250ms ease-in;
+    transition: 150ms ease-in;
   }
 }
 
 .icon-container {
-  margin: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(#{$toggleHeight} - 8px);
+  height: calc(#{$toggleHeight} - 8px);
+  margin-top: 2px;
+  margin-left: 2px;
   background-color: var(--secondary-background-color);
   border-radius: 50%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: transform 150ms ease-out;
 }
 
 .icon {
   display: block;
-  width: toRem(15);
-  height: toRem(15);
-  margin: 5px;
+  width: toRem(10);
+  height: toRem(10);
   :deep(path) {
     color: var(--primary-text-color);
   }
 }
 
 // ////////////////////////////////////////////////////////////////////// Themes
+.light,
+.dark {
+  .icon-container {
+    transition: transform 150ms ease-in;
+  }
+}
+
 .light {
   .icon-container {
     transform: translateX(0);
-    transition: transform 250ms ease-in;
-    .icon-sun {
-      opacity: 1;
-      transition: opacity 100ms ease-in;
-    }
   }
 }
 
 .dark {
   .icon-container {
-    transform: translateX(toRem(34));
-    transition: transform 250ms ease-in;
-    .icon-moon {
-      opacity: 1;
-      transition: opacity 100ms ease-in;
-    }
+    transform: translateX(calc(#{$toggleHeight} - 10px));
   }
 }
 </style>
