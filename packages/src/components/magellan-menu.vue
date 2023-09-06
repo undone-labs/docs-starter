@@ -18,7 +18,7 @@
       :link-hash="link.hash.slice(1)"
       :link-index="index"
       class="link">
-      <div class="button-label" v-html="link.text" />
+      <div class="button-label" v-html="link.text.trim()" />
     </ButtonClear>
 
   </nav>
