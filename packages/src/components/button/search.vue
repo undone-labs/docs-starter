@@ -3,16 +3,16 @@
     class="search-button"
     @click="handleClick">
 
-    <div v-if="icon" class="search-icon">
+    <div v-if="props.icon" class="search-icon">
       <IconSearch />
     </div>
 
-    <div v-if="text" class="text">
+    <div v-if="props.text" class="text">
       {{ text }}
     </div>
 
-    <div v-if="keyCommand" class="key-command">
-      {{ keyCommand }}
+    <div v-if="props.keyCommand" class="key-command">
+      <span>{{ keyCommand }}</span>
     </div>
 
   </button>
@@ -65,6 +65,15 @@ const handleClick = () => {
 
 .search-icon {
   display: flex;
+  :deep(path) {
+    transition: 250ms ease;
+    fill: var(--primary-text-color);
+  }
+}
+
+.text {
+  @include navigation;
+  font-weight: 400;
 }
 
 .key-command {
@@ -73,5 +82,10 @@ const handleClick = () => {
   border-radius: toRem(5);
   padding: 0.25rem 0.5rem 0.1875rem 0.5rem;
   line-height: 1;
+  span {
+    line-height: inherit;
+    opacity: 0.6;
+  }
 }
+
 </style>

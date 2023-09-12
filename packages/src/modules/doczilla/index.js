@@ -49,6 +49,16 @@ const registerTargetDirComponents = (nuxt) => {
   })
 }
 
+// ///////////////////////////////////////////////// registerTargetDirComponents
+const registerCustomComponents = (nuxt) => {
+  addComponentsDir({
+    path: resolve(nuxt.options.vite.root, 'docs/components'),
+    pathPrefix: false,
+    prefix: 'Doczilla',
+    global: true
+  })
+}
+
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
 const setup = (options, nuxt) => {
@@ -57,6 +67,7 @@ const setup = (options, nuxt) => {
     if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
     registerTargetDirWithContentModule(nuxt)
     registerTargetDirComponents(nuxt)
+    registerCustomComponents(nuxt)
   } catch (e) {
     console.log('\n')
     console.log(e)

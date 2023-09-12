@@ -3,14 +3,14 @@
 body {
   @include selection-light;
   color: var(--primary-text-color);
-  font-family: $fontInter;
+  font-family: $fontDIN;
   background-color: var(--background-color);
   transition: background-color 250ms;
 }
 
 pre,
 code {
-  font-family: $fontMenlo;
+  font-family: $fontDIN;
 }
 
 ///////////////////////////////////////////////////////////////////// Components

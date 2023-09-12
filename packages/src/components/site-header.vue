@@ -68,26 +68,19 @@ const languageOptions = Navigation.toolbar.language_options
   position: fixed;
   top: 0;
   left: 0;
-  // left: calc((100% - $gridWidth) / 2 + $sidebarWidth);
-  // width: calc(100% - (100% - $gridWidth) / 2 - $sidebarWidth);
   width: 100%;
   height: $siteHeaderHeight;
-  padding: 0 2.5rem;
+  padding: 1rem 2.5rem;
   border-bottom: 1px solid var(--divider);
   background-color: var(--background-color);
   z-index: 1000;
-  // @include gridMaxMQ {
-  //   left: $sidebarWidth;
-  //   width: calc(100% - $sidebarWidth);
-  // }
 }
 
 // /////////////////////////////////////////////////////////////////// Site Logo
 .logo-link {
   position: relative;
-  z-index: 10000;
   display: block;
-  height: 75%;
+  z-index: 10000;
 }
 
 .logo {

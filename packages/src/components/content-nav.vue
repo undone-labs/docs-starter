@@ -5,9 +5,15 @@
       :key="directory.slug"
       class="section">
 
-      <h2
-        class="title"
-        v-html="directory.title" />
+      <div class="section-heading">
+
+        <template v-if="resolveDynamicComp(directory.icon)">
+          <component :is="resolveDynamicComp(directory.icon)" class="icon" />
+        </template>
+
+        <h2 class="title" v-html="directory.title" />
+
+      </div>
 
       <ButtonClear
         v-for="link in directory.children"
@@ -30,6 +36,8 @@
 </template>
 
 <script setup>
+import { getCurrentInstance } from 'vue'
+
 // ======================================================================== Data
 const { data: sidebar } = await useAsyncData('sidebar', () => {
   const queryWithout = ['title', '_dir', '_draft', '_extension', '_file', '_id', '_locale', '_partial', '_path', '_source', '_type']
@@ -47,6 +55,23 @@ const navigation = sidebar.value.body
 const generateLink = (dirSlug, href) => {
   return `/${dirSlug}${href}`
 }
+/**
+ * @method resolveDynamicComp
+ */
+const resolveDynamicComp = (name) => {
+  if (!name) { return false }
+  const instance = getCurrentInstance()
+  const handle = useToPascalCase(name, '')
+  const compToResolve = `Doczilla${handle}`
+  if (
+    typeof instance?.appContext.components === 'object' &&
+    compToResolve in instance.appContext.components
+  ) {
+    return compToResolve
+  }
+  return false
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +79,14 @@ const generateLink = (dirSlug, href) => {
 .section {
   &:not(:first-of-type) {
     padding-top: 1rem;
+  }
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: toRem(14);
   }
 }
 
@@ -65,6 +98,13 @@ const generateLink = (dirSlug, href) => {
 
 .link {
   display: block;
+  padding: toRem(4) 0;
+  &:first-child {
+    padding-top: 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
   &:hover:not(.router-link-active) {
     cursor: pointer;
     .button-label {
@@ -74,8 +114,8 @@ const generateLink = (dirSlug, href) => {
   }
   &.router-link-active {
     .button-label {
-      color: var(--brand-color);
-      font-weight: 600;
+      color: var(--link-color);
+      font-weight: 700;
     }
   }
 }

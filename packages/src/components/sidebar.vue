@@ -44,6 +44,10 @@
   }
 }
 
+#magellan-menu {
+  padding-top: calc($sidebarPadding + 1.25rem);
+}
+
 .gradient {
   position: absolute;
   left: 0;
@@ -53,11 +57,11 @@
   z-index: 100;
   &.top {
     top: 0;
-    background: linear-gradient(to bottom, white, rgba(white, 0));
+    background: linear-gradient(to bottom, var(--background-color), rgba(var(--background-color), 0));
   }
   &.bottom {
     bottom: 0;
-    background: linear-gradient(to top, white, rgba(white, 0));
+    background: linear-gradient(to top, var(--background-color), rgba(var(--background-color), 0));
   }
 }
 

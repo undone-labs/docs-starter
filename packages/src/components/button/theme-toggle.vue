@@ -6,9 +6,9 @@
     @click="toggleTheme">
     <span class="icon-container">
 
-      <IconSun v-if="theme === 'light'" />
+      <IconSun v-if="theme === 'light'" class="icon" />
 
-      <IconMoon v-if="theme === 'dark'" />
+      <IconMoon v-if="theme === 'dark'" class="icon" />
 
     </span>
   </button>
@@ -46,31 +46,32 @@ const toggleTheme = () => {
 // ///////////////////////////////////////////////////////////////////// General
 #theme-toggle {
   display: flex;
-  width: 2.5rem;
-  height: toRem(20);
-  border: 1px solid var(--secondary-text-color);
-  border-radius: toRem(10);
-  background-color: var(--code-background-color);
+  width: toRem(70);
+  height: toRem(35);
+  border: 2px solid var(--divider);
+  border-radius: toRem(17.5);
+  box-sizing: border-box;
+  background-color: var(--background-color);
   &:hover {
-    border-color: var(--primary-text-color);
+    // border-color: var(--primary-text-color);
     transition: 250ms ease-in;
   }
 }
 
 .icon-container {
-  margin: 1px;
-  background-color: var(--background-color);
+  margin: 3px;
+  background-color: var(--secondary-background-color);
   border-radius: 50%;
-  box-shadow: var(--shadow-1);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .icon {
   display: block;
-  opacity: 0;
-  height: toRem(14);
-  margin: 1px 2px;
+  width: toRem(15);
+  height: toRem(15);
+  margin: 5px;
   :deep(path) {
-    color: var(--sidebar-text-color);
+    color: var(--primary-text-color);
   }
 }
 
@@ -88,7 +89,7 @@ const toggleTheme = () => {
 
 .dark {
   .icon-container {
-    transform: translateX(toRem(18));
+    transform: translateX(toRem(34));
     transition: transform 250ms ease-in;
     .icon-moon {
       opacity: 1;

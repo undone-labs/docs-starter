@@ -1,7 +1,7 @@
 <template>
   <ZeroDropdown
     :display-selected="true"
-    :default-option="options[0]"
+    :default-option="props.options[0]"
     @option-selected="handleOptionSelect">
 
     <template #toggle-button="{ togglePanel, panelOpen, selected }">
@@ -13,7 +13,7 @@
 
     <template #dropdown-panel="{ setSelected }">
       <button
-        v-for="option in options"
+        v-for="option in props.options"
         :key="option"
         class="dropdown-option"
         @click="setSelected(option)">
@@ -53,6 +53,7 @@ const handleOptionSelect = (val) => {
   }
   .selection {
     margin-right: toRem(5);
+    @include navigation;
   }
 }
 
