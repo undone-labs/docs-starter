@@ -4,7 +4,7 @@
     <!-- ============================================================ Header -->
     <header>
       <div class="grid">
-        <div class="col-6" data-push-left="off-2">
+        <div class="col-6_md-8" data-push-left="off-2_lg-3_md-0">
           <div class="content">
             <h1
               :id="'pageSlug'"
@@ -26,7 +26,7 @@
       <div class="grid">
 
         <!-- ======================================================= Content -->
-        <div class="col-6" data-push-left="off-2">
+        <div class="col-6_md-8" data-push-left="off-2_lg-3_md-0">
           <div class="content">
             <ContentRendererMarkdown
               id="markdown"
@@ -36,7 +36,7 @@
         </div>
 
         <!-- ======================================================= Preview -->
-        <div class="col-4">
+        <div class="col-4_lg-3_md-4">
           <div class="preview">
             <component
               :is="getPreviewComponentName(section._path)"
@@ -212,6 +212,15 @@ const getPreviewComponentName = (path) => {
 .preview {
   padding: 0 2rem 0 2rem;
   @include gridMaxMQ {
+    padding-left: 0;
+  }
+}
+
+.content {
+  @include customMaxMQ(toRem(1366)) {
+    padding-left: 2rem;
+  }
+  @include large {
     padding-left: 0;
   }
 }

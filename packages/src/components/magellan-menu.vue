@@ -115,11 +115,14 @@ const hashIsActive = (hash) => {
 .active-link-marker {
   position: absolute;
   top: calc($sidebarPadding + 1.25rem);
-  left: calc($sidebarPadding - 0.5rem);
+  left: 0;
   width: 0.25rem;
   background-color: var(--link-color);
   border-radius: toRem(4);
   transition: 150ms ease-in-out;
+  @include gridMaxMQ {
+    left: calc($sidebarPadding - 0.5rem);
+  }
   &.hide {
     opacity: 0;
   }

@@ -11,14 +11,14 @@
         <li
           v-for="hit in item.hits"
           :key="hit">
-          <nuxt-link to="/">
+          <nuxt-link :to="`/${hit.objectID}`">
             <div class="hit-container">
               <div class="icon">
                 <IconHash />
               </div>
               <div class="content">
-                <span class="hit-title" v-html="hit.entryName"></span>
-                <span class="hit-path">{{ item.heading }}</span>
+                <span class="hit-title" v-html="getHitTitle(hit)"></span>
+                <span class="hit-path">{{ `${hit.entryName}` }}</span>
               </div>
               <div class="action">
                 <IconReturn />
@@ -47,15 +47,38 @@ const headings = computed(() => {
     const filtered = props.hits.filter((hit) => hit.sidebarHeading === itemHeading)
     array.push({
       heading: itemHeading,
-      hits: filtered
+      hits: filtered.slice(0, 5)
     })
   })
   return array
 })
 
-onMounted(() => {
-  console.log(headings.value)
-})
+const getHitTitle = (hit) => {
+  if (hit._highlightResult.entryName.matchLevel === 'full') {
+    return hit.entrySection
+  }
+  if (hit._highlightResult.content.matchLevel === 'full') {
+    return formatMatchingContent(hit._highlightResult.content.value, hit)
+  }
+  return hit.entrySection
+}
+
+const formatMatchingContent = (string, hit) => {
+  const sentences = string.split('.')
+  const result = sentences.find(sentence => sentence.includes('<mark>'))
+  if (result) {
+    const text = result.trim()
+    const maxChars = 75
+    const afterIndex = text.indexOf('</mark>') + 7 // add 1 for each character in '</mark>'; i.e. 7
+    if (afterIndex > maxChars - 1) {
+      const trimBefore = afterIndex - maxChars + 10 // 10 for a buffer before the end of the string
+      return `...${text.substring(trimBefore, text.length).trim()}`
+    } else {
+      return `${text.substring(0, maxChars)}`
+    }
+  }
+  return hit.entrySection
+}
 </script>
 
 <style lang="scss" scoped>
@@ -67,12 +90,21 @@ onMounted(() => {
 .hit-container {
   display: flex;
   align-items: center;
+  margin-bottom: 0.25rem;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
   .icon,
   .action {
+    display: flex;
     transition: none;
+  }
+  .icon {
     :deep(path) {
       fill: var(--primary-text-color);
+    }
+  }
+  .action {
+    :deep(path) {
+      fill: rgba(var(--primary-text-color), 0);
     }
   }
   &:hover {
@@ -100,11 +132,13 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding: 0 0.5rem;
 }
 
 .hit-source {
   color: var(--brand-color);
   @include p1;
+  font-weight: 700;
   margin-top: toRem(15);
   margin-bottom: toRem(10);
 }
@@ -117,6 +151,12 @@ onMounted(() => {
 
 .hit-title {
   @include p1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-flex: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: var(--primary-text-color);
   :deep(mark) {
     background: none;
     color: var(--brand-color);

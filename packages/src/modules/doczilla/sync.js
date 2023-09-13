@@ -140,7 +140,7 @@ const compileDirContentForAlgoliaIndexing = () => {
       const sections = parseMarkdownStringToJson(fileContents)
       sections.forEach((section) => {
         records.push({
-          objectID: `${subdir.name}|${entry}|${slugify(section.heading)}`,
+          objectID: `${subdir.name}/${entry}#${slugify(section.heading)}`,
           sidebarHeading: unslugify(subdir.name, 'capitalize-all'),
           entryName: unslugify(entry, 'capitalize-all'),
           entrySection: section.heading,

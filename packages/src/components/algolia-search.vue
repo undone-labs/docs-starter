@@ -39,7 +39,7 @@
             to close
           </span>
         </div>
-        <div class="tip">
+        <div class="tip algolia-logo">
           <span>
             search by
           </span>
@@ -67,6 +67,7 @@ const generalStore = useGeneralStore()
 const { searchModalActive } = storeToRefs(generalStore)
 const keyCommandEventListenerFunction = ref(null)
 const searchFocused = ref(false)
+const route = useRoute()
 const indexName = 'test_DOCS'
 const algolia = useAlgoliaRef()
 const serverRootMixin = ref(
@@ -118,6 +119,11 @@ const { data: algoliaState } = await useAsyncData('algolia-state', async () => {
   });
 })
 
+// ==================================================================== Watchers
+watch(route, () => {
+  if (searchModalActive.value) { closeModal() }
+})
+
 // ======================================================================= Hooks
 onBeforeMount(() => {
   if (algoliaState.value) {
@@ -143,7 +149,7 @@ const closeModal = () => { generalStore.setSearchModalActive() }
 
 const searchBoxFocus = () => { searchFocused.value = true }
 
-const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
+const searchBoxBlur = () => { searchFocused.value = false; }
 
 </script>
 
@@ -176,7 +182,7 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
   transform: translate(-50%, -50%);
   padding: 1rem;
   padding-bottom: 0;
-  background-color: var(--secondary-background-color);
+  background-color: var(--search-modal-background);
   border: solid 1px var(--divider);
   border-radius: 0.625rem;
   z-index: 10;
@@ -210,7 +216,7 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
 :deep(.hit-container) {
   padding: 0.625rem 1.25rem;
   border-radius: 10px;
-  background-color: var(--background-color);
+  background-color: var(--secondary-background-color);
 }
 
 :deep(.ais-SearchBox-input) {
@@ -219,6 +225,8 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
   @include h2;
   font-weight: 400;
   letter-spacing: 0;
+  background-color: var(--secondary-background-color);
+  color: var(--primary-text-color);
 }
 
 :deep(.ais-SearchBox-submitIcon) {
@@ -227,6 +235,12 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
   margin: 0 toRem(9);
   path {
     transition: 250ms ease;
+  }
+}
+
+:deep(.ais-SearchBox-resetIcon) {
+  path {
+    fill: var(--primary-text-color);
   }
 }
 
@@ -249,11 +263,34 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
   display: flex;
   justify-content: space-between;
   padding: toRem(10) toRem(20);
+  border-top: solid 1px var(--divider);
 }
 
 .tip {
+  display: flex;
+  align-items: center;
+  span {
+    font-size: toRem(14);
+    line-height: 1.5;
+    margin-left: 0.5rem;
+  }
   :deep(path) {
     fill: var(--primary-text-color);
+  }
+  :deep(.escape-icon) {
+    transform: translateY(0.125rem);
+  }
+  &.algolia-logo {
+    span {
+      margin-left: 0;
+      margin-right: 0.5rem
+    }
+    :deep(svg) {
+      transform: translateY(0.125rem);
+      path {
+        fill: #003DFF;
+      }
+    }
   }
 }
 </style>
