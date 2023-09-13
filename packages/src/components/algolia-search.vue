@@ -13,35 +13,7 @@
           <div class="results-dropdown">
             <ais-hits>
               <template #default="{ items }">
-                <section
-                  v-for="item in items"
-                  :key="item.objectID"
-                  class="hit-section">
-                  <div>{{ logItem(item) }}</div>
-                  <div class="hit-source">
-                    {{ item.title }}
-                  </div>
-                  <ul class="hits-list">
-                    <li
-                      v-for="hit in getHits(item)"
-                      :key="hit">
-                      <nuxt-link to="/">
-                        <div class="hit-container">
-                          <div class="icon">
-                            <IconHash />
-                          </div>
-                          <div class="content">
-                            <span class="hit-title" v-html="hit.title.value"></span>
-                            <span class="hit-path">{{ item.title }}</span>
-                          </div>
-                          <div class="action">
-                            <IconReturn />
-                          </div>
-                        </div>
-                      </nuxt-link>
-                    </li>
-                  </ul>
-                </section>
+                <HitsList :hits="items" />
               </template>
             </ais-hits>
           </div>
@@ -167,15 +139,6 @@ onBeforeUnmount(() => {
 })
 
 // ===================================================================== Methods
-const logItem = (item) => {
-  console.log(item)
-  return ''
-}
-
-const getHits = (item) => {
-  return item._highlightResult.children.filter(e => e.title.matchLevel !== 'none')
-}
-
 const closeModal = () => { generalStore.setSearchModalActive() }
 
 const searchBoxFocus = () => { searchFocused.value = true }
@@ -212,13 +175,19 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 1rem;
+  padding-bottom: 0;
   background-color: var(--secondary-background-color);
   border: solid 1px var(--divider);
   border-radius: 0.625rem;
   z-index: 10;
 }
 
+:deep(.ais-InstantSearch) {
+  height: calc(100% - toRem(54)); // 100% - bottom toolbar height
+}
+
 :deep(.ais-SearchBox) {
+  height: toRem(84);
   margin-bottom: 1rem;
   border: 3px solid var(--divider);
   transition: border 250ms ease;
@@ -230,6 +199,11 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
       }
     }
   }
+}
+
+.results-container {
+  height: calc(100% - toRem(84) - 1rem); // 100% minus height and margin on search input
+  overflow: scroll;
 }
 
 :deep(.ais-SearchBox),
@@ -263,74 +237,6 @@ const searchBoxBlur = () => { searchFocused.value = false; console.log('blur') }
 
 :deep(.ais-Hits-item) {
   width: unset;
-}
-
-.hits-list {
-  list-style: none;
-}
-
-.hit-container {
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
-  .icon,
-  .action {
-    transition: none;
-    :deep(path) {
-      fill: var(--primary-text-color);
-    }
-  }
-  &:hover {
-    background-color: var(--brand-color);
-    .hit-title,
-    .hit-path {
-      color: white;
-      :deep(mark) {
-        color: white;
-      }
-    }
-    .hit-path {
-      opacity: 0.7;
-    }
-    .icon,
-    .action {
-      :deep(path) {
-        fill: white;
-      }
-    }
-  }
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.hit-source {
-  color: var(--brand-color);
-  @include p1;
-  margin-top: toRem(15);
-  margin-bottom: toRem(10);
-}
-
-.hit-title,
-.hit-path {
-  display: block;
-  transition: none;
-}
-
-.hit-title {
-  @include p1;
-  :deep(mark) {
-    background: none;
-    color: var(--brand-color);
-  }
-}
-
-.hit-path {
-  @include p2;
-  color: var(--secondary-text-color);
 }
 
 // ///////////////////////////////////////////////////////// Bottom Toolbar Tips
