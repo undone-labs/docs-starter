@@ -19,7 +19,7 @@
 
     <!-- ========================================================== Sections -->
     <section
-      v-for="(section, index) in content"
+      v-for="(section, index) in pageContent"
       :key="section._path"
       class="section">
 
@@ -39,9 +39,13 @@
         <!-- ======================================================= Preview -->
         <div class="col-4">
           <div class="preview">
+
+            <ApiExplorer :sliders="section.api_explorer.sliders" />
+
             <component
               :is="getPreviewComponentName(section._path)"
               v-if="getPreviewComponentName(section._path)" />
+              
           </div>
         </div>
 
@@ -85,6 +89,15 @@ const { data: content } = await useAsyncData('content', () => {
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
+
+const pageContent = computed(() => {
+  const array = content.value.filter(item => item._extension === 'md')
+  array.forEach((mdContent) => {
+    const jsonContent = content.value.find(item => item._path === mdContent._path && item._extension === 'json')
+    if (jsonContent) { mdContent.api_explorer = jsonContent }
+  })
+  return array
+})
 
 // ==================================================================== Watchers
 watch(route, async route => {
