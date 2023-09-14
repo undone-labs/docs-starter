@@ -140,7 +140,7 @@ const intersectionObserveHeadings = () => {
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.slice(1)
     let activeUrlHash = hash
-    let activePath
+    // let activePath
     // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
     /**
      * While scrolling, update URL hash from DOM and use hash from DOM headings.
@@ -148,13 +148,13 @@ const intersectionObserveHeadings = () => {
      */
     if (intersectingTop && !navigatedByRoute.value) {
       if (entryId !== hash) {
-        activePath = `${route.path}#${entryId}`
+        // activePath = `${route.path}#${entryId}`
         activeUrlHash = entryId
       } else {
         const index = sections.value.findIndex(section => section.id === entryId)
         if (index !== 0) {
           const current = sections.value[index - 1]
-          activePath = `${route.path}#${current.id}`
+          // activePath = `${route.path}#${current.id}`
           activeUrlHash = current.id
         } else {
           activeUrlHash = false
@@ -162,7 +162,7 @@ const intersectionObserveHeadings = () => {
       }
     }
     if (!navigatedByRoute.value && activeUrlHash) {
-      history.replaceState({}, null, activePath)
+      // history.replaceState({}, null, activePath)
       generalStore.setActiveUrlHash(activeUrlHash)
     }
   }, {
@@ -184,10 +184,10 @@ const detectPageScrolledToEdgesOfViewport = () => {
       const viewportHeight = window.innerHeight
       const bodyHeight = document.body.offsetHeight
       if (y <= headerHeight.value) {
-        history.replaceState({}, null, route.path)
+        // history.replaceState({}, null, route.path)
         generalStore.setActiveUrlHash(false)
       } else if (y + viewportHeight >= bodyHeight) {
-        history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
+        // history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
         generalStore.setActiveUrlHash(lastMagellanNavItemId)
       }
     }
