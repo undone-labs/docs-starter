@@ -29,7 +29,6 @@ $dodgerBlue: #5196FF; // rgb(81, 150, 255)
 $blueViolet: #615FB1; // rgb(97, 95, 177)
 $portage: #908EF6; // rgb(144, 142, 246)
 $wildSand: #F5F5F5; // rgb(245, 245, 245)
-$white: #FFFFFF; // rgb(255, 255, 255)
 $alto: #D3D3D3; // rgb(211, 211, 211)
 $codGray: #181818; // rgb(24, 24, 24)
 $mineShaft: #303030; // rgb(48, 48, 48)
@@ -44,32 +43,34 @@ $replace4: #000000;
 
 // ====================================================================== Themes
 :root {
-  --brand-color: #{$blueRibbon}; 
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, .04), 0 1px 2px rgba(0, 0, 0, .06);
   --background-color: #{$wildSand};
-  --secondary-background-color: #{$white};
-  --primary-text-color: #{$codGray};
-  --secondary-text-color: #{$codGray};
-  --sidebar-text-color: #{$codGray};
+  --background-color__secondary: white;
+  --theme-toggle__background-color: #{$wildSand};
+  --theme-toggle__border-color: #{$alto};
+  --theme-toggle__onHover: #{$codGray};
+  --theme-toggle__icon__onHover: #{$wildSand};
+  --theme-color: #{$codGray};
+  --divider: #{$alto};
   --link-color: #{$blueRibbon};
   --link-hover-color: #{$melrose};
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
-  --divider: #{$alto};
   --search-modal-background: #{$alabaster};
 }
 
 .dark {
   --background-color: #{$codGray};
-  --secondary-background-color: #{$mineShaft};
-  --primary-text-color: #{$wildSand};
-  --secondary-text-color: #{$wildSand};
-  --sidebar-text-color: #{$wildSand};
+  --background-color__secondary: black;
+  --theme-toggle__background-color: #383838;
+  --theme-toggle__border-color: #5A5A5A;
+  --theme-toggle__onHover: #{$wildSand};
+  --theme-toggle__icon__onHover: #{$codGray};
+  --theme-color: #{$wildSand};
+  --divider: #{$mineShaft};
   --link-color: #{$dodgerBlue};
   --link-hover-color: #{$bayOfMany};
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
-  --divider: #{$mineShaft};
   --search-modal-background: #{$codGray};
 }
 
@@ -127,11 +128,11 @@ $replace4: #000000;
 }
 
 @mixin selection-dark {
-  ::-moz-selection { background: $replace2; color: $replace4; }
-  ::selection { background: $replace2; color: $replace4; }
+  ::-moz-selection { background: $bayOfMany; }
+  ::selection { background: $bayOfMany; }
 }
 
 @mixin selection-light {
-  ::-moz-selection { background: $replace3; color: $replace4; }
-  ::selection { background: $replace3; color: $replace4; }
+  ::-moz-selection { background: $melrose; }
+  ::selection { background: $melrose; }
 }

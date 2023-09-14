@@ -1,5 +1,5 @@
 <template>
-  <nav id="magellan-menu" ref="magellanMenu">
+  <nav v-if="magellanLinks.length > 0" id="magellan-menu" ref="magellanMenu">
 
     <div class="title">
       ON THIS PAGE
@@ -18,7 +18,7 @@
       :link-hash="link.hash.slice(1)"
       :link-index="index"
       class="link">
-      <div class="button-label" v-html="link.text" />
+      <div class="button-label" v-html="link.text.trim()" />
     </ButtonClear>
 
   </nav>
@@ -31,12 +31,14 @@ import { storeToRefs } from 'pinia'
 // ======================================================================== Data
 const linkElement = ref(null)
 const magellanMenu = ref(null)
-const activeLinkMarkerHeight = ref(0)
 const scrollTop = ref(0)
 const scrollMagellanMenuEventListenerFunction = ref(null)
-const route = useRoute()
 const generalStore = useGeneralStore()
-const { activeUrlHash, magellanLinks } = storeToRefs(generalStore)
+const {
+  activeUrlHash,
+  magellanLinks,
+  activeLinkMarkerHeight
+} = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
@@ -51,13 +53,6 @@ watch(activeUrlHash, (hash) => {
   linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
   if (!hash || !linkElement.value) { return false }
   activeLinkMarkerHeight.value = linkElement.value.offsetHeight
-})
-
-watch(route, () => {
-  const firstLinkElement = document.querySelector(`[link-hash]`)
-  if (firstLinkElement) {
-    activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
-  }
 })
 
 watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
@@ -77,11 +72,15 @@ watch([activeLinkMarkerPosition, activeLinkMarkerHeight], ([pos, height]) => {
 })
 
 // ======================================================================= Hooks
-onMounted(() => {
-  scrollMagellanMenuEventListenerFunction.value = useThrottle(function () {
-    scrollTop.value = this.scrollTop
-  }, 100)
-  magellanMenu.value.addEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
+onMounted(async () => {
+  await nextTick(async () => {
+    if (magellanMenu.value) {
+      scrollMagellanMenuEventListenerFunction.value = useThrottle(function () {
+        scrollTop.value = this.scrollTop
+      }, 100)
+      magellanMenu.value.addEventListener('scroll', scrollMagellanMenuEventListenerFunction.value)
+    }
+  })
 })
 
 onBeforeUnmount(() => {
@@ -106,22 +105,24 @@ const hashIsActive = (hash) => {
 }
 
 .title {
+  @include h6;
   position: absolute;
   top: toRem(21);
-  @include h6;
   opacity: 0.7;
+  font-size: toRem(14);
+  transition: color 500ms;
 }
 
 .active-link-marker {
   position: absolute;
-  top: calc($sidebarPadding + 1.25rem);
+  top: calc(#{$sidebarPadding} + 1.25rem);
   left: 0;
   width: 0.25rem;
   background-color: var(--link-color);
   border-radius: toRem(4);
-  transition: 150ms ease-in-out;
+  transition: 150ms ease-in-out, background-color 500ms;
   @include gridMaxMQ {
-    left: calc($sidebarPadding - 0.5rem);
+    left: calc(#{$sidebarPadding} - 0.5rem);
   }
   &.hide {
     opacity: 0;
@@ -141,7 +142,6 @@ const hashIsActive = (hash) => {
 }
 
 .button-label {
-  white-space: break-spaces;
-  line-height: 1.2;
+  @include magellanLink;
 }
 </style>

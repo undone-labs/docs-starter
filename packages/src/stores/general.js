@@ -7,6 +7,7 @@ import { ref } from '#imports'
 const clipboard = ref(false)
 const theme = ref('light')
 const activeUrlHash = ref(false)
+const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
 const searchModalActive = ref(false)
 
@@ -25,7 +26,8 @@ const setActiveUrlHash = (hash) => {
 }
 
 // //////////////////////////////////////////////////////// compileMagellanLinks
-const compileMagellanLinks = (headings) => {
+const compileMagellanLinks = () => {
+  const headings = Array.from(document.querySelectorAll('#markdown *[id]'))
   magellanLinks.value = headings.reduce((acc, item) => {
     acc.push({
       level: `level-${item.localName}`,
@@ -34,6 +36,15 @@ const compileMagellanLinks = (headings) => {
     })
     return acc
   }, [])
+  return magellanLinks.value.length > 0
+}
+
+// /////////////////////////////////////////////////// setActiveLinkMarkerHeight
+const setActiveLinkMarkerHeight = () => {
+  const firstLinkElement = document.querySelector(`[link-hash]`)
+  if (firstLinkElement) {
+    activeLinkMarkerHeight.value = firstLinkElement.offsetHeight
+  }
 }
 
 // //////////////////////////////////////////////////////// setSearchModalActive
@@ -42,10 +53,9 @@ const setSearchModalActive = () => {
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard
-// const setClipboard = (text) => {
-//   this.$addTextToClipboard(text)
-//   commit('SET_CLIPBOARD', text)
-// }
+const setClipboard = (text) => {
+  clipboard.value = text
+}
 
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
@@ -56,9 +66,12 @@ export const useGeneralStore = defineStore('general', () => ({
   activeUrlHash,
   magellanLinks,
   searchModalActive,
+  activeLinkMarkerHeight,
   // ----- actions
   setTheme,
   setActiveUrlHash,
   compileMagellanLinks,
+  setActiveLinkMarkerHeight,
+  setClipboard,
   setSearchModalActive
 }))

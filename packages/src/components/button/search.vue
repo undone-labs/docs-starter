@@ -48,10 +48,10 @@ const handleClick = () => {
   emit('clicked')
   generalStore.setSearchModalActive()
 }
-
 </script>
 
 <style lang="scss" scoped>
+// ///////////////////////////////////////////////////////////////////// General
 .search-button {
   display: flex;
   justify-content: space-between;
@@ -66,8 +66,8 @@ const handleClick = () => {
 .search-icon {
   display: flex;
   :deep(path) {
-    transition: 250ms ease;
-    fill: var(--primary-text-color);
+    transition: 150ms ease;
+    fill: var(--theme-color);
   }
 }
 
@@ -87,5 +87,4 @@ const handleClick = () => {
     opacity: 0.6;
   }
 }
-
 </style>

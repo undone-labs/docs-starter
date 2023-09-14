@@ -1,6 +1,13 @@
+@keyframes shrink-bounce {
+  0% { transform: scale(1); }
+  33% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
 .markdown, .markdown-user-input {
   // ================================================================ Typography
   h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1.25rem;
     + ul, + ol {
       margin-top: 2rem;
     }
@@ -52,10 +59,11 @@
   h4.heading-anchor > a,
   h5.heading-anchor > a,
   h6.heading-anchor > a {
-    display: block;
     @include h2;
+    display: block;
     margin-bottom: toRem(20);
-    color: var(--primary-text-color);
+    color: var(--theme-color);
+    transition: color 500ms;
   }
 
   h1.heading-anchor > a {
@@ -85,7 +93,8 @@
   // =================================================================== General
   hr {
     margin-bottom: 2rem;
-    border: solid 1px var(--secondary-background-color);
+    border: solid 1px var(--background-color__secondary);
+    transition: border-color 500ms;
   }
 
   pre,
@@ -96,6 +105,7 @@
     margin-bottom: 1.25rem;
     border-radius: 0.625rem;
     font-size: 0.75rem;
+    transition: background-color 500ms, color 500ms;
   }
 
   pre code {
@@ -124,7 +134,7 @@
       padding-left: toRem(22);
       margin: 0;
       &:before {
-        content: "";
+        content: '';
         display: block;
         position: absolute;
         left: 0.5rem;
@@ -134,7 +144,8 @@
         margin: 0;
         transform: translateY(-25%);
         border-radius: 50%;
-        background-color: var(--primary-text-color);
+        background-color: var(--theme-color);
+        transition: background-color 500ms;
       }
     }
   }
@@ -146,7 +157,8 @@
   li > ul > li {
     &:before {
       background-color: transparent;
-      border: solid 1px var(--primary-text-color);
+      border: solid 1px var(--theme-color);
+      transition: border-color 500ms;
     }
   }
 
@@ -161,7 +173,8 @@
     margin: 0 toRem(-42);
     padding: toRem(21) toRem(23);
     border-radius: toRem(10);
-    background-color: var(--secondary-background-color);
+    background-color: var(--background-color__secondary);
+    transition: background-color 500ms;
     p {
       @include h4;
       margin-bottom: toRem(9);
@@ -184,7 +197,8 @@
         height: 4px;
         margin: 0;
         border-radius: 50%;
-        background-color: var(--primary-text-color);
+        background-color: var(--theme-color);
+        transition: 500ms;
       }
     }
   }
@@ -194,6 +208,7 @@
     border-top: solid 2px var(--divider);
     border-bottom: solid 2px var(--divider);
     margin-bottom: 1.25rem;
+    transition: 500ms;
   }
 
   th,
@@ -212,20 +227,62 @@
   }
 
   thead > tr {
-    background-color: var(--primary-background-color);
+    background-color: var(--background-color);
+    transition: background-color 500ms;
   }
 
   tbody > tr {
+    transition: background-color 500ms;
     &:nth-child(odd) {
-      background-color: var(--secondary-background-color);
+      background-color: var(--background-color__secondary);
     }
     &:nth-child(even) {
-      background-color: var(--primary-background-color);
+      background-color: var(--background-color);
     }
     &:last-child {
       td {
         padding-bottom: 0.5rem;
       }
+    }
+  }
+
+  // ============================================================= Heading Links
+  .copy-heading-button-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    &:hover {
+      .copy-heading-button {
+        display: flex;
+        animation: shrink-bounce 200ms cubic-bezier(0.4, 0, 0.23, 1);
+      }
+    }
+    .copy-heading-button {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 13px;
+      right: 100%;
+      padding: 0 0.5rem;
+      cursor: pointer;
+      z-index: 20;
+      @include tiny {
+        display: flex;
+      }
+    }
+    svg {
+      width: 1.25rem;
+      path {
+        fill: var(--theme-color);
+        transition: 500ms;
+      }
+    }
+    h1, h2, h3, h4, h5, h6 {
+      position: relative;
+      padding-left: 2.25rem;
+      margin-left: -2.25rem;
     }
   }
 }

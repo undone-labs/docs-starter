@@ -1,9 +1,9 @@
 /**
  * The "npm run dev" script also fires off a nodemon watcher script →
- * nodemon --watch ../docs -e md,vue --exec node src/modules/doczilla/sync.js.
- * sync.js watches .md and .vue files in the docs repo package. When changes
- * are detected, sync.js replaces the entire \@/src/docs directory with the
- * \@/docs directory
+ * nodemon modules/doczilla/sync.js --watch <entry> -e <extension>.
+ * sync.js watches .md, .vue, .json and .scss files in the docs repo package.
+ * When changes are detected, sync.js replaces the entire respective directories
+ * listed below.
  */
 
 // ///////////////////////////////////////////////////////////////////// Imports
@@ -16,24 +16,33 @@ require('dotenv').config({ path: `${__dirname}/../../.env` })
 
 // /////////////////////////////////////////////////////////////////// Variables
 // -----------------------------------------------------------------------------
-const packages = [
+const dirs = [
   {
-    src: '../../../docs',
-    dest: '../../docs'
+    src: '../../../docs', // need this parent entry to delete entire @/src/docs dir before adding child dirs
+    dest: '../../docs',
+    children: [
+      {
+        src: '../../../docs/components',
+        dest: '../../docs/components'
+      },
+      {
+        src: '../../../docs/content',
+        dest: '../../docs/content'
+      }
+    ]
   },
   {
-    src: '../../../themes',
+    src: '../../../docs/data',
+    dest: '../../data'
+  },
+  {
+    src: '../../../docs/theme',
     dest: '../../assets/scss/theme'
   }
 ]
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-const getConfig = async () => {
-  const kit = await import('@nuxt/kit')
-  return kit.loadNuxtConfig()
-}
-
 // /////////////////////////////////////////////////////////////////// unslugify
 const unslugify = (slug, type = 'capitalize-first-character') => {
   if (type === 'capitalize-first-character') {
@@ -79,30 +88,31 @@ const slugify = (text, type = 'dash') => {
 
 // ///////////////////////////////////////////////////////////// deleteTargetDir
 const deleteTargetDir = () => {
-  for (let i = 0; i < packages.length; i++) {
-    const path = Path.resolve(__dirname, packages[i].dest)
+  dirs.forEach((dir) => {
+    const path = Path.resolve(__dirname, dir.dest)
     if (Fs.existsSync(path)) {
       Fs.removeSync(path)
     }
-  }
+  })
 }
 
 // /////////////////////////////////////////////////////// copySrcDirToTargetDir
-const copySrcDirToTargetDir = (nuxtConfig) => {
-  for (let i = 0; i < packages.length; i++) {
-    let contentSrcDirPath
-    if (packages[i].src.endsWith('/themes')) {
-      const overrideTheme = nuxtConfig.overrideTheming.themeName
-      const theme = overrideTheme &&
-        Fs.existsSync(Path.resolve(__dirname, `${packages[i].src}/${overrideTheme}`)) ?
-        overrideTheme : 'default'
-      contentSrcDirPath = Path.resolve(__dirname, `${packages[i].src}/${theme}`)
+const copySrcDirToTargetDir = () => {
+  dirs.forEach((dir) => {
+    const src = Path.resolve(__dirname, dir.src)
+    const dest = Path.resolve(__dirname, dir.dest)
+    const children = dir.children
+    if (!children) {
+      Fs.copySync(src, dest)
     } else {
-      contentSrcDirPath = Path.resolve(__dirname, packages[i].src)
+      children.forEach((childDir) => {
+        Fs.copySync(
+          Path.resolve(__dirname, childDir.src),
+          Path.resolve(__dirname, childDir.dest)
+        )
+      })
     }
-    const destDirPath = Path.resolve(__dirname, packages[i].dest)
-    Fs.copySync(contentSrcDirPath, destDirPath)
-  }
+  })
 }
 
 // /////////////////////////////////////////////////// parseMarkdownStringToJson
@@ -122,6 +132,25 @@ const parseMarkdownStringToJson = (string) => {
     }
   })
   return sections
+}
+
+// ////////////////////////////////////////////////////////// createAlgoliaIndex
+const createAlgoliaIndex = async (records) => {
+  const client = AlgoliaSearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY)
+  const index = client.initIndex('test_DOCS')
+  index.setSettings({
+    searchableAttributes: [
+      'sidebarHeading', 'entryName', 'entrySection', 'content'
+    ]
+  }).then(() => {
+    index.saveObjects(records).then(({ objectIDs }) => {
+      console.log('The following records have been added/updated to the Algolia index:')
+      console.log(objectIDs)
+    }).catch((e) => {
+      console.log('============================ [Function: createAlgoliaIndex]')
+      console.log(e)
+    })
+  })
 }
 
 // ///////////////////////////////////////// compileDirContentForAlgoliaIndexing
@@ -152,30 +181,11 @@ const compileDirContentForAlgoliaIndexing = () => {
   return records
 }
 
-// ////////////////////////////////////////////////////////// createAlgoliaIndex
-const createAlgoliaIndex = async (records) => {
-  const client = AlgoliaSearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY)
-  const index = client.initIndex('test_DOCS')
-  index.setSettings({
-      searchableAttributes: [
-        'sidebarHeading', 'entryName', 'entrySection', 'content'
-      ]
-    }).then(() => {
-      index.saveObjects(records).then(({ objectIDs }) => {
-        console.log('The following records have been added/updated to the Algolia index:')
-        console.log(objectIDs)
-      }).catch((e) => {
-        console.log('============================ [Function: createAlgoliaIndex]')
-        console.log(e)
-      })
-    })
-}
-
-// ////////////////////////////////////////////// syncContentDirWhenOnFileChange
-(async function syncContentDirWhenOnFileChange () {
-  const nuxtConfig = await getConfig()
+// ////////////////////////////////////////////////// syncContentDirOnFileChange
+(async function syncContentDirOnFileChange () {
   deleteTargetDir()
-  copySrcDirToTargetDir(nuxtConfig)
-  const records = compileDirContentForAlgoliaIndexing()
-  await createAlgoliaIndex(records)
+  copySrcDirToTargetDir()
+  await createAlgoliaIndex(
+    compileDirContentForAlgoliaIndexing()
+  )
 })()
