@@ -99,16 +99,16 @@ const formatMatchingContent = (string, hit) => {
   }
   .icon {
     :deep(path) {
-      fill: var(--primary-text-color);
+      fill: var(--theme-color);
     }
   }
   .action {
     :deep(path) {
-      fill: rgba(var(--primary-text-color), 0);
+      fill: rgba(var(--theme-color), 0);
     }
   }
   &:hover {
-    background-color: var(--brand-color);
+    background-color: var(--link-color);
     .hit-title,
     .hit-path {
       color: white;
@@ -136,7 +136,7 @@ const formatMatchingContent = (string, hit) => {
 }
 
 .hit-source {
-  color: var(--brand-color);
+  color: var(--link-color);
   @include p1;
   font-weight: 700;
   margin-top: toRem(15);
@@ -156,15 +156,16 @@ const formatMatchingContent = (string, hit) => {
   -webkit-box-flex: 1;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  color: var(--primary-text-color);
+  color: var(--theme-color);
   :deep(mark) {
     background: none;
-    color: var(--brand-color);
+    color: var(--link-color);
   }
 }
 
 .hit-path {
   @include p2;
-  color: var(--secondary-text-color);
+  color: var(--theme-color);
+  opacity: 0.7;
 }
 </style>

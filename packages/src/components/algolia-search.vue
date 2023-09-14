@@ -182,6 +182,7 @@ const searchBoxBlur = () => { searchFocused.value = false; }
   transform: translate(-50%, -50%);
   padding: 1rem;
   padding-bottom: 0;
+  box-shadow: 2px -4px 4px 0px rgba(0, 0, 0, 0.05), 2px 4px 10px 0px rgba(0, 0, 0, 0.15);
   background-color: var(--search-modal-background);
   border: solid 1px var(--divider);
   border-radius: 0.625rem;
@@ -198,10 +199,10 @@ const searchBoxBlur = () => { searchFocused.value = false; }
   border: 3px solid var(--divider);
   transition: border 250ms ease;
   &.focused {
-    border: 3px solid var(--brand-color);
+    border: 3px solid var(--link-color);
     .ais-SearchBox-submitIcon {
       path {
-        fill: var(--brand-color);
+        fill: var(--link-color);
       }
     }
   }
@@ -216,7 +217,7 @@ const searchBoxBlur = () => { searchFocused.value = false; }
 :deep(.hit-container) {
   padding: 0.625rem 1.25rem;
   border-radius: 10px;
-  background-color: var(--secondary-background-color);
+  background-color: var(--search-modal-background__secondary);
 }
 
 :deep(.ais-SearchBox-input) {
@@ -225,8 +226,8 @@ const searchBoxBlur = () => { searchFocused.value = false; }
   @include h2;
   font-weight: 400;
   letter-spacing: 0;
-  background-color: var(--secondary-background-color);
-  color: var(--primary-text-color);
+  background-color: var(--search-modal-background__secondary);
+  color: var(--theme-color);
 }
 
 :deep(.ais-SearchBox-submitIcon) {
@@ -240,7 +241,7 @@ const searchBoxBlur = () => { searchFocused.value = false; }
 
 :deep(.ais-SearchBox-resetIcon) {
   path {
-    fill: var(--primary-text-color);
+    fill: var(--theme-color);
   }
 }
 
@@ -275,7 +276,7 @@ const searchBoxBlur = () => { searchFocused.value = false; }
     margin-left: 0.5rem;
   }
   :deep(path) {
-    fill: var(--primary-text-color);
+    fill: var(--theme-color);
   }
   :deep(.escape-icon) {
     transform: translateY(0.125rem);

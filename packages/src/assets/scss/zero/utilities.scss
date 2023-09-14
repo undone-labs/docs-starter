@@ -56,6 +56,7 @@ $replace4: #000000;
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
   --search-modal-background: #{$alabaster};
+  --search-modal-background__secondary: white;
 }
 
 .dark {
@@ -72,6 +73,7 @@ $replace4: #000000;
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
   --search-modal-background: #{$codGray};
+  --search-modal-background__secondary: #{$mineShaft};
 }
 
 // ===================================================================== Styling
