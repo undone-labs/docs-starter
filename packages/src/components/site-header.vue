@@ -2,45 +2,41 @@
   <header id="site-header">
 
     <!-- ============================================================== Logo -->
-    <NuxtLink to="/" class="logo-link">
+    <NuxtLink to="/docs" class="logo-link">
       <Logo class="logo" />
     </NuxtLink>
 
     <!-- ========================================================= Nav links -->
     <nav id="site-nav">
-      <div class="button-list">
-        <ButtonClear
-          v-for="(link, index) in links"
-          v-bind="link"
-          :key="index"
-          ref="navItems"
-          theme="nav"
-          class="site-nav-link">
-          <div class="text" v-html="link.label" />
-        </ButtonClear>
-      </div>
+      <ButtonClear
+        v-for="(link, index) in links"
+        v-bind="link"
+        :key="index"
+        ref="navItems"
+        theme="nav"
+        class="site-nav-link">
+        <div class="text" v-html="link.label" />
+      </ButtonClear>
     </nav>
 
     <!-- ===================================================== Theme toggler -->
     <div id="site-toolbar">
-      <div class="toolbar-list">
 
-        <ButtonThemeToggle />
+      <ButtonThemeToggle />
 
-        <ZeroButton
-          tag="a"
-          :to="githubUrl"
-          target="_blank"
-          :disabled="!githubUrl"
-          class="github-link">
-          <IconGithub />
-        </ZeroButton>
+      <ZeroButton
+        tag="a"
+        :to="githubUrl"
+        target="_blank"
+        :disabled="!githubUrl"
+        class="github-link">
+        <IconGithub />
+      </ZeroButton>
 
-        <ButtonSearch />
+      <ButtonSearch />
 
-        <DropdownSelector :options="languageOptions" />
+      <DropdownSelector :options="languageOptions" />
 
-      </div>
     </div>
 
   </header>
@@ -48,13 +44,12 @@
 
 <script setup>
 // ===================================================================== Imports
-import Navigation from '@/data/components/navigation'
+import Navigation from '@/data/navigation'
 
 // ======================================================================== Data
 const links = Navigation.header
 const githubUrl = Navigation.toolbar.github_url
 const languageOptions = Navigation.toolbar.language_options
-
 </script>
 
 <style lang="scss" scoped>
@@ -63,16 +58,17 @@ const languageOptions = Navigation.toolbar.language_options
   display: flex;
   flex-direction: row;
   justify-content: space-between;;
-  align-items: center;
+  // align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: $siteHeaderHeight;
-  padding: 1rem 2.5rem;
-  border-bottom: 1px solid var(--divider);
+  padding: 0 2.5rem;
   background-color: var(--background-color);
+  border-bottom: 1px solid var(--divider);
   z-index: 1000;
+  transition: background-color 500ms, border-color 500ms;
 }
 
 // /////////////////////////////////////////////////////////////////// Site Logo
@@ -90,29 +86,18 @@ const languageOptions = Navigation.toolbar.language_options
     transition: 150ms ease-in;
     transform: scale(1.05);
   }
-  :deep(path) {
-    transition: 150ms ease-out;
-    fill: var(--primary-text-color);
-  }
+  :deep(path),
   :deep(rect) {
-    transition: 150ms ease-out;
-    stroke: var(--primary-text-color);
+    transition: fill 500ms;
+    fill: var(--theme-color);
   }
 }
 
 // ////////////////////////////////////////////////////////////////// Navigation
 #site-nav {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-
-.button-list {
-  position: relative;
-  display: flex;
   flex-direction: row;
-  align-items: center;
+  position: relative;
   padding-left: 2rem;
   @include large {
     padding-left: 0.25rem;
@@ -120,18 +105,37 @@ const languageOptions = Navigation.toolbar.language_options
 }
 
 .site-nav-link {
-  &:not(:last-child) {
-    margin-right: 3.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  &:hover {
+    &:before {
+      transition: 150ms ease-in;
+      height: toRem(5);
+    }
   }
   @include large {
     &:not(:last-child) {
       margin-right: 2rem;
     }
   }
+  &:not(:last-child) {
+    margin-right: 3.125rem;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0px;
+    background-color: var(--theme-color);
+    transition: 150ms ease-out;
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Toolbar
-.toolbar-list {
+#site-toolbar {
   display: flex;
   align-items: center;
   & > * {
@@ -145,8 +149,7 @@ const languageOptions = Navigation.toolbar.language_options
   display: flex;
   :deep(path) {
     transition: 150ms ease-out;
-    fill: var(--primary-text-color);
+    fill: var(--theme-color);
   }
 }
-
 </style>

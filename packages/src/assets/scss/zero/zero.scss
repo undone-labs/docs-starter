@@ -1,11 +1,24 @@
 //////////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
+/**
+ * Fonts, text and background colours are applied here.
+ *
+ * See utilities.scss to edit these vars.
+ */
+
+html {
+  &.dark {
+    body {
+      @include selection-dark;
+    }
+  }
+}
+
 body {
   @include selection-light;
-  color: var(--primary-text-color);
+  color: var(--theme-color);
   font-family: $fontDIN;
   background-color: var(--background-color);
-  transition: background-color 250ms;
 }
 
 pre,
@@ -13,12 +26,17 @@ code {
   font-family: $fontDIN;
 }
 
+.page {
+  background-color: var(--background-color);
+  transition: background-color 500ms;
+}
+
 ///////////////////////////////////////////////////////////////////// Components
 // -----------------------------------------------------------------------------
 .magnify-onhover {
-  transition: 250ms ease-out;
+  transition: 150ms ease-out;
   &:hover {
-    transition: 250ms ease-in;
+    transition: 150ms ease-in;
     transform: scale(1.05);
   }
 }

@@ -1,0 +1,28 @@
+{
+  "header": [
+    {
+      "tag": "nuxt-link",
+      "to": "/docs",
+      "label": "DOCS"
+    },
+    {
+      "tag": "nuxt-link",
+      "to": "/docs",
+      "label": "ABOUT"
+    },
+    {
+      "tag": "nuxt-link",
+      "to": "/docs",
+      "label": "ECOSYSTEM"
+    },
+    {
+      "tag": "nuxt-link",
+      "to": "/docs",
+      "label": "API"
+    }
+  ],
+  "toolbar": {
+    "github_url": "https://github.com/undone-labs/docs-starter",
+    "language_options": ["EN", "中文", "ES"]
+  }
+}

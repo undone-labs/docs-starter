@@ -20,8 +20,5 @@
   "keywords": [],
   "workspaces": [
     "packages/src"
-  ],
-  "devDependencies": {
-    "nuxt": "^3.5.2"
-  }
+  ]
 }

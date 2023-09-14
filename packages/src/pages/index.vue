@@ -1,7 +1,4 @@
-<template>
-  <main class="page">
-
-    Just another index page
-
-  </main>
-</template>
+<script setup>
+// ======================================================================= Setup
+await navigateTo('/docs')
+</script>

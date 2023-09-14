@@ -7,7 +7,7 @@
         <div class="col-6" data-push-left="off-2">
           <div class="content">
             <h1
-              :id="'pageSlug'"
+              :id="pageSlug"
               ref="heading"
               class="heading">
               {{ pageHeading }}
@@ -19,7 +19,7 @@
 
     <!-- ========================================================== Sections -->
     <section
-      v-for="section in content"
+      v-for="(section, index) in content"
       :key="section._path"
       class="section">
 
@@ -28,9 +28,10 @@
         <!-- ======================================================= Content -->
         <div class="col-6" data-push-left="off-2">
           <div class="content">
-            <ContentRendererMarkdown
+            <MarkdownParser
               id="markdown"
-              :value="section.body"
+              :markdown="section.body"
+              :prefix-heading-ids="content.length > 1 ? `section-${index + 1}-` : ''"
               class="markdown" />
           </div>
         </div>
@@ -58,35 +59,35 @@
 </template>
 
 <script setup>
-// ======================================================================= Setup
-definePageMeta({
-  layout: 'docs'
-})
-
 // ======================================================================== Data
 const intersectionObserver = ref(null)
 const headerHeight = ref(0)
 const sections = ref([])
 const scrollWindowEventListenerFunction = ref(null)
 const route = useRoute()
+const contentPath = `/docs/content${route.path}`
 const navigatedByRoute = ref(false)
 const navigatedByRouteDebounce = ref(null)
 const ctx = getCurrentInstance()
 const dirNameSplit = route.path.slice(1).split('/')
+const generalStore = useGeneralStore()
 
 const pageSlug = dirNameSplit[1]
-const generalStore = useGeneralStore()
 const pageHeading = useToPascalCase(pageSlug, ' ')
 
 const { data: content } = await useAsyncData('content', () => {
-  return queryContent(`/docs/content${route.path}`).find()
+  return queryContent({
+    where: {
+      _path: { $contains: contentPath }
+    }
+  }).find()
 })
 
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 
 // ==================================================================== Watchers
-watch(route, (route) => {
+watch(route, async route => {
   if (navigatedByRouteDebounce.value) { clearTimeout(navigatedByRouteDebounce.value) }
   navigatedByRouteDebounce.value = setTimeout(() => {
     navigatedByRoute.value = false
@@ -94,7 +95,15 @@ watch(route, (route) => {
   }, 100)
   navigatedByRoute.value = true
   generalStore.setActiveUrlHash(route.hash.slice(1))
-})
+  if (process.client) {
+    await nextTick(() => {
+      const linksExist = generalStore.compileMagellanLinks()
+      if (linksExist) {
+        generalStore.setActiveLinkMarkerHeight()
+      }
+    })
+  }
+}, { immediate: true })
 
 // ======================================================================= Hooks
 onMounted(async () => {
@@ -109,7 +118,6 @@ onMounted(async () => {
     })
     intersectionObserveHeadings()
     detectPageScrolledToEdgesOfViewport()
-    generalStore.compileMagellanLinks(sections.value)
   })
 })
 
@@ -132,7 +140,7 @@ const intersectionObserveHeadings = () => {
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.slice(1)
     let activeUrlHash = hash
-    let activePath
+    // let activePath
     // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
     /**
      * While scrolling, update URL hash from DOM and use hash from DOM headings.
@@ -140,13 +148,13 @@ const intersectionObserveHeadings = () => {
      */
     if (intersectingTop && !navigatedByRoute.value) {
       if (entryId !== hash) {
-        activePath = `${route.path}#${entryId}`
+        // activePath = `${route.path}#${entryId}`
         activeUrlHash = entryId
       } else {
         const index = sections.value.findIndex(section => section.id === entryId)
         if (index !== 0) {
           const current = sections.value[index - 1]
-          activePath = `${route.path}#${current.id}`
+          // activePath = `${route.path}#${current.id}`
           activeUrlHash = current.id
         } else {
           activeUrlHash = false
@@ -154,7 +162,7 @@ const intersectionObserveHeadings = () => {
       }
     }
     if (!navigatedByRoute.value && activeUrlHash) {
-      history.replaceState({}, null, activePath)
+      // history.replaceState({}, null, activePath)
       generalStore.setActiveUrlHash(activeUrlHash)
     }
   }, {
@@ -176,10 +184,10 @@ const detectPageScrolledToEdgesOfViewport = () => {
       const viewportHeight = window.innerHeight
       const bodyHeight = document.body.offsetHeight
       if (y <= headerHeight.value) {
-        history.replaceState({}, null, route.path)
+        // history.replaceState({}, null, route.path)
         generalStore.setActiveUrlHash(false)
       } else if (y + viewportHeight >= bodyHeight) {
-        history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
+        // history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
         generalStore.setActiveUrlHash(lastMagellanNavItemId)
       }
     }
@@ -207,7 +215,6 @@ const getPreviewComponentName = (path) => {
   padding-bottom: 5rem;
 }
 
-.header,
 .content,
 .preview {
   padding: 0 2rem 0 2rem;
@@ -216,20 +223,24 @@ const getPreviewComponentName = (path) => {
   }
 }
 
+.section {
+  &:not(:nth-child(2)) {
+    border-top: solid 2px var(--background-color__secondary);
+    transition: border-color 500ms;
+  }
+}
+
 :deep(.content) {
   h2, h3, h4, h5, h6 {
-    scroll-margin-top: $siteHeaderHeight + 1.75rem;
+    scroll-margin-top: calc(#{$siteHeaderHeight} + 1.75rem);
   }
 }
 
 .preview {
-  height: 100%;
+  position: sticky;
+  top: calc(#{$siteHeaderHeight} + 1rem);
   @include gridMaxMQ {
     padding-right: 0;
-  }
-  > div {
-    position: sticky;
-    top: $siteHeaderHeight + 1rem;
   }
 }
 

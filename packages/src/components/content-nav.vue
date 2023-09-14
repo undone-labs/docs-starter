@@ -1,17 +1,19 @@
 <template>
   <nav id="content-nav">
     <section
-      v-for="directory in navigation"
+      v-for="directory in Sidebar"
       :key="directory.slug"
       class="section">
 
       <div class="section-heading">
 
-        <template v-if="resolveDynamicComp(directory.icon)">
-          <component :is="resolveDynamicComp(directory.icon)" class="icon" />
+        <template v-if="useResolveDoczillaComponent(directory.icon)">
+          <component :is="useResolveDoczillaComponent(directory.icon)" class="icon-directory" />
         </template>
 
-        <h2 class="title" v-html="directory.title" />
+        <h2
+          :class="['title', { active: routeMatchesCurrentDirectory(directory.slug) }]"
+          v-html="directory.title" />
 
       </div>
 
@@ -20,33 +22,21 @@
         :key="generateLink(directory.slug, link.href)"
         :to="generateLink(directory.slug, link.href)"
         :tag="link.type"
+        :disabled="isCurrentRoute(generateLink(directory.slug, link.href))"
         class="link">
         <div class="button-label" v-html="link.title" />
       </ButtonClear>
-
-      <!-- <ButtonClear
-        v-for="(num, index) in 20"
-        :key="index"
-        class="link">
-        <div class="button-label" v-html="'This is a link'" />
-      </ButtonClear> -->
 
     </section>
   </nav>
 </template>
 
 <script setup>
-import { getCurrentInstance } from 'vue'
+// ===================================================================== Imports
+import Sidebar from '@/data/sidebar.json'
 
 // ======================================================================== Data
-const { data: sidebar } = await useAsyncData('sidebar', () => {
-  const queryWithout = ['title', '_dir', '_draft', '_extension', '_file', '_id', '_locale', '_partial', '_path', '_source', '_type']
-  return queryContent('/docs/data/sidebar')
-    .without(queryWithout)
-    .findOne()
-})
-
-const navigation = sidebar.value.body
+const route = useRoute()
 
 // ===================================================================== Methods
 /**
@@ -55,23 +45,20 @@ const navigation = sidebar.value.body
 const generateLink = (dirSlug, href) => {
   return `/${dirSlug}${href}`
 }
+
 /**
- * @method resolveDynamicComp
+ * @method routeMatchesCurrentDirectory
  */
-const resolveDynamicComp = (name) => {
-  if (!name) { return false }
-  const instance = getCurrentInstance()
-  const handle = useToPascalCase(name, '')
-  const compToResolve = `Doczilla${handle}`
-  if (
-    typeof instance?.appContext.components === 'object' &&
-    compToResolve in instance.appContext.components
-  ) {
-    return compToResolve
-  }
-  return false
+const routeMatchesCurrentDirectory = (slug) => {
+  return route.path.includes(slug)
 }
 
+/**
+ * @method isCurrentRoute
+ */
+const isCurrentRoute = (path) => {
+  return path === route.path
+}
 </script>
 
 <style lang="scss" scoped>
@@ -85,8 +72,20 @@ const resolveDynamicComp = (name) => {
 .section-heading {
   display: flex;
   align-items: center;
-  .icon {
-    margin-right: toRem(14);
+}
+
+:deep(.icon-directory) {
+  width: toRem(21);
+  margin-right: toRem(14);
+  path,
+  rect {
+    transition: 500ms;
+  }
+  path {
+    fill: var(--theme-color);
+  }
+  rect {
+    stroke: var(--theme-color);
   }
 }
 
@@ -94,9 +93,13 @@ const resolveDynamicComp = (name) => {
   @include sidebarSectionTitle;
   padding: toRem(4) 0;
   margin: 0;
+  transition: color 200ms;
+  &.active {
+    color: var(--link-color);
+  }
 }
 
-.link {
+:deep(.link.button) {
   display: block;
   padding: toRem(4) 0;
   &:first-child {
@@ -108,19 +111,22 @@ const resolveDynamicComp = (name) => {
   &:hover:not(.router-link-active) {
     cursor: pointer;
     .button-label {
-      color: var(--primary-text-color);
-      transition: color .25s ease;
+      transition: 500ms ease-in;
+      color: var(--link-color);
     }
   }
   &.router-link-active {
     .button-label {
-      color: var(--link-color);
       font-weight: 700;
     }
   }
-}
-
-:deep(.button-label) {
-  @include sidebar;
+  &[disabled="true"] {
+    opacity: 1;
+    cursor: default;
+  }
+  .button-label {
+    @include sidebar;
+    transition: color 500ms;
+  }
 }
 </style>

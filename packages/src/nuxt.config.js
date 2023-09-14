@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
+      frontendUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
       serverFlag: env,
       seo: {
         siteName: seo.siteName
@@ -41,11 +42,6 @@ export default defineNuxtConfig({
       }
     },
     assetsInclude: ['**/*.md']
-  },
-  // //////////////////////////////////////////////// Custom Sass Theme Override
-  // ---------------------------------------------------------------------------
-  overrideTheming: {
-    themeName: ''
   },
   // //////////////////////////////////////////////////////////////// Dev Server
   // ---------------------------------------------------------------------------
@@ -68,10 +64,12 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { /* hid: 'description', */ name: 'description', content: seo.description }
+        { name: 'description', content: seo.description },
+        { name: 'msapplication-config', content: '/favicon/dark/browserconfig.xml' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon-96x96.png' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon/dark/favicon-96x96.png' },
+        { rel: 'manifest', href: '/favicon/dark/manifest.json' }
       ]
     }
   },
@@ -92,8 +90,8 @@ export default defineNuxtConfig({
     '@/modules/eslint-nuxt3-globals',
     '@nuxtjs/eslint-module',
     '@/modules/doczilla',
+    '@/modules/zero',
     '@nuxt/content',
-    '@/modules/zero-components',
     'nuxt-simple-robots', // https://github.com/harlan-zw/nuxt-simple-robots
     'nuxt-simple-sitemap' // https://github.com/harlan-zw/nuxt-simple-sitemap
   ],
@@ -114,5 +112,10 @@ export default defineNuxtConfig({
   },
   // ////////////////////////////////////////////////////////// [Module] sitemap
   // ---------------------------------------------------------------------------
-  sitemap: {}
+  sitemap: {
+    exclude: [
+      '/',
+      '/docs'
+    ]
+  }
 })

@@ -92,7 +92,7 @@ const props = defineProps({
     opacity: 1;
   }
   :deep(.dot) {
-    background-color: var(--secondary-text-color);
+    background-color: var(--theme-color);
   }
 }
 
@@ -111,7 +111,7 @@ const props = defineProps({
   }
   :deep(.text) {
     @include navigation;
-    color: var(--primary-text-color);
+    color: var(--theme-color);
   }
   &:hover {
     :deep(.text) {
