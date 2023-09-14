@@ -134,58 +134,79 @@ const parseMarkdownStringToJson = (string) => {
   return sections
 }
 
-// ////////////////////////////////////////////////////////// createAlgoliaIndex
-const createAlgoliaIndex = async (records) => {
-  const client = AlgoliaSearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY)
-  const index = client.initIndex('test_DOCS')
-  index.setSettings({
-    searchableAttributes: [
-      'sidebarHeading', 'entryName', 'entrySection', 'content'
-    ]
-  }).then(() => {
-    index.saveObjects(records).then(({ objectIDs }) => {
-      console.log('The following records have been added/updated to the Algolia index:')
-      console.log(objectIDs)
-    }).catch((e) => {
-      console.log('============================ [Function: createAlgoliaIndex]')
-      console.log(e)
-    })
+// //////////////////////////////////////////////////////////////////////// walk
+const walk = (dir, split = undefined, next) => {
+  if (split) { split = split.replaceAll('/', '') }
+  Fs.readdirSync(dir, { withFileTypes: true }).forEach(file => {
+    const dirPath = Path.join(dir, file.name)
+    const isDirectory = Fs.statSync(dirPath).isDirectory()
+    isDirectory ?
+      walk(dirPath, split, next) :
+      next({
+        path: Path.join(dir, file.name),
+        name: file.name,
+        ext: Path.extname(file.name).toLowerCase(),
+        parentDir: split ? dir.split(`/${split}`).pop().slice(1).split('/')[0] : dir.split('/').pop()
+      })
   })
 }
 
 // ///////////////////////////////////////// compileDirContentForAlgoliaIndexing
 const compileDirContentForAlgoliaIndexing = () => {
   const records = []
-  const dirContents = Fs.readdirSync(Path.resolve(__dirname, '../../../docs/content'), { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-  for (let i = 0; i < dirContents.length; i++) {
-    const subdir = dirContents[i]
-    const files = Fs.readdirSync(Path.resolve(__dirname, `../../../docs/content/${subdir.name}`), { withFileTypes: true })
-    const mdFiles = files.filter(file => Path.extname(file.name).toLowerCase() === '.md')
-    for (let j = 0; j < mdFiles.length; j++) {
-      const filename = mdFiles[j].name
-      const fileContents = Fs.readFileSync(Path.resolve(__dirname, `../../../docs/content/${subdir.name}/${filename}`), 'utf8')
-      const entry = filename.split('.md')[0]
-      const sections = parseMarkdownStringToJson(fileContents)
-      sections.forEach((section) => {
+  walk (Path.resolve(__dirname, '../../docs/content'), 'content', file => {
+    const filePath = file.path
+    if (file.ext === '.md') {
+      const sections = parseMarkdownStringToJson(
+        Fs.readFileSync(filePath, 'utf-8')
+      )
+      const subdirSlug = file.parentDir
+      const fileName = file.name
+      sections.forEach(section => {
         records.push({
-          objectID: `${subdir.name}/${entry}#${slugify(section.heading)}`,
-          sidebarHeading: unslugify(subdir.name, 'capitalize-all'),
-          entryName: unslugify(entry, 'capitalize-all'),
+          objectID: `${subdirSlug}/${fileName}#${slugify(section.heading)}`,
+          sidebarHeading: unslugify(subdirSlug, 'capitalize-all'),
+          entryName: unslugify(fileName, 'capitalize-all'),
           entrySection: section.heading,
           content: section.content
         })
       })
     }
-  }
+  })
   return records
+}
+
+// ////////////////////////////////////////////////////////// createAlgoliaIndex
+const createAlgoliaIndex = async (nuxtConfig, records) => {
+  try {
+    const client = AlgoliaSearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY)
+    const index = client.initIndex(nuxtConfig.algolia.indexName)
+    await index.setSettings({
+      searchableAttributes: [
+        'sidebarHeading', 'entryName', 'entrySection', 'content'
+      ]
+    })
+    const objectIDs = await index.saveObjects(records)
+    console.log('The following records have been added/updated to the Algolia index:')
+    console.log(objectIDs)
+  } catch (e) {
+    console.log('========================================== createAlgoliaIndex')
+    throw e
+  }
 }
 
 // ////////////////////////////////////////////////// syncContentDirOnFileChange
 (async function syncContentDirOnFileChange () {
+  const nuxtConfig = require(Path.resolve(__dirname, '../../nuxt.config.content.js'))
   deleteTargetDir()
   copySrcDirToTargetDir()
-  await createAlgoliaIndex(
-    compileDirContentForAlgoliaIndexing()
-  )
+  try {
+    await createAlgoliaIndex(
+      nuxtConfig,
+      compileDirContentForAlgoliaIndexing()
+    )
+  } catch (e) {
+    console.log('================================== syncContentDirOnFileChange')
+    console.log(e.transporterStackTrace)
+  }
 })()

@@ -63,30 +63,31 @@ import {
 } from 'vue-instantsearch/vue3/es'
 
 // ======================================================================== Data
+const runtimeConfig = useRuntimeConfig()
 const generalStore = useGeneralStore()
 const { searchModalActive } = storeToRefs(generalStore)
 const keyCommandEventListenerFunction = ref(null)
 const searchFocused = ref(false)
 const route = useRoute()
-const indexName = 'test_DOCS'
+const indexName = runtimeConfig.public.algolia.indexName
 const algolia = useAlgoliaRef()
 const serverRootMixin = ref(
   createServerRootMixin({
     searchClient: algolia,
-    indexName,
-  }),
+    indexName
+  })
 )
 const { instantsearch } = serverRootMixin.value.data()
 provide('$_ais_ssrInstantSearchInstance', instantsearch)
 
 const { data: algoliaState } = await useAsyncData('algolia-state', async () => {
   if (process.server) {
-    const nuxtApp = useNuxtApp();
+    const nuxtApp = useNuxtApp()
     nuxtApp.$algolia.transporter.requester = (
       await import('@algolia/requester-node-http').then(
         (lib) => lib.default || lib
       )
-    ).createNodeHttpRequester();
+    ).createNodeHttpRequester()
   }
   return instantsearch.findResultsState({
     // IMPORTANT: a component with access to `this.instantsearch` to be used by the createServerRootMixin code
@@ -101,22 +102,22 @@ const { data: algoliaState } = await useAsyncData('algolia-state', async () => {
           AisHighlight,
           AisSearchBox,
           AisStats,
-          AisPagination,
+          AisPagination
         },
         data() {
-          return { instantsearch };
+          return { instantsearch }
         },
         provide: { $_ais_ssrInstantSearchInstance: instantsearch },
         render() {
           return h(AisInstantSearchSsr, null, () => [
             // Include any vue-instantsearch components that you use including each refinement attribute
             h(AisHits)
-          ]);
-        },
-      },
+          ])
+        }
+      }
     },
-    renderToString,
-  });
+    renderToString
+  })
 })
 
 // ==================================================================== Watchers
@@ -176,7 +177,6 @@ const searchBoxBlur = () => { searchFocused.value = false; }
   position: absolute;
   width: toRem(710);
   height: toRem(672);
-  // height: 80%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
