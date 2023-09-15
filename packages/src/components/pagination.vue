@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="previous || next" id="pagination">
+  <nav v-if="previous || next" id="pagination" :class="{ single: !previous || !next }">
 
     <ButtonClear
       v-if="previous"
@@ -100,6 +100,9 @@ const nextSection = currentPage?.pageIndex === currentPage?.dirPageCount - 1 ? c
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  &.single {
+    justify-content: flex-end;
+  }
 }
 
 :deep(.nav-link) {

@@ -127,9 +127,6 @@ module.exports = {
     indexName: (function () {
       if (env === 'development') { return 'undone-labs__docs-starter__development' }
       return env === 'stable' ? 'undone-labs__docs-starter__stable' : 'undone-labs__docs-starter__production'
-    }()),
-    instantSearch: {
-      theme: 'algolia' // this is required
-    }
+    }())
   }
 }

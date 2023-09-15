@@ -2,52 +2,43 @@
   <div
     :class="['search-modal', { active: searchModalActive }]"
     @click.self="closeModal">
-    <div class="search-container">
+    <ais-instant-search :index-name="indexName" :search-client="algolia">
 
-      <ais-instant-search :index-name="indexName" :search-client="algolia">
-        <ais-search-box
-          :class="{ focused: searchFocused }"
-          @focus="searchBoxFocus"
-          @blur="searchBoxBlur" />
-        <div class="results-container">
-          <div class="results-dropdown">
-            <ais-hits>
-              <template #default="{ items }">
-                <HitsList :hits="items" />
-              </template>
-            </ais-hits>
-          </div>
-        </div>
-      </ais-instant-search>
+      <ais-search-box
+        :class="{ focused: searchFocused }"
+        @focus="searchBoxFocus"
+        @blur="searchBoxBlur" />
 
-      <div class="toolbar-bottom">
-        <div class="tip">
-          <IconReturn />
-          <span>
-            to select
-          </span>
-        </div>
-        <div class="tip">
-          <IconNavigate />
-          <span>
-            to navigate
-          </span>
-        </div>
-        <div class="tip">
-          <IconEscape />
-          <span>
-            to close
-          </span>
-        </div>
-        <div class="tip algolia-logo">
-          <span>
-            search by
-          </span>
-          <IconAlgolia />
+      <div class="results-container">
+        <div class="results-dropdown">
+          <ais-hits>
+            <template #default="{ items }">
+              <AlgoliaHitsList :hits="items" />
+            </template>
+          </ais-hits>
         </div>
       </div>
 
-    </div>
+      <div class="toolbar-bottom">
+        <!-- <div class="tip">
+          <IconReturn class="icon return" />
+          <span class="tip-text">to select</span>
+        </div> -->
+        <!-- <div class="tip">
+          <IconNavigate class="icon navigate" />
+          <span class="tip-text">to navigate</span>
+        </div> -->
+        <!-- <div class="tip">
+          <IconEscape class="icon escape" />
+          <span class="tip-text">to close</span>
+        </div> -->
+        <div class="tip algolia-logo">
+          <span class="tip-text">search by</span>
+          <IconAlgolia class="icon algolia" />
+        </div>
+      </div>
+
+    </ais-instant-search>
   </div>
 </template>
 
@@ -163,86 +154,135 @@ const searchBoxBlur = () => { searchFocused.value = false; }
   width: 100%;
   height: 100%;
   visibility: hidden;
-  z-index: -1;
-  opacity: 0;
-  transition: 250ms ease;
+  pointer-events: none;
+  z-index: 2000;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--algolia-backdrop);
+    opacity: 0;
+    z-index: -1;
+    transition: 150ms ease-out;
+  }
   &.active {
     visibility: visible;
-    z-index: 1001;
+    pointer-events: all;
     opacity: 1;
+    &:before {
+      transition: 250ms ease-in;
+      opacity: 0.7;
+    }
+    .ais-InstantSearch {
+      transition: 150ms ease-in;
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-.search-container {
-  position: absolute;
-  width: toRem(710);
-  height: toRem(672);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem;
-  padding-bottom: 0;
+:deep(.ais-InstantSearch) {
+  display: flex;
+  flex-direction: column;
   box-shadow: 2px -4px 4px 0px rgba(0, 0, 0, 0.05), 2px 4px 10px 0px rgba(0, 0, 0, 0.15);
-  background-color: var(--search-modal-background);
-  border: solid 1px var(--divider);
+  background-color: var(--algolia-background);
   border-radius: 0.625rem;
-  z-index: 10;
+  margin: toRem(60) auto auto;
+  max-width: toRem(560);
+  max-height: toRem(600);
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(1rem);
+  z-index: 1000;
+  transition: 150ms ease-out;
 }
 
-:deep(.ais-InstantSearch) {
-  height: calc(100% - toRem(54)); // 100% - bottom toolbar height
+// /////////////////////////////////////////////////////////////////// Searchbox
+:deep(.ais-SearchBox-form) {
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
 }
 
 :deep(.ais-SearchBox) {
-  height: toRem(84);
-  margin-bottom: 1rem;
-  border: 3px solid var(--divider);
+  margin: toRem(12);
+  margin-bottom: 0;
+  padding: 0;
+  background-color: var(--algolia__searchbox__background-color);
+  border: 2px solid var(--divider);
+  border-radius: toRem(10);
   transition: border 250ms ease;
   &.focused {
-    border: 3px solid var(--link-color);
+    border-color: var(--link-color);
     .ais-SearchBox-submitIcon {
       path {
+        transition: 150ms ease-in;
         fill: var(--link-color);
       }
     }
   }
 }
 
-.results-container {
-  height: calc(100% - toRem(84) - 1rem); // 100% minus height and margin on search input
-  overflow: scroll;
-}
-
-:deep(.ais-SearchBox),
-:deep(.hit-container) {
-  padding: 0.625rem 1.25rem;
-  border-radius: 10px;
-  background-color: var(--search-modal-background__secondary);
-}
-
 :deep(.ais-SearchBox-input) {
-  border: none;
-  padding: toRem(8) toRem(50);
   @include h2;
+  flex: 1;
+  height: toRem(60);
+  padding-right: toRem(12);
+  font-size: toRem(22);
   font-weight: 400;
   letter-spacing: 0;
-  background-color: var(--search-modal-background__secondary);
   color: var(--theme-color);
+  border: none;
+  border-radius: toRem(10);
+  appearance: none;
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
 }
 
 :deep(.ais-SearchBox-submitIcon) {
-  width: 2rem;
-  height: 2rem;
-  margin: 0 toRem(9);
+  display: block;
+  width: toRem(24);
+  height: toRem(24);
+  margin: 0 toRem(18);
   path {
-    transition: 250ms ease;
+    fill: var(--theme-color);
+    transition: 150ms ease-out;
+  }
+}
+
+:deep(.ais-SearchBox-reset) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  &:hover {
+    .ais-SearchBox-resetIcon {
+      path {
+        transition: 150ms ease-in;
+        fill: var(--link-color);
+      }
+    }
   }
 }
 
 :deep(.ais-SearchBox-resetIcon) {
+  margin: 0 toRem(18);
   path {
     fill: var(--theme-color);
+    transition: 150ms ease-out;
   }
+}
+
+// //////////////////////////////////////////////////////////////// Results list
+.results-container {
+  flex: 1;
+  padding: 0 toRem(12);
+  padding-bottom: toRem(12);
+  overflow-y: scroll;
 }
 
 :deep(.ais-Hits-list) {
@@ -256,25 +296,20 @@ const searchBoxBlur = () => { searchFocused.value = false; }
 
 // ///////////////////////////////////////////////////////// Bottom Toolbar Tips
 .toolbar-bottom {
-  position: absolute;
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  justify-content: flex-end;
   height: toRem(54);
   width: 100%;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-between;
   padding: toRem(10) toRem(20);
   border-top: solid 1px var(--divider);
 }
 
 .tip {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  span {
-    font-size: toRem(14);
-    line-height: 1.5;
-    margin-left: 0.5rem;
-  }
   :deep(path) {
     fill: var(--theme-color);
   }
@@ -293,5 +328,28 @@ const searchBoxBlur = () => { searchFocused.value = false; }
       }
     }
   }
+}
+
+.icon {
+  display: block;
+  &.return {
+    width: 14px;
+  }
+  &.navigate {
+    width: 20px;
+  }
+  &.escape {
+    width: 20px;
+  }
+  &.algolia {
+    height: 16px;
+  }
+}
+
+.tip-text {
+  font-size: toRem(12);
+  line-height: 1;
+  margin-left: 0.5rem;
+  white-space: nowrap;
 }
 </style>

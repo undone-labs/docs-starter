@@ -144,7 +144,7 @@ const walk = (dir, split = undefined, next) => {
       walk(dirPath, split, next) :
       next({
         path: Path.join(dir, file.name),
-        name: file.name,
+        name: file.name.split('.md')[0],
         ext: Path.extname(file.name).toLowerCase(),
         parentDir: split ? dir.split(`/${split}`).pop().slice(1).split('/')[0] : dir.split('/').pop()
       })
@@ -207,6 +207,6 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
     )
   } catch (e) {
     console.log('================================== syncContentDirOnFileChange')
-    console.log(e.transporterStackTrace)
+    console.log(e)
   }
 })()

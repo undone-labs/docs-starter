@@ -72,7 +72,7 @@ export default defineNuxtModule({
         write: true
       })
 
-      console.log(`globals file is generated at ${fullPath}`)
+      console.log(`🌐 [globals] file is generated at ${fullPath}`)
     })
   }
 })

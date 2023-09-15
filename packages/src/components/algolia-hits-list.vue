@@ -4,34 +4,34 @@
       v-for="item in headings"
       :key="item.heading"
       class="hit-section">
+
       <div class="hit-source">
         {{ item.heading }}
       </div>
+
       <ul class="hits-list">
         <li
           v-for="hit in item.hits"
           :key="hit">
           <nuxt-link :to="`/${hit.objectID}`">
             <div class="hit-container">
-              <div class="icon">
-                <IconHash />
-              </div>
+              <IconHash class="icon hash" />
               <div class="content">
                 <span class="hit-title" v-html="getHitTitle(hit)"></span>
                 <span class="hit-path">{{ `${hit.entryName}` }}</span>
               </div>
-              <div class="action">
-                <IconReturn />
-              </div>
+              <IconReturn class="icon action" />
             </div>
           </nuxt-link>
         </li>
       </ul>
+
     </section>
   </div>
 </template>
 
 <script setup>
+// ======================================================================== Data
 const props = defineProps({
   hits: {
     type: Array,
@@ -40,6 +40,7 @@ const props = defineProps({
   }
 })
 
+// ==================================================================== Computed
 const headings = computed(() => {
   const uniqueHeadings = [...new Set(props.hits.map(hit => hit.sidebarHeading))]
   const array = []
@@ -53,6 +54,11 @@ const headings = computed(() => {
   return array
 })
 
+// ===================================================================== Methods
+/**
+ * @method getHitTitle
+ */
+
 const getHitTitle = (hit) => {
   if (hit._highlightResult.entryName.matchLevel === 'full') {
     return hit.entrySection
@@ -62,6 +68,10 @@ const getHitTitle = (hit) => {
   }
   return hit.entrySection
 }
+
+/**
+ * @method formatMatchingContent
+ */
 
 const formatMatchingContent = (string, hit) => {
   const sentences = string.split('.')
@@ -91,22 +101,11 @@ const formatMatchingContent = (string, hit) => {
   display: flex;
   align-items: center;
   margin-bottom: 0.25rem;
+  padding: toRem(8) toRem(14);
+  padding-right: toRem(20);
+  border-radius: 10px;
+  background-color: var(--algolia__hit__background-color);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
-  .icon,
-  .action {
-    display: flex;
-    transition: none;
-  }
-  .icon {
-    :deep(path) {
-      fill: var(--theme-color);
-    }
-  }
-  .action {
-    :deep(path) {
-      fill: rgba(var(--theme-color), 0);
-    }
-  }
   &:hover {
     background-color: var(--link-color);
     .hit-title,
@@ -119,8 +118,7 @@ const formatMatchingContent = (string, hit) => {
     .hit-path {
       opacity: 0.7;
     }
-    .icon,
-    .action {
+    .icon {
       :deep(path) {
         fill: white;
       }
@@ -132,15 +130,18 @@ const formatMatchingContent = (string, hit) => {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 0 0.5rem;
+  padding: 0 toRem(14);
 }
 
 .hit-source {
-  color: var(--link-color);
   @include p1;
+  position: sticky;
+  top: 0;
+  padding: toRem(15) 0 toRem(10) toRem(12);
+  background-color: var(--algolia-background);
+  color: var(--link-color);
   font-weight: 700;
-  margin-top: toRem(15);
-  margin-bottom: toRem(10);
+  z-index: 100;
 }
 
 .hit-title,
@@ -160,6 +161,7 @@ const formatMatchingContent = (string, hit) => {
   :deep(mark) {
     background: none;
     color: var(--link-color);
+    font-weight: 500;
   }
 }
 
@@ -167,5 +169,17 @@ const formatMatchingContent = (string, hit) => {
   @include p2;
   color: var(--theme-color);
   opacity: 0.7;
+}
+
+.icon {
+  &.hash {
+    width: toRem(24);
+  }
+  &.action {
+    width: toRem(20);
+  }
+  :deep(path) {
+    fill: var(--theme-color);
+  }
 }
 </style>

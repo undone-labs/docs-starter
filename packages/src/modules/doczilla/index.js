@@ -61,7 +61,6 @@ const registerCustomComponents = (nuxt) => {
 
 // ///////////////////////////////////////////// addEntriesToPublicRuntimeConfig
 const addEntriesToPublicRuntimeConfig = (nuxt) => {
-  const options = nuxt.options
   nuxt.options.runtimeConfig.public.algolia.indexName = nuxt.options.algolia.indexName
 }
 
