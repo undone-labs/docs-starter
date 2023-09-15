@@ -20,5 +20,8 @@
   "keywords": [],
   "workspaces": [
     "packages/src"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
 }
