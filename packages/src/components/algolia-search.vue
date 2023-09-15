@@ -10,13 +10,11 @@
         @blur="searchBoxBlur" />
 
       <div class="results-container">
-        <div class="results-dropdown">
-          <ais-hits>
-            <template #default="{ items }">
-              <AlgoliaHitsList :hits="items" />
-            </template>
-          </ais-hits>
-        </div>
+        <ais-hits>
+          <template #default="{ items }">
+            <AlgoliaHitsList :hits="items" />
+          </template>
+        </ais-hits>
       </div>
 
       <div class="toolbar-bottom">

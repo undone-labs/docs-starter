@@ -1,6 +1,9 @@
 <template>
   <div class="all-results">
+
+    <!-- =========================================================== results -->
     <section
+      v-if="resultsFound"
       v-for="item in headings"
       :key="item.heading"
       class="hit-section">
@@ -27,6 +30,12 @@
       </ul>
 
     </section>
+
+    <!-- ================================================== no results found -->
+    <div v-else class="no-results-placeholder">
+      No results found, try a different query
+    </div>
+
   </div>
 </template>
 
@@ -53,6 +62,8 @@ const headings = computed(() => {
   })
   return array
 })
+
+const resultsFound = computed(() => headings.value.length > 0)
 
 // ===================================================================== Methods
 /**
@@ -181,5 +192,11 @@ const formatMatchingContent = (string, hit) => {
   :deep(path) {
     fill: var(--theme-color);
   }
+}
+
+.no-results-placeholder {
+  padding-top: toRem(12);
+  text-align: center;
+  font-weight: 500;
 }
 </style>
