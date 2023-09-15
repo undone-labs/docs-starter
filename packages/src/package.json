@@ -25,6 +25,7 @@
     "@nuxtjs/algolia": "^1.9.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@pinia/nuxt": "^0.4.9",
+    "concurrently": "^8.2.1",
     "eslint": "^8.42.0",
     "fs-extra": "^11.1.1",
     "kramed": "^0.5.6",

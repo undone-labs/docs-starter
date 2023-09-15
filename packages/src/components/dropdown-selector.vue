@@ -40,8 +40,10 @@ const props = defineProps({
  */
 
 const handleOptionSelect = (option) => {
-  console.log(option)
-  // fire i18n here
+  if (process.dev) {
+    console.log(option)
+    // fire i18n here
+  }
 }
 </script>
 
