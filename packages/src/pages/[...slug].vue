@@ -40,7 +40,9 @@
         <div class="col-4">
           <div class="preview">
 
-            <ApiExplorer :sliders="section.api_explorer.sliders" />
+            <ApiExplorer
+              v-if="section.api_explorer"
+              :sliders="section.api_explorer.sliders" />
 
             <component
               :is="getPreviewComponentName(section._path)"

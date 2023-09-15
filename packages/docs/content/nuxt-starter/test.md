@@ -14,17 +14,19 @@ Lörem ipsum anadade ben. Profili intrabusam för att preras. Prossa nyv sesa, o
 
 Ol hexasåv en tresonade.
 
+```javascript
+const options = {
+  headers: {
+    Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 
+    Authorization: `Bearer ${token}`
+  },
+  params: {
+    creator: githubUsername, 
+    per_page: 100
+  }
+}
+const response = await Axios.get(`https://filplus.storage/api/post-kyc-result`, options)"
 ```
-Lörem ipsum { anadade ben } 
-
-Profili intrabusam för att preras({
-Prossa nyv sesa ()
- och somir nedinat, såväl 
-som ålöck terratropi sedan minas. Kvasigt 
-hexav kot. Piperat semir 
-jag})
-```
-
 ---
 
 ## Lorem ipsum dolor amet

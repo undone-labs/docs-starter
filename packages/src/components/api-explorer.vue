@@ -72,7 +72,6 @@ onMounted(() => {
   hljs.registerLanguage('javascript', javascript)
   hljs.registerLanguage('json', json)
   hljs.registerLanguage('curl', hljsCurl)
-  hljs.highlightAll()
   props.sliders.forEach((slider, i) => {
     setActiveSlideContent(i, slider.slides[0], `slide-${i}-0`)
   })

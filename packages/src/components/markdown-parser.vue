@@ -10,6 +10,10 @@
 <script setup>
 // ===================================================================== Imports
 import Kramed from 'kramed'
+import hljs from 'highlight.js/lib/core'
+import javascript from 'highlight.js/lib/languages/javascript'
+import json from 'highlight.js/lib/languages/json'
+import hljsCurl from 'highlightjs-curl'
 
 // ======================================================================== Data
 const props = defineProps({
@@ -35,6 +39,10 @@ let copyButtons = []
 let parsed = null
 
 // ============================================================== [Setup] Kramed
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('json', json)
+hljs.registerLanguage('curl', hljsCurl)
+
 renderer.link = function (href, title, text) {
   const split = text.split('||')
   const len = split.length
@@ -74,6 +82,11 @@ renderer.heading = function (text, level) {
       </h${level}>
     </div>
   `
+}
+
+renderer.code = function (string, language) {
+  const highlighted = hljs.highlight(string, { language }).value
+  return `<pre><code class="markdown-code-block">${highlighted}</code></pre>`
 }
 
 parsed = Kramed(props.markdown, { renderer })
