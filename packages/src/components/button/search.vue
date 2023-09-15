@@ -46,7 +46,7 @@ const generalStore = useGeneralStore()
 // ===================================================================== Methods
 const handleClick = () => {
   emit('clicked')
-  generalStore.setSearchModalActive()
+  generalStore.setSearchModalActive(true)
 }
 </script>
 

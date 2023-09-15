@@ -126,7 +126,7 @@ onBeforeMount(() => {
 onMounted(() => {
   keyCommandEventListenerFunction.value = (e) => {
     if (e.metaKey && (e.key === 'k' || e.keyCode === 75)) {
-      generalStore.setSearchModalActive()
+      generalStore.setSearchModalActive(true)
     }
   }
   window.addEventListener('keydown', keyCommandEventListenerFunction.value)
@@ -137,12 +137,11 @@ onBeforeUnmount(() => {
 })
 
 // ===================================================================== Methods
-const closeModal = () => { generalStore.setSearchModalActive() }
+const closeModal = () => { generalStore.setSearchModalActive(false) }
 
 const searchBoxFocus = () => { searchFocused.value = true }
 
-const searchBoxBlur = () => { searchFocused.value = false; }
-
+const searchBoxBlur = () => { searchFocused.value = false }
 </script>
 
 <style lang="scss" scoped>

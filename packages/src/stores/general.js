@@ -48,8 +48,9 @@ const setActiveLinkMarkerHeight = () => {
 }
 
 // //////////////////////////////////////////////////////// setSearchModalActive
-const setSearchModalActive = () => {
-  searchModalActive.value = !searchModalActive.value
+const setSearchModalActive = (state) => {
+  document.body.classList[state ? 'add' : 'remove']('no-scroll')
+  searchModalActive.value = state
 }
 
 // //////////////////////////////////////////////////////////////// setClipboard

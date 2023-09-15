@@ -12,6 +12,9 @@ html {
       @include selection-dark;
     }
   }
+  &.no-scroll {
+    overflow-y: hidden;
+  }
 }
 
 body {
