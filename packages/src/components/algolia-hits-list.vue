@@ -2,34 +2,35 @@
   <div class="all-results">
 
     <!-- =========================================================== results -->
-    <section
-      v-if="resultsFound"
-      v-for="item in headings"
-      :key="item.heading"
-      class="hit-section">
+    <template v-if="resultsFound">
+      <section
+        v-for="item in headings"
+        :key="item.heading"
+        class="hit-section">
 
-      <div class="hit-source">
-        {{ item.heading }}
-      </div>
+        <div class="hit-source">
+          {{ item.heading }}
+        </div>
 
-      <ul class="hits-list">
-        <li
-          v-for="hit in item.hits"
-          :key="hit">
-          <nuxt-link :to="`/${hit.objectID}`">
-            <div class="hit-container">
-              <IconHash class="icon hash" />
-              <div class="content">
-                <span class="hit-title" v-html="getHitTitle(hit)"></span>
-                <span class="hit-path">{{ `${hit.entryName}` }}</span>
+        <ul class="hits-list">
+          <li
+            v-for="hit in item.hits"
+            :key="hit">
+            <nuxt-link :to="`/${hit.objectID}`">
+              <div class="hit-container">
+                <IconHash class="icon hash" />
+                <div class="content">
+                  <span class="hit-title" v-html="getHitTitle(hit)"></span>
+                  <span class="hit-path">{{ `${hit.entryName}` }}</span>
+                </div>
+                <IconReturn class="icon action" />
               </div>
-              <IconReturn class="icon action" />
-            </div>
-          </nuxt-link>
-        </li>
-      </ul>
+            </nuxt-link>
+          </li>
+        </ul>
 
-    </section>
+      </section>
+    </template>
 
     <!-- ================================================== no results found -->
     <div v-else class="no-results-placeholder">
