@@ -33,6 +33,11 @@
               :markdown="section.body"
               :section="content.length > 1 ? section._path.split('/').pop() : ''"
               class="markdown" />
+            <ApiInformation
+              v-if="section.apiPreview"
+              :headers="section.apiPreview.headers"
+              :query-parameters="section.apiPreview.query_parameters"
+              :response-codes="section.apiPreview.response_codes" />
           </div>
         </div>
 
@@ -41,8 +46,8 @@
           <div class="preview">
 
             <ApiExplorer
-              v-if="section.api_explorer"
-              :sliders="section.api_explorer.sliders" />
+              v-if="section.apiPreview"
+              :sliders="section.apiPreview.sliders" />
 
             <component
               :is="getPreviewComponentName(section._path)"
@@ -96,7 +101,7 @@ const pageContent = computed(() => {
   const array = content.value.filter(item => item._extension === 'md')
   array.forEach((mdContent) => {
     const jsonContent = content.value.find(item => item._path === mdContent._path && item._extension === 'json')
-    if (jsonContent) { mdContent.api_explorer = jsonContent }
+    if (jsonContent) { mdContent.apiPreview = jsonContent }
   })
   return array
 })
@@ -250,8 +255,12 @@ const getPreviewComponentName = (path) => {
 
 .section {
   &:not(:nth-child(2)) {
+    padding-top: 2rem;
     border-top: solid 2px var(--background-color__secondary);
     transition: border-color 500ms;
+  }
+  &:not(:nth-last-child(2)) {
+    padding-bottom: 2rem;
   }
 }
 

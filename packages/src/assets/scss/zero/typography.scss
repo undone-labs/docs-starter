@@ -148,9 +148,9 @@ $fontAssetPath: 'assets/fonts';
 }
 
 @mixin inlineCode {
-  color: var(--code-text-color);
-  background-color: var(--code-background-color);
-  padding: 0.12rem 0.45rem;
+  color: var(--theme-color);
+  background-color: var(--background-color__tertiary);
+  padding: toRem(4) toRem(8);
   border-radius: toRem(4);
 }
 

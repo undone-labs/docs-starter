@@ -1,4 +1,26 @@
 {
+  "headers": {
+    "accept": {
+      "type": "string",
+      "description": "Setting to `application/vnd.github+json` is recommended."
+    },
+    "Authorization": {
+      "type": "string",
+      "description": "Bearer token"
+    }
+  },
+  "query_parameters": {
+    "state": {
+      "type": "string",
+      "description": "Indicates the state of the issues to return. \n\nDefault: `open` \n\n Can be one of: `open`, `closed`, `all`"
+    }
+  },
+  "response_codes": {
+    "200": "OK",
+    "304": "Not modified",
+    "404": "Resource not found",
+    "422": "Validation failed, or the endpoint has been spammed"
+  },
   "sliders": [
     {
       "rest": {
@@ -10,12 +32,12 @@
         {
           "language": "curl",
           "tab": "cURL",
-          "content": "curl https://localhost:3000/api/get-datasets"
+          "content": "curl https://example.com/api/get-datasets"
         },
         {
           "language": "javascript",
           "tab": "Javascript",
-          "content": "const options = {\n  headers: { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', Authorization: `Bearer ${token}` }, \n  params: { \n    creator: githubUsername, \n    per_page: 100 \n  } \n} \nconst response = await Axios.get(`https://example.com/api/get-datasets`, options)"
+          "content": "const options = {\n  headers: { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', Authorization: `Bearer ${token}` }, \n  params: { \n    creator: username, \n    per_page: 100 \n  } \n} \nconst response = await Axios.get(`https://filplus.storage/api/get-datasets`, options)"
         }
       ]
     },
