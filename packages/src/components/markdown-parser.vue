@@ -21,7 +21,7 @@ const props = defineProps({
     type: String,
     required: true
   },
-  prefixHeadingIds: { // used to scope headings
+  section: { // used to scope headings, needs to match sync.js
     type: String,
     required: false,
     default: ''
@@ -39,6 +39,7 @@ let copyButtons = []
 let parsed = null
 
 // ============================================================== [Setup] Kramed
+// console.log(javascript, json, hljsCurl)
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('json', json)
 hljs.registerLanguage('curl', hljsCurl)
@@ -69,7 +70,8 @@ renderer.heading = function (text, level) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
   return `
-    <div class="copy-heading-button-container">
+    <h${level} id="${escapedText}" section="${props.section}" class="can-copy-url heading-anchor">
+      ${text}
       <button class="copy-heading-button" hash="${escapedText}" data-tooltip="Click to copy link" data-tooltip-theme="light">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195.085 195.085">
           <path fill="#E3D3C0" d="M179.617,15.453c-0.051-0.05-0.102-0.1-0.154-0.149c-18.689-18.549-48.477-20.463-69.37-4.441c-2.091,1.599-3.776,3.053-5.302,4.575c-0.044,0.044-0.087,0.088-0.13,0.133L71.224,49.012c-2.929,2.929-2.929,7.678,0.001,10.606c2.93,2.93,7.679,2.929,10.606-0.001l33.561-33.566c0.035-0.035,0.069-0.07,0.104-0.105c1.023-1.01,2.205-2.02,3.715-3.174c15.008-11.508,36.411-10.098,49.789,3.281c0.044,0.044,0.089,0.088,0.134,0.131c14.652,14.786,14.611,38.742-0.124,53.483l-33.559,33.563c-2.929,2.929-2.929,7.678,0.001,10.606c1.465,1.464,3.384,2.196,5.303,2.196c1.919,0,3.839-0.732,5.304-2.197l33.56-33.563C200.241,69.641,200.241,36.077,179.617,15.453z" />
@@ -77,15 +79,14 @@ renderer.heading = function (text, level) {
           <path fill="#E3D3C0" d="M59.15,135.908c1.465,1.465,3.384,2.197,5.304,2.197c1.919,0,3.839-0.732,5.303-2.196l66.164-66.161c2.93-2.929,2.93-7.678,0.001-10.606c-2.929-2.93-7.678-2.929-10.606-0.001l-66.164,66.161C56.221,128.23,56.221,132.979,59.15,135.908z" />
         </svg>
       </button>
-      <h${level} id="${props.prefixHeadingIds}${escapedText}">
-        ${text}
-      </h${level}>
-    </div>
+    </h${level}>
   `
 }
 
-renderer.code = function (string, language) {
-  const highlighted = hljs.highlight(string, { language }).value
+renderer.code = function (code, language) {
+  const highlighted = language ?
+    hljs.highlight(code, { language }).value :
+    hljs.highlightAuto(code).value
   return `<pre><code class="markdown-code-block">${highlighted}</code></pre>`
 }
 
@@ -99,7 +100,7 @@ onMounted(async () => {
     for (let i = 0; i < len; i++) {
       const button = copyButtons[i]
       const hash = button.getAttribute('hash')
-      const url = `${baseURL}/#${hash}`
+      const url = `${baseURL}#${hash}`
       button.addEventListener('click', () => {
         useAddTextToClipboard(url)
         generalStore.setClipboard(url)

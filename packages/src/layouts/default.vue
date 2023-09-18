@@ -1,6 +1,8 @@
 <template>
   <div class="layout default">
 
+    <AlgoliaSearch />
+
     <SiteHeader />
 
     <Sidebar />

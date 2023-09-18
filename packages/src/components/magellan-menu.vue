@@ -6,7 +6,7 @@
     </div>
 
     <div
-      :class="['active-link-marker', { hide: !activeUrlHash }]"
+      :class="['active-link-marker', { hide: !activeSection }]"
       :style="{ height: `${activeLinkMarkerHeight}px`, top: `${activeLinkMarkerPosition}px` }" />
 
     <ButtonClear
@@ -14,8 +14,9 @@
       :key="index"
       tag="nuxt-link"
       :to="link.hash"
-      :class="['link', link.level, { active: hashIsActive(link.hash) }]"
-      :link-hash="link.hash.slice(1)"
+      :class="['link', link.level, { active: hashIsActive(link) }]"
+      :link-id="link.id"
+      :link-section-id="link.sectionId"
       :link-index="index"
       class="link">
       <div class="button-label" v-html="link.text.trim()" />
@@ -35,23 +36,27 @@ const scrollTop = ref(0)
 const scrollMagellanMenuEventListenerFunction = ref(null)
 const generalStore = useGeneralStore()
 const {
-  activeUrlHash,
+  activeSection,
   magellanLinks,
   activeLinkMarkerHeight
 } = storeToRefs(generalStore)
 
 // ==================================================================== Computed
 const activeLinkMarkerPosition = computed(() => {
-  if (!activeUrlHash.value || !linkElement.value) { return 52 }
+  if (!activeSection.value || !linkElement.value) { return 52 }
   const buttonTop = linkElement.value.getBoundingClientRect().top
   const parentTop = linkElement.value.parentNode.getBoundingClientRect().top
   return buttonTop - parentTop + scrollTop.value
 })
 
 // ==================================================================== Watchers
-watch(activeUrlHash, (hash) => {
-  linkElement.value = document.querySelector(`[link-hash="${hash}"]`)
-  if (!hash || !linkElement.value) { return false }
+watch(activeSection, (section) => {
+  linkElement.value = document.querySelector(
+    section.sectionId ?
+      `[link-id=${section.id}][link-section-id=${section.sectionId}]` :
+      `[link-id=${section.id}]`
+  )
+  if (!section || !linkElement.value) { return false }
   activeLinkMarkerHeight.value = linkElement.value.offsetHeight
 })
 
@@ -91,9 +96,15 @@ onBeforeUnmount(() => {
 /**
  * @method hashIsActive
  */
-const hashIsActive = (hash) => {
-  if (!activeUrlHash.value || !hash) { return false }
-  return hash.slice(1) === activeUrlHash.value
+const hashIsActive = (link) => {
+  if (!activeSection.value || !link.hash) { return false }
+  const id = link.id
+  const sectionId = link.sectionId
+  if (sectionId !== '') {
+    return `${sectionId}-${id}` === `${activeSection.value.sectionId}-${activeSection.value.id}`
+  } else {
+    return id === activeSection.value.id
+  }
 }
 </script>
 
@@ -115,12 +126,15 @@ const hashIsActive = (hash) => {
 
 .active-link-marker {
   position: absolute;
-  top: calc($sidebarPadding + 1.25rem);
-  left: calc($sidebarPadding - 0.5rem);
+  top: calc(#{$sidebarPadding} + 1.25rem);
+  left: 0;
   width: 0.25rem;
   background-color: var(--link-color);
   border-radius: toRem(4);
   transition: 150ms ease-in-out, background-color 500ms;
+  @include gridMaxMQ {
+    left: calc(#{$sidebarPadding} - 0.5rem);
+  }
   &.hide {
     opacity: 0;
   }
