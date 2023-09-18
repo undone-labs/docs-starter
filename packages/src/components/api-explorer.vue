@@ -10,12 +10,12 @@
           {{ slider.title }}
         </div>
         <div v-if="slider.rest" class="rest">
-          <span class="monospace method">{{ slider.rest.method }}</span>
+          <span class="monospace http-code">{{ slider.rest.http_code }}</span>
           <span class="monospace endpoint">{{ slider.rest.endpoint }}</span>
         </div>
         <div v-if="slider.response" class="response">
           <span class="monospace text">{{ slider.response.text }}</span>
-          <span class="monospace response-code"> {{ slider.response.code }}</span>
+          <span class="monospace response-code"> {{ slider.response.http_code }}</span>
         </div>
       </div>
 
@@ -88,7 +88,6 @@ const setActiveSlideContent = (index, slide, key) => {
     key
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -103,17 +102,19 @@ const setActiveSlideContent = (index, slide, key) => {
     font-weight: 500;
     line-height: leading(21, 14);
     color: var(--theme-color);
+    transition: color 500ms;
     &:not(:last-child) {
       margin-right: toRem(7);
     }
   }
-  .method,
+  .http-code,
   .response-code {
-    color: var(--code-text-color);
+    color: var(--api-explorer__http-status-code__color);
     padding: toRem(3) toRem(7);
     padding-bottom: toRem(1);
-    background-color: var(--background-color__secondary);
+    background-color: var(--api-explorer__http-status-code__background-color);
     border-radius: toRem(2);
+    transition: background-color 500ms, color 500ms;
   }
 }
 
@@ -128,17 +129,21 @@ const setActiveSlideContent = (index, slide, key) => {
   border: solid 2px var(--divider);
   border-radius: toRem(5);
   margin-bottom: toRem(18);
+  overflow: hidden;
+  transition: border-color 500ms;
 }
 
 .slider-tabs {
   display: flex;
   border-bottom: solid 2px var(--divider);
   background-color: var(--background-color__secondary);
+  transition: background-color 500ms, color 500ms, border-color 500ms;
 }
 
 .slide-content {
   padding: toRem(12) toRem(24);
   background-color: var(--background-color);
+  transition: background-color 500ms, color 500ms;
   pre {
     display: flex;
     margin: 0;
@@ -146,11 +151,12 @@ const setActiveSlideContent = (index, slide, key) => {
 }
 
 .tab {
+  @include h5;
   position: relative;
   padding: toRem(7) toRem(24);
   cursor: pointer;
-  @include h5;
   color: var(--theme-color);
+  transition: color 500ms;
   &:after {
     content: '';
     position: absolute;
@@ -161,6 +167,7 @@ const setActiveSlideContent = (index, slide, key) => {
   &.active {
     &:after {
       border-bottom: solid 3px var(--link-color);
+      transition: border-color 500ms;
     }
   }
   &:not(:last-child) {
@@ -173,5 +180,4 @@ const setActiveSlideContent = (index, slide, key) => {
   @include codeBlock;
   white-space: break-spaces;
 }
-
 </style>
