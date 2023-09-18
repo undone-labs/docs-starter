@@ -116,8 +116,7 @@
 
   code {
     @include inlineCode;
-    &::-moz-selection { background: var(--code-background-color); color: var(--code-text-color); }
-    &::selection { background: var(--code-background-color); color: var(--code-text-color); }
+    white-space: break-spaces;
   }
 
   // ===================================================================== Lists

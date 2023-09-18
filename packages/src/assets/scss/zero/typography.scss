@@ -2,6 +2,7 @@
 // -----------------------------------------------------------------------------
 // ==================================================================== Families
 $fontDIN: 'DIN', sans-serif, monospace;
+$fontPFDinMono: 'PFD in Mono', sans-serif, monospace;
 
 $fontAssetPath: 'assets/fonts';
 
@@ -67,6 +68,24 @@ $fontAssetPath: 'assets/fonts';
   src: url('#{$fontAssetPath}/DIN/DIN-BoldItalic.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'PFD in Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.ttf') format('truetype'),
+       url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'PFD in Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.ttf') format('truetype'),
+       url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.otf') format('opentype');
+}
+
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
 // -----------------------------------------------------------------------------
 @mixin h1 {
@@ -119,6 +138,13 @@ $fontAssetPath: 'assets/fonts';
   line-height: leading(21, 14);
   font-weight: 400;
   letter-spacing: 0.2px;
+}
+
+@mixin codeBlock {
+  font-size: toRem(14);
+  line-height: leading(21, 14);
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 @mixin inlineCode {

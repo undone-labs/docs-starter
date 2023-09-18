@@ -1,0 +1,21 @@
+.hljs-keyword {
+  color: #E26C29;
+}
+
+.hljs-attr {
+  color: #1A6B8E;
+}
+
+.hljs-title {
+  &.function_ {
+    color: #E26C29;
+  }
+}
+
+.hljs-string {
+  color: #884F9C;
+}
+
+.hljs-number {
+  color: #5C6CBC;
+}
