@@ -6,7 +6,7 @@ import { ref } from '#imports'
 // -----------------------------------------------------------------------------
 const clipboard = ref(false)
 const theme = ref('light')
-const activeUrlHash = ref(false)
+const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
 const searchModalActive = ref(false)
@@ -20,9 +20,9 @@ const setTheme = (newTheme) => {
   document.documentElement.className = newTheme
 }
 
-// //////////////////////////////////////////////////////////// setActiveUrlHash
-const setActiveUrlHash = (hash) => {
-  activeUrlHash.value = hash
+// //////////////////////////////////////////////////////////// setActiveSection
+const setActiveSection = (hash) => {
+  activeSection.value = hash
 }
 
 // //////////////////////////////////////////////////////// compileMagellanLinks
@@ -32,6 +32,8 @@ const compileMagellanLinks = () => {
     acc.push({
       level: `level-${item.localName}`,
       hash: `#${item.id}`,
+      id: item.id,
+      sectionId: item.getAttribute('section'),
       text: item.textContent
     })
     return acc
@@ -64,13 +66,13 @@ export const useGeneralStore = defineStore('general', () => ({
   // ----- state
   clipboard,
   theme,
-  activeUrlHash,
+  activeSection,
   magellanLinks,
   searchModalActive,
   activeLinkMarkerHeight,
   // ----- actions
   setTheme,
-  setActiveUrlHash,
+  setActiveSection,
   compileMagellanLinks,
   setActiveLinkMarkerHeight,
   setClipboard,

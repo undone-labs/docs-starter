@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "concurrently --prefixColors=yellow,green --names=⚡️,nuxt --prefix=name \"npm run watch\" \"nuxt dev --no-clear --https\"",
-    "watch": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js -e md,vue,json,scss",
+    "dev": "concurrently --prefixColors=yellow,green --names=⚡️,nuxt --prefix=name \"npm run sync\" \"nuxt dev --no-clear --https\"",
+    "sync": "nodemon modules/doczilla/sync.js --watch ../docs -e md,vue,json,scss",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",

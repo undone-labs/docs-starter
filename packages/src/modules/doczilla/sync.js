@@ -135,18 +135,26 @@ const parseMarkdownStringToJson = (string) => {
 }
 
 // //////////////////////////////////////////////////////////////////////// walk
-const walk = (dir, split = undefined, next) => {
-  if (split) { split = split.replaceAll('/', '') }
+const walk = (dir, split, next) => {
+  let level = dir.split(split).pop().slice(1)
+  level = level === '' ? 0 : level.split('/').length
   Fs.readdirSync(dir, { withFileTypes: true }).forEach(file => {
     const dirPath = Path.join(dir, file.name)
     const isDirectory = Fs.statSync(dirPath).isDirectory()
+    if (level >= 3) {
+      console.error('‼️ Content can only be nested 2 directories deep. ‼️')
+      process.exit(0)
+    }
     isDirectory ?
       walk(dirPath, split, next) :
       next({
         path: Path.join(dir, file.name),
         name: file.name.split('.md')[0],
         ext: Path.extname(file.name).toLowerCase(),
-        parentDir: split ? dir.split(`/${split}`).pop().slice(1).split('/')[0] : dir.split('/').pop()
+        level,
+        levelPath: dir.split(split).pop(),
+        topLevelSlug: dir.split(split).pop().slice(1).split('/')[0],
+        parentSlug: dir.split(split).pop().slice(1).split('/').pop()
       })
   })
 }
@@ -154,19 +162,26 @@ const walk = (dir, split = undefined, next) => {
 // ///////////////////////////////////////// compileDirContentForAlgoliaIndexing
 const compileDirContentForAlgoliaIndexing = () => {
   const records = []
-  walk (Path.resolve(__dirname, '../../docs/content'), 'content', file => {
+  walk(Path.resolve(__dirname, '../../docs/content'), 'content', file => {
     const filePath = file.path
     if (file.ext === '.md') {
       const sections = parseMarkdownStringToJson(
         Fs.readFileSync(filePath, 'utf-8')
       )
-      const subdirSlug = file.parentDir
+      const topLevelSlug = file.topLevelSlug
+      const parentSlug = file.parentSlug
+      const fileLevelPath = file.levelPath
       const fileName = file.name
       sections.forEach(section => {
         records.push({
-          objectID: `${subdirSlug}/${fileName}#${slugify(section.heading)}`,
-          sidebarHeading: unslugify(subdirSlug, 'capitalize-all'),
-          entryName: unslugify(fileName, 'capitalize-all'),
+          objectID: file.level < 2 ?
+            `${fileLevelPath}/${fileName}#${slugify(section.heading)}` :
+            `${fileLevelPath}#${slugify(section.heading)}?${file.name}`,
+          sidebarHeading: unslugify(topLevelSlug, 'capitalize-all'),
+          entryName: unslugify(
+            file.level < 2 ? fileName : parentSlug,
+            'capitalize-all'
+          ),
           entrySection: section.heading,
           content: section.content
         })
@@ -196,7 +211,7 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
 }
 
 // ////////////////////////////////////////////////// syncContentDirOnFileChange
-(async function syncContentDirOnFileChange () {
+async function syncContentDirOnFileChange () {
   const nuxtConfig = require(Path.resolve(__dirname, '../../nuxt.config.content.js'))
   deleteTargetDir()
   copySrcDirToTargetDir()
@@ -209,4 +224,5 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
     console.log('================================== syncContentDirOnFileChange')
     console.log(e)
   }
-})()
+}
+syncContentDirOnFileChange()
