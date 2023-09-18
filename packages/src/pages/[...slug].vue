@@ -159,7 +159,6 @@ const intersectionObserveHeadings = () => {
         // }
       }
     }
-    console.log(activeSection)
     if (!navigatedByRoute.value && activeSection) {
       // history.replaceState({}, null, activePath)
       generalStore.setActiveSection(activeSection)

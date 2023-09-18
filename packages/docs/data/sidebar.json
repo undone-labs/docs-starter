@@ -15,5 +15,22 @@
         "title": "Preview a component"
       }
     ]
+  },
+  {
+    "title": "API Sample",
+    "slug": "api-sample",
+    "icon": "",
+    "children": [
+      {
+        "type": "nuxt-link",
+        "href": "/introduction",
+        "title": "Introduction"
+      },
+      {
+        "type": "nuxt-link",
+        "href": "/datasets",
+        "title": "Datasets"
+      }
+    ]
   }
 ]
