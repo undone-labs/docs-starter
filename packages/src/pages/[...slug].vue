@@ -4,7 +4,7 @@
     <!-- ============================================================ Header -->
     <header>
       <div class="grid">
-        <div class="col-6" data-push-left="off-2">
+        <div class="col-6_md-8" data-push-left="off-2_lg-3_md-0">
           <div class="content">
             <h1
               :id="pageSlug"
@@ -19,25 +19,25 @@
 
     <!-- ========================================================== Sections -->
     <section
-      v-for="(section, index) in content"
+      v-for="section in content"
       :key="section._path"
       class="section">
 
       <div class="grid">
 
         <!-- ======================================================= Content -->
-        <div class="col-6" data-push-left="off-2">
+        <div class="col-6_md-8" data-push-left="off-2_lg-3_md-0">
           <div class="content">
             <MarkdownParser
               id="markdown"
               :markdown="section.body"
-              :prefix-heading-ids="content.length > 1 ? `section-${index + 1}-` : ''"
+              :section="content.length > 1 ? section._path.split('/').pop() : ''"
               class="markdown" />
           </div>
         </div>
 
         <!-- ======================================================= Preview -->
-        <div class="col-4">
+        <div class="col-4_lg-3_md-4">
           <div class="preview">
             <component
               :is="getPreviewComponentName(section._path)"
@@ -94,7 +94,7 @@ watch(route, async route => {
     clearTimeout(navigatedByRouteDebounce.value)
   }, 100)
   navigatedByRoute.value = true
-  generalStore.setActiveUrlHash(route.hash.slice(1))
+  generalStore.setActiveSection(route.hash.slice(1))
   if (process.client) {
     await nextTick(() => {
       const linksExist = generalStore.compileMagellanLinks()
@@ -113,9 +113,6 @@ onMounted(async () => {
     const header = document.getElementById('site-header')
     headerHeight.value = header.offsetHeight
     sections.value = Array.from(document.querySelectorAll('#markdown *[id]'))
-    sections.value.forEach((section) => {
-      section.classList.add('heading-anchor')
-    })
     intersectionObserveHeadings()
     detectPageScrolledToEdgesOfViewport()
   })
@@ -137,9 +134,10 @@ const intersectionObserveHeadings = () => {
   intersectionObserver.value = new IntersectionObserver((entries) => {
     const entry = entries[0]
     const entryId = entry.target.id
+    const sectionId = entry.target.getAttribute('section')
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.slice(1)
-    let activeUrlHash = hash
+    let activeSection = hash
     // let activePath
     // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
     /**
@@ -149,21 +147,22 @@ const intersectionObserveHeadings = () => {
     if (intersectingTop && !navigatedByRoute.value) {
       if (entryId !== hash) {
         // activePath = `${route.path}#${entryId}`
-        activeUrlHash = entryId
+        activeSection = sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
       } else {
-        const index = sections.value.findIndex(section => section.id === entryId)
-        if (index !== 0) {
-          const current = sections.value[index - 1]
-          // activePath = `${route.path}#${current.id}`
-          activeUrlHash = current.id
-        } else {
-          activeUrlHash = false
-        }
+        // const index = sections.value.findIndex(section => section.id === entryId)
+        // if (index !== 0) {
+        //   const current = sections.value[index - 1]
+        //   activePath = `${route.path}#${current.id}`
+        //   activeSection = current.id
+        // } else {
+        //   activeSection = false
+        // }
       }
     }
-    if (!navigatedByRoute.value && activeUrlHash) {
+    console.log(activeSection)
+    if (!navigatedByRoute.value && activeSection) {
       // history.replaceState({}, null, activePath)
-      generalStore.setActiveUrlHash(activeUrlHash)
+      generalStore.setActiveSection(activeSection)
     }
   }, {
     rootMargin: `${-headerHeightOffset.value}px 0px 0px 0px`
@@ -185,10 +184,10 @@ const detectPageScrolledToEdgesOfViewport = () => {
       const bodyHeight = document.body.offsetHeight
       if (y <= headerHeight.value) {
         // history.replaceState({}, null, route.path)
-        generalStore.setActiveUrlHash(false)
+        generalStore.setActiveSection(false)
       } else if (y + viewportHeight >= bodyHeight) {
         // history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
-        generalStore.setActiveUrlHash(lastMagellanNavItemId)
+        generalStore.setActiveSection(lastMagellanNavItemId)
       }
     }
     scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)
@@ -223,16 +222,22 @@ const getPreviewComponentName = (path) => {
   }
 }
 
+:deep(.content) {
+  h2, h3, h4, h5, h6 {
+    scroll-margin-top: calc(#{$siteHeaderHeight} + 1.75rem);
+  }
+  @include customMaxMQ(toRem(1366)) {
+    padding-left: 2rem;
+  }
+  @include large {
+    padding-left: 0;
+  }
+}
+
 .section {
   &:not(:nth-child(2)) {
     border-top: solid 2px var(--background-color__secondary);
     transition: border-color 500ms;
-  }
-}
-
-:deep(.content) {
-  h2, h3, h4, h5, h6 {
-    scroll-margin-top: calc(#{$siteHeaderHeight} + 1.75rem);
   }
 }
 

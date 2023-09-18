@@ -40,10 +40,13 @@ const props = defineProps({
 
 const emit = defineEmits(['clicked'])
 
+// ======================================================================== Data
+const generalStore = useGeneralStore()
+
 // ===================================================================== Methods
 const handleClick = () => {
-  console.log('search button clicked')
   emit('clicked')
+  generalStore.setSearchModalActive(true)
 }
 </script>
 

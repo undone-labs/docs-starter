@@ -34,6 +34,8 @@ $codGray: #181818; // rgb(24, 24, 24)
 $mineShaft: #303030; // rgb(48, 48, 48)
 $melrose: #B2CDFF; // rgb(178, 205, 255)
 $bayOfMany: #1E3F82; // rgb(30, 63, 130)
+$alabaster: #F9F9F9; // rgba(249, 249, 249)
+$pickledBluewood: #353F60; // rgba(53, 63, 96)
 
 $replace1: #D9D9D9;
 $replace2: #C6C6C6;
@@ -54,6 +56,11 @@ $replace4: #000000;
   --link-hover-color: #{$melrose};
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
+  --algolia-backdrop: #{$pickledBluewood};
+  --algolia-background: #{$alabaster};
+  --algolia__searchbox__background-color: white;
+  --algolia__hit__background-color: white;
+  --algolia__highlight: #{$blueRibbon}; // not used because contrast too intense
 }
 
 .dark {
@@ -69,6 +76,11 @@ $replace4: #000000;
   --link-hover-color: #{$bayOfMany};
   --code-text-color: #{$portage};
   --code-background-color: #{$mineShaft};
+  --algolia-backdrop: #{$pickledBluewood};
+  --algolia-background: #{$codGray};
+  --algolia__searchbox__background-color: #{$mineShaft};
+  --algolia__hit__background-color: #{$mineShaft};
+  --algolia__highlight: #{$blueRibbon}; // not used because contrast too intense
 }
 
 // ===================================================================== Styling

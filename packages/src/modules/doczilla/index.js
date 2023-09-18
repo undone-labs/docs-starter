@@ -59,15 +59,21 @@ const registerCustomComponents = (nuxt) => {
   })
 }
 
+// ///////////////////////////////////////////// addEntriesToPublicRuntimeConfig
+const addEntriesToPublicRuntimeConfig = (nuxt) => {
+  nuxt.options.runtimeConfig.public.algolia.indexName = nuxt.options.algolia.indexName
+}
+
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
-const setup = (options, nuxt) => {
+const setup = (_, nuxt) => {
   try {
     const contentPath = resolve(nuxt.options.vite.root, '../docs/content')
     if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
     registerTargetDirWithContentModule(nuxt)
     registerTargetDirComponents(nuxt)
     registerCustomComponents(nuxt)
+    addEntriesToPublicRuntimeConfig(nuxt)
   } catch (e) {
     console.log('\n')
     console.log(e)

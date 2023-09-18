@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="previous || next" id="pagination">
+  <nav v-if="previous || next" id="pagination" :class="{ single: !previous || !next }">
 
     <ButtonClear
       v-if="previous"
@@ -90,8 +90,8 @@ const previous = onFirstPage ? lastNavItem : navigation[currentPathIndex - 1]
 const next = onLastPage ? firstNavItem : navigation[currentPathIndex + 1]
 
 const currentPage = navigation.find(page => page.path === currentPath)
-const previousSection = currentPage.pageIndex === 0 ? currentPage.previousDir : undefined
-const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? currentPage.nextDir : undefined
+const previousSection = currentPage?.pageIndex === 0 ? currentPage?.previousDir : undefined
+const nextSection = currentPage?.pageIndex === currentPage?.dirPageCount - 1 ? currentPage?.nextDir : undefined
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +100,9 @@ const nextSection = currentPage.pageIndex === currentPage.dirPageCount - 1 ? cur
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  &.single {
+    justify-content: flex-end;
+  }
 }
 
 :deep(.nav-link) {
