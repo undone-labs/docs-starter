@@ -1,57 +1,18 @@
 [
   {
-    "title": "Nuxt Starter",
-    "slug": "nuxt-starter",
-    "icon": "nuxt-starter-icon",
+    "title": "Content Sample",
+    "slug": "content-sample",
+    "icon": "",
     "children": [
       {
         "type": "nuxt-link",
-        "href": "/introduction",
-        "title": "Introduction"
+        "href": "/simple-markdown",
+        "title": "Simple Markdown"
       },
       {
         "type": "nuxt-link",
-        "href": "/test",
-        "title": "Test"
-      }
-    ]
-  },
-  {
-    "title": "Getting Started",
-    "slug": "getting-started",
-    "icon": "docs-starter-icon",
-    "children": [
-      {
-        "type": "nuxt-link",
-        "href": "/introduction",
-        "title": "Introduction"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/quick-start",
-        "title": "Quick Start"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/test",
-        "title": "Test"
-      }
-    ]
-  },
-  {
-    "title": "Essentials",
-    "slug": "essentials",
-    "icon": "directory-starter-icon",
-    "children": [
-      {
-        "type": "nuxt-link",
-        "href": "/creating-an-application",
-        "title": "Creating an Application"
-      },
-      {
-        "type": "nuxt-link",
-        "href": "/template-syntax",
-        "title": "Template Syntax"
+        "href": "/preview-a-component",
+        "title": "Preview a component"
       }
     ]
   }

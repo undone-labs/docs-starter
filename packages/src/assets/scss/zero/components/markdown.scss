@@ -205,6 +205,7 @@
 
   // ==================================================================== Tables
   table {
+    width: 100%;
     border-top: solid 2px var(--divider);
     border-bottom: solid 2px var(--divider);
     margin-bottom: 1.25rem;
@@ -214,7 +215,7 @@
   th,
   td {
     text-align: left;
-    padding: toRem(4) toRem(122) toRem(4) toRem(14);
+    padding: toRem(8) toRem(10);
   }
 
   th {
