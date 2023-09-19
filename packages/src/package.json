@@ -3,7 +3,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "concurrently --prefixColors=yellow,green --names=⚡️,nuxt --prefix=name \"npm run sync\" \"nuxt dev --no-clear --https\"",
-    "sync": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js -e md,vue,json,scss,js",
+    "sync": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js --watch docs-base -e md,vue,json,scss,js",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
