@@ -128,9 +128,6 @@ module.exports = {
   algolia: {
     apiKey: process.env.ALGOLIA_API_KEY,
     applicationId: process.env.ALGOLIA_APPLICATION_ID,
-    indexName: (function () {
-      if (env === 'development') { return 'data-preservation-programs__singularity-docs__development' }
-      return env === 'stable' ? 'data-preservation-programs__singularity-docs__stable' : 'data-preservation-programs__singularity-docs__production'
-    }())
+    indexName: `${process.env.ALGOLIA_INDEX_ID}__${env}`
   }
 }
