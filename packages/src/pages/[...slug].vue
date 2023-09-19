@@ -273,6 +273,7 @@ const getPreviewComponentName = (path) => {
 }
 
 .heading {
+  @include h1;
   margin-bottom: 2rem;
 }
 </style>
