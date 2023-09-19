@@ -68,8 +68,6 @@ const addEntriesToPublicRuntimeConfig = (nuxt) => {
 // -----------------------------------------------------------------------------
 const setup = (_, nuxt) => {
   try {
-    const contentPath = resolve(nuxt.options.vite.root, '../docs/content')
-    if (!Fs.existsSync(contentPath)) { throw new Error('❗️<content> directory is missing') }
     registerTargetDirWithContentModule(nuxt)
     registerTargetDirComponents(nuxt)
     registerCustomComponents(nuxt)

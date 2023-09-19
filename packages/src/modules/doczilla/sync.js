@@ -16,28 +16,36 @@ require('dotenv').config({ path: `${__dirname}/../../.env` })
 
 // /////////////////////////////////////////////////////////////////// Variables
 // -----------------------------------------------------------------------------
-const dirs = [
+const dirsToDelete = [
+  '../../docs',
+  '../../data',
+  '../../assets/scss/theme'
+]
+
+const dirsToCopy = [
   {
-    src: '../../../docs', // need this parent entry to delete entire @/src/docs dir before adding child dirs
-    dest: '../../docs',
-    children: [
-      {
-        src: '../../../docs/components',
-        dest: '../../docs/components'
-      },
-      {
-        src: '../../../docs/content',
-        dest: '../../docs/content'
-      }
-    ]
+    src: '../../../docs/components',
+    dest: '../../docs/components',
+    base: { // if components directory doesn't exist, use base data
+      src: '../../docs-base/components',
+      dest: '../../docs/components'
+    }
   },
   {
-    src: '../../../docs/data',
-    dest: '../../data'
+    src: '../../../docs/content',
+    dest: '../../docs/content',
+    base: { // if content directory doesn't exist, use base data
+      src: '../../docs-base/content',
+      dest: '../../docs/content'
+    }
   },
   {
     src: '../../../docs/theme',
     dest: '../../assets/scss/theme'
+  },
+  {
+    src: '../../../docs/data',
+    dest: '../../data'
   }
 ]
 
@@ -86,10 +94,10 @@ const slugify = (text, type = 'dash') => {
   }
 }
 
-// ///////////////////////////////////////////////////////////// deleteTargetDir
-const deleteTargetDir = () => {
-  dirs.forEach((dir) => {
-    const path = Path.resolve(__dirname, dir.dest)
+// //////////////////////////////////////////////////////////// deleteTargetDirs
+const deleteTargetDirs = () => {
+  dirsToDelete.forEach((dir) => {
+    const path = Path.resolve(__dirname, dir)
     if (Fs.existsSync(path)) {
       Fs.removeSync(path)
     }
@@ -98,20 +106,14 @@ const deleteTargetDir = () => {
 
 // /////////////////////////////////////////////////////// copySrcDirToTargetDir
 const copySrcDirToTargetDir = () => {
-  dirs.forEach((dir) => {
-    const src = Path.resolve(__dirname, dir.src)
-    const dest = Path.resolve(__dirname, dir.dest)
-    const children = dir.children
-    if (!children) {
-      Fs.copySync(src, dest)
-    } else {
-      children.forEach((childDir) => {
-        Fs.copySync(
-          Path.resolve(__dirname, childDir.src),
-          Path.resolve(__dirname, childDir.dest)
-        )
-      })
+  dirsToCopy.forEach((dir) => {
+    let src = Path.resolve(__dirname, dir.src)
+    let dest = Path.resolve(__dirname, dir.dest)
+    if (!Fs.existsSync(src) && dir.hasOwnProperty('base')) {
+      src = Path.resolve(__dirname, dir.base.src)
+      dest = Path.resolve(__dirname, dir.base.dest)
     }
+    Fs.copySync(src, dest)
   })
 }
 
@@ -213,7 +215,7 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
 
 // ////////////////////////////////////////////////// syncContentDirOnFileChange
 async function syncContentDirOnFileChange () {
-  deleteTargetDir()
+  deleteTargetDirs()
   copySrcDirToTargetDir()
   const nuxtConfig = require(Path.resolve(__dirname, '../../data/nuxt.config.js'))
   try {
