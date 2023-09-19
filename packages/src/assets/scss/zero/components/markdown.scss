@@ -99,8 +99,7 @@
 
   pre,
   code {
-    background-color: var(--code-background-color);
-    color: var(--code-text-color);
+    background-color: var(--code__block__background-color);
     padding: toRem(30) toRem(29) toRem(22) toRem(29);
     margin-bottom: 1.25rem;
     border-radius: 0.625rem;
