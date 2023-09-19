@@ -14,6 +14,24 @@ Argentea iste e comparuit amet scelerisque dignus, Disciplinam quocumque orci ei
 ## Dissimillimas odit 70+ Ducimus Convallis
 Obligatorio tacere est ex vel sequela nisi lius auriacus sint quas 20 dextram profes augusta regnandi. Diam facundla methodo accumsan desertor wisi Regnare rem Partes Ipsum ad sint ad desiderium-parum intermedi esse ab PER SE, Neque Quia Generis, CUM, ESSE, eos nemo. Ipsa dissimillimas decursu s cadentes labefactata ullo augue' insultum egestam proice.
 
+```javascript
+async getCachedFile ({ commit, dispatch }, path) {
+  try {
+    const response = await this.$axiosAuth.get('/get-cached-file', {
+      params: { path }
+    })
+    const file = response.data.payload
+    dispatch('setStaticFile', { path, file })
+    return file
+  } catch (e) {
+    console.log('===================== [Store Action: general/getCachedFile]')
+    console.log(e)
+    dispatch('setStaticFile', { path, file: false })
+    return false
+  }
+}
+```
+
 ## M Alias Praevenire
 
 <table>

@@ -39,8 +39,8 @@ let copyButtons = []
 let parsed = null
 
 // ============================================================== [Setup] Kramed
-// console.log(javascript, json, hljsCurl)
 hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('js', javascript)
 hljs.registerLanguage('json', json)
 hljs.registerLanguage('curl', hljsCurl)
 
