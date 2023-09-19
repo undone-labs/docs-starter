@@ -11,7 +11,7 @@ const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
 const searchModalActive = ref(false)
-const displayThemeToggle = Settings.displayThemeToggle
+const displayThemeToggle = ref(Settings.displayThemeToggle)
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
