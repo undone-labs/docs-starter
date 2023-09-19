@@ -2,8 +2,6 @@ console.log('📦 [module] doczilla')
 
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
-import Fs from 'fs-extra'
-
 import {
   defineNuxtModule,
   createResolver,
