@@ -47,11 +47,13 @@ $replace4: #000000;
 :root {
   --background-color: #{$wildSand};
   --background-color__secondary: white;
+  --background-color__tertiary: #E4E4E4;
   --theme-toggle__background-color: #{$wildSand};
   --theme-toggle__border-color: #{$alto};
   --theme-toggle__onHover: #{$codGray};
   --theme-toggle__icon__onHover: #{$wildSand};
   --theme-color: #{$codGray};
+  --theme-color__inverted: #{$wildSand};
   --divider: #{$alto};
   --link-color: #{$blueRibbon};
   --link-hover-color: #{$melrose};
@@ -69,11 +71,13 @@ $replace4: #000000;
 .dark {
   --background-color: #{$codGray};
   --background-color__secondary: black;
+  --background-color__tertiary: #{$mineShaft};
   --theme-toggle__background-color: #383838;
   --theme-toggle__border-color: #5A5A5A;
   --theme-toggle__onHover: #{$wildSand};
   --theme-toggle__icon__onHover: #{$codGray};
   --theme-color: #{$wildSand};
+  --theme-color__inverted: #{$codGray};
   --divider: #{$mineShaft};
   --link-color: #{$dodgerBlue};
   --link-hover-color: #{$bayOfMany};
