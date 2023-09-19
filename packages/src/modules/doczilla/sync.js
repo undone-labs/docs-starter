@@ -214,7 +214,7 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
 async function syncContentDirOnFileChange () {
   deleteTargetDir()
   copySrcDirToTargetDir()
-  const nuxtConfig = require(Path.resolve(__dirname, '../../nuxt.config.content.js'))
+  const nuxtConfig = require(Path.resolve(__dirname, '../../data/nuxt.config.js'))
   try {
     await createAlgoliaIndex(
       nuxtConfig,

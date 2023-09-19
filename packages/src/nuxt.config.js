@@ -1,3 +1,3 @@
 export default defineNuxtConfig(
-  require('./nuxt.config.content.js')
+  require('./data/nuxt.config.js')
 )
