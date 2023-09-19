@@ -97,7 +97,7 @@ const setActiveSlideContent = (index, slide, key) => {
   padding: 0 toRem(18);
   margin-bottom: toRem(9);
   .monospace {
-    font-family: $fontPFDinMono;
+    font-family: $font_Mono;
     font-size: toRem(14);
     font-weight: 500;
     line-height: leading(21, 14);
@@ -122,7 +122,7 @@ const setActiveSlideContent = (index, slide, key) => {
 .response {
   display: flex;
   align-items: center;
-  font-family: $fontPFDinMono;
+  font-family: $font_Mono;
 }
 
 .slider {
@@ -176,8 +176,8 @@ const setActiveSlideContent = (index, slide, key) => {
 }
 
 .code-block {
-  font-family: $fontPFDinMono;
   @include codeBlock;
+  font-family: $font_Mono;
   white-space: break-spaces;
 }
 </style>

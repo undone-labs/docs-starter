@@ -20,13 +20,13 @@ html {
 body {
   @include selection-light;
   color: var(--theme-color);
-  font-family: $fontDIN;
+  font-family: $font_Primary;
   background-color: var(--background-color);
 }
 
 pre,
 code {
-  font-family: $fontDIN;
+  font-family: $font_Primary;
 }
 
 .page {
