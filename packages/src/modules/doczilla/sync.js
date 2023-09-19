@@ -26,7 +26,7 @@ const dirsToCopy = [
   {
     src: '../../../docs/components',
     dest: '../../docs/components',
-    base: { // if components directory doesn't exist, use base data
+    base: { // if directory doesn't exist, use base data
       src: '../../docs-base/components',
       dest: '../../docs/components'
     }
@@ -34,18 +34,26 @@ const dirsToCopy = [
   {
     src: '../../../docs/content',
     dest: '../../docs/content',
-    base: { // if content directory doesn't exist, use base data
+    base: { // if directory doesn't exist, use base data
       src: '../../docs-base/content',
       dest: '../../docs/content'
     }
   },
   {
     src: '../../../docs/theme',
-    dest: '../../assets/scss/theme'
+    dest: '../../assets/scss/theme',
+    base: { // if directory doesn't exist, use base data
+      src: '../../docs-base/theme',
+      dest: '../../assets/scss/theme'
+    }
   },
   {
     src: '../../../docs/data',
-    dest: '../../data'
+    dest: '../../data',
+    base: { // if directory doesn't exist, use base data
+      src: '../../docs-base/data',
+      dest: '../../data'
+    }
   }
 ]
 
@@ -113,7 +121,9 @@ const copySrcDirToTargetDir = () => {
       src = Path.resolve(__dirname, dir.base.src)
       dest = Path.resolve(__dirname, dir.base.dest)
     }
-    Fs.copySync(src, dest)
+    if (Fs.existsSync(src)) {
+      Fs.copySync(src, dest)
+    }
   })
 }
 
