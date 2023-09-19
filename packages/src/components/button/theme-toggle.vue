@@ -25,14 +25,6 @@ const generalStore = useGeneralStore()
 // ======================================================================== Data
 const { theme, displayThemeToggle } = storeToRefs(generalStore)
 
-// ======================================================================= Hooks
-onMounted(() => {
-  const initialTheme = localStorage.getItem('theme')
-  if (initialTheme) {
-    generalStore.setTheme(initialTheme)
-  }
-})
-
 // ===================================================================== Methods
 /**
  * @method toggleTheme

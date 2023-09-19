@@ -6,7 +6,7 @@ import Settings from '@/data/settings.json'
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const clipboard = ref(false)
-const theme = ref('light')
+const theme = ref(Settings.theme || 'light')
 const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])

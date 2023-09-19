@@ -15,6 +15,9 @@
 </template>
 
 <script setup>
+// ===================================================================== Imports
+import { storeToRefs } from 'pinia'
+
 // ======================================================================= Setup
 if (process.client && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   useHead({
@@ -27,4 +30,15 @@ if (process.client && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ]
   })
 }
+
+const generalStore = useGeneralStore()
+
+// ======================================================================== Data
+const { theme } = storeToRefs(generalStore)
+
+// ======================================================================= Hooks
+onMounted(() => {
+  const initialTheme = localStorage.getItem('theme')
+  generalStore.setTheme(initialTheme || theme.value)
+})
 </script>
