@@ -1,1 +1,1 @@
-# Docs Starter
+# Singularity Docs

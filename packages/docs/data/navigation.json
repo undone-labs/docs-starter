@@ -22,7 +22,7 @@
     }
   ],
   "toolbar": {
-    "github_url": "https://github.com/undone-labs/docs-starter",
+    "github_url": "https://github.com/data-preservation-programs/singularity-docs",
     "language_options": ["EN", "中文", "ES"]
   }
 }

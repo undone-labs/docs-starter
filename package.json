@@ -1,7 +1,7 @@
 {
-  "name": "@undone-labs/docs-starter",
+  "name": "@data-preservation-programs/singularity-docs",
   "version": "1.0.0",
-  "description": "Get a docs site up and running fast 🚀",
+  "description": "📓 Documentation for Singularity",
   "author": {
     "name": "Agency Undone",
     "email": "hello@agencyundone.com"
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:undone-labs/docs-starter.git"
+    "url": "git@github.com:data-preservation-programs/singularity-docs.git"
   },
   "engines": {
     "node": ">=16.18.0"

@@ -15,8 +15,8 @@ const baseUrls = {
 const frontendPort = 10040
 
 const seo = {
-  siteName: 'Docs Starter',
-  description: 'Get a docs site up and running fast 🚀'
+  siteName: 'Singularity Docs',
+  description: '📓 Documentation for Singularity'
 }
 
 // ////////////////////////////////////////////////////////////////////// Export
@@ -129,8 +129,8 @@ module.exports = {
     apiKey: process.env.ALGOLIA_API_KEY,
     applicationId: process.env.ALGOLIA_APPLICATION_ID,
     indexName: (function () {
-      if (env === 'development') { return 'undone-labs__docs-starter__development' }
-      return env === 'stable' ? 'undone-labs__docs-starter__stable' : 'undone-labs__docs-starter__production'
+      if (env === 'development') { return 'data-preservation-programs__singularity-docs__development' }
+      return env === 'stable' ? 'data-preservation-programs__singularity-docs__stable' : 'data-preservation-programs__singularity-docs__production'
     }())
   }
 }
