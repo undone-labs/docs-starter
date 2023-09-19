@@ -119,6 +119,7 @@ const isCurrentRoute = (path) => {
   &.router-link-active {
     .button-label {
       font-weight: 700;
+      color: var(--link-color);
     }
   }
   &[disabled="true"] {
