@@ -1,5 +1,6 @@
 <template>
   <button
+    v-if="displayThemeToggle"
     id="theme-toggle"
     type="button"
     :class="theme"
@@ -22,7 +23,7 @@ import { storeToRefs } from 'pinia'
 const generalStore = useGeneralStore()
 
 // ======================================================================== Data
-const { theme } = storeToRefs(generalStore)
+const { theme, displayThemeToggle } = storeToRefs(generalStore)
 
 // ======================================================================= Hooks
 onMounted(() => {
