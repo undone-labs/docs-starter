@@ -195,14 +195,15 @@ const compileDirContentForAlgoliaIndexing = () => {
 const createAlgoliaIndex = async (nuxtConfig, records) => {
   try {
     const client = AlgoliaSearch(process.env.ALGOLIA_APPLICATION_ID, process.env.ALGOLIA_API_KEY)
-    const index = client.initIndex(nuxtConfig.algolia.indexName)
+    const indexName = nuxtConfig.algolia.indexName
+    const index = client.initIndex(indexName)
     await index.setSettings({
       searchableAttributes: [
         'sidebarHeading', 'entryName', 'entrySection', 'content'
       ]
     })
     const objectIDs = await index.saveObjects(records)
-    console.log('The following records have been added/updated to the Algolia index:')
+    console.log(`The following records have been added/updated to Algolia index [${indexName}]:`)
     console.log(objectIDs)
   } catch (e) {
     console.log('========================================== createAlgoliaIndex')
