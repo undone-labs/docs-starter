@@ -94,8 +94,9 @@ const isCurrentRoute = (path) => {
   padding: toRem(4) 0;
   margin: 0;
   transition: color 200ms;
+  color: var(--sidebar__title-color);
   &.active {
-    color: var(--link-color);
+    color: var(--sidebar__title-color__active);
   }
 }
 
