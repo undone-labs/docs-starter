@@ -3,21 +3,21 @@
     {
       "tag": "nuxt-link",
       "to": "/docs",
-      "label": "DOCS"
+      "label": "Docs"
     },
     {
       "tag": "nuxt-link",
-      "to": "/docs",
-      "label": "ABOUT"
+      "to": "/",
+      "label": "About"
     },
     {
       "tag": "nuxt-link",
-      "to": "/docs",
-      "label": "ECOSYSTEM"
+      "to": "/",
+      "label": "Ecosystem"
     },
     {
       "tag": "nuxt-link",
-      "to": "/docs",
+      "to": "/",
       "label": "API"
     }
   ],

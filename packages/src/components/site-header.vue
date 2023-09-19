@@ -18,7 +18,7 @@
         :key="index"
         ref="navItems"
         theme="nav"
-        class="site-nav-link">
+        :class="['site-nav-link', { active: link.to === routeActive }]">
         <div class="text" v-html="link.label" />
       </ButtonClear>
     </nav>
@@ -54,6 +54,18 @@ import Navigation from '@/data/navigation'
 const links = Navigation.header
 const githubUrl = Navigation.toolbar.github_url
 const languageOptions = Navigation.toolbar.language_options
+
+const route = useRoute()
+const contentPath = `/docs/content${route.path}`
+const { data: content } = await useAsyncData('content', () => {
+  return queryContent({
+    where: {
+      _path: { $contains: contentPath }
+    }
+  }).find()
+})
+
+const routeActive = content.value[0]._file.includes('docs') ? '/docs' : undefined
 </script>
 
 <style lang="scss" scoped>
@@ -112,15 +124,15 @@ const languageOptions = Navigation.toolbar.language_options
   flex-direction: row;
   align-items: center;
   position: relative;
+  @include large {
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
   &:hover {
     &:before {
       transition: 150ms ease-in;
       height: toRem(5);
-    }
-  }
-  @include large {
-    &:not(:last-child) {
-      margin-right: 2rem;
     }
   }
   &:not(:last-child) {
@@ -134,6 +146,15 @@ const languageOptions = Navigation.toolbar.language_options
     height: 0px;
     background-color: var(--theme-color);
     transition: 150ms ease-out;
+  }
+  &.active {
+    &:before {
+      transition: 150ms ease-in;
+      height: toRem(5);
+    }
+  }
+  :deep(.text) {
+    font-weight: 500;
   }
 }
 
