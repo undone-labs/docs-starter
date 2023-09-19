@@ -1,3 +1,8 @@
+// ///////////////////////////////////////////////////////////////////// Imports
+// -----------------------------------------------------------------------------
+const Path = require('path')
+const NuxtConfigOverrides = require(Path.resolve(__dirname, 'data/nuxt.config.js'))
+
 // /////////////////////////////////////////////////////////// Variables & Setup
 // -----------------------------------------------------------------------------
 const env = process.env.SERVER_ENV
@@ -17,7 +22,7 @@ const seo = {
 
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
-module.exports = {
+module.exports = Object.assign({
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   runtimeConfig: {
@@ -118,15 +123,8 @@ module.exports = {
       '/',
       '/docs'
     ]
-  },
-  // ////////////////////////////////////////////////// [Module] @nuxtjs/algolia
-  // ---------------------------------------------------------------------------
-  algolia: {
-    apiKey: process.env.ALGOLIA_API_KEY,
-    applicationId: process.env.ALGOLIA_APPLICATION_ID,
-    indexName: (function () {
-      if (env === 'development') { return 'undone-labs__docs-starter__development' }
-      return env === 'stable' ? 'undone-labs__docs-starter__stable' : 'undone-labs__docs-starter__production'
-    }())
   }
-}
+  // ////////////////////////////////////////////////// [Module] @nuxtjs/algolia
+  // --------------------------- must be populated in @/docs/data/nuxt.config.js
+  // algolia: {}
+}, NuxtConfigOverrides)
