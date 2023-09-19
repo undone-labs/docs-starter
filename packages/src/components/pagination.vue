@@ -14,9 +14,10 @@
         {{ previous.title }}
       </div>
       <div v-if="previousSection" class="directory-title">
-        <template v-if="useResolveDoczillaComponent(previous.dirIcon)">
-          <component :is="useResolveDoczillaComponent(previous.dirIcon)" class="icon" />
-        </template>
+        <component
+          :is="useResolveDoczillaComponent(previous.dirIcon)"
+          v-if="useResolveDoczillaComponent(previous.dirIcon)"
+          class="icon-directory" />
         {{ previousSection.title }}
       </div>
     </ButtonClear>
@@ -34,9 +35,10 @@
         {{ next.title }}
       </div>
       <div v-if="nextSection" class="directory-title">
-        <template v-if="useResolveDoczillaComponent(next.dirIcon)">
-          <component :is="useResolveDoczillaComponent(next.dirIcon)" class="icon-directory" />
-        </template>
+        <component
+          :is="useResolveDoczillaComponent(next.dirIcon)"
+          v-if="useResolveDoczillaComponent(next.dirIcon)"
+          class="icon" />
         {{ nextSection.title }}
       </div>
     </ButtonClear>

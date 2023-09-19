@@ -7,9 +7,10 @@
 
       <div class="section-heading">
 
-        <template v-if="useResolveDoczillaComponent(directory.icon)">
-          <component :is="useResolveDoczillaComponent(directory.icon)" class="icon-directory" />
-        </template>
+        <component
+          :is="useResolveDoczillaComponent(directory.icon)"
+          v-if="useResolveDoczillaComponent(directory.icon)"
+          class="icon-directory" />
 
         <h2
           :class="['title', { active: routeMatchesCurrentDirectory(directory.slug) }]"
