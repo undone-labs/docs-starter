@@ -111,7 +111,8 @@ const props = defineProps({
 .heading {
   @include h4;
   margin-bottom: toRem(4);
-  border-bottom: 1px solid var(--theme-color);
+  padding-bottom: toRem(4);
+  border-bottom: 1px solid var(--divider);
   transition: color 500ms, border-color 500ms;
 }
 

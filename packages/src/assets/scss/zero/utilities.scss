@@ -65,6 +65,7 @@ $replace4: #000000;
   --algolia-background: #{$alabaster};
   --algolia__searchbox__background-color: white;
   --algolia__hit__background-color: white;
+  --algolia__hit__hover__color: white;
   --algolia__highlight: #{$blueRibbon}; // not used because contrast too intense
   --api-explorer__http-status-code__background-color: #{$mercury};
   --api-explorer__http-status-code__color: #{$blueViolet};
@@ -91,6 +92,7 @@ $replace4: #000000;
   --algolia-background: #{$codGray};
   --algolia__searchbox__background-color: #{$mineShaft};
   --algolia__hit__background-color: #{$mineShaft};
+  --algolia__hit__hover__color: #{$mineShaft};
   --algolia__highlight: #{$blueRibbon}; // not used because contrast too intense
   --api-explorer__http-status-code__background-color: #{$mineShaft};
   --api-explorer__http-status-code__color: #{$portage};

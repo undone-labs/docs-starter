@@ -122,9 +122,9 @@ const formatMatchingContent = (string, hit) => {
     background-color: var(--link-color);
     .hit-title,
     .hit-path {
-      color: white;
+      color: var(--algolia__hit__hover__color);
       :deep(mark) {
-        color: white;
+        color: var(--algolia__hit__hover__color);
       }
     }
     .hit-path {
@@ -132,7 +132,7 @@ const formatMatchingContent = (string, hit) => {
     }
     .icon {
       :deep(path) {
-        fill: white;
+        fill: var(--algolia__hit__hover__color);
       }
     }
   }
