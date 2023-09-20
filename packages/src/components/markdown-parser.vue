@@ -87,7 +87,7 @@ renderer.code = function (code, language) {
   const highlighted = language ?
     hljs.highlight(code, { language }).value :
     hljs.highlightAuto(code).value
-  return `<pre><code class="markdown-code-block">${highlighted}</code></pre>`
+  return `<pre><code class="code-block">${highlighted}</code></pre>`
 }
 
 parsed = Kramed(props.markdown, { renderer })
