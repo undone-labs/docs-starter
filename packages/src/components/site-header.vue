@@ -65,7 +65,11 @@ const { data: content } = await useAsyncData('content', () => {
   }).find()
 })
 
-const routeActive = content.value[0]._file.includes('docs') ? '/docs' : undefined
+let routeActive
+
+if (content.value.length > 0) {
+  content.value[0]._file.includes('docs') ? '/docs' : undefined
+}
 </script>
 
 <style lang="scss" scoped>

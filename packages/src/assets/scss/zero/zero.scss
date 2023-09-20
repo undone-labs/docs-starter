@@ -22,6 +22,7 @@ body {
   color: var(--theme-color);
   font-family: $font_Primary;
   background-color: var(--background-color);
+  transition: background-color 500ms;
 }
 
 pre,
@@ -30,6 +31,7 @@ code {
 }
 
 .page {
+  padding-top: $bodyOffsetTop;
   background-color: var(--background-color);
   transition: background-color 500ms;
 }

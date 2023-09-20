@@ -94,6 +94,15 @@ const { data: content } = await useAsyncData('content', () => {
   }).find()
 })
 
+const routePathSplitLength = route.path.split('/').length
+
+if (routePathSplitLength < 3 || content.value.length === 0) {
+  throw createError({
+    statusCode: 404,
+    message: 'Looks like the page you\'re looking for doesn\'t exist'
+  })
+}
+
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 
@@ -229,7 +238,6 @@ const getPreviewComponentName = (path) => {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// Content
 .page {
-  padding-top: $bodyOffsetTop;
   padding-bottom: 5rem;
 }
 
