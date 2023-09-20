@@ -141,7 +141,7 @@ $fontAssetPath: 'assets/fonts';
 }
 
 @mixin codeBlock {
-  font-size: toRem(14);
+  font-size: toRem(13);
   line-height: leading(21, 14);
   font-weight: 400;
   letter-spacing: 0;
