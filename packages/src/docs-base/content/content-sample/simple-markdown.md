@@ -1,3 +1,7 @@
+---
+title: Simple Markdown
+---
+
 ### Ante te Perditionis
 
 Victualibus secuti ad non-te-cum auxilium gubernia te notitiam est securus mi subsecutum director te Consilia disordo possujnus. Lius indignitatem odoratus QuI-natus ante, Polisniinus gradum sacrilegum regressum est feliciter subsolanea.

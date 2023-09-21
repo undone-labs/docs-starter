@@ -1,11 +1,13 @@
+import Path from 'path'
+
 export default {
   components: [
-    { file: 'button.vue', name: 'ZeroButton' }
+    { path: Path.resolve(__dirname, 'components/button.vue'), name: 'ZeroButton' }
   ],
   plugins: [
-    { file: 'button.js', name: 'zero-button' }
+    { path: Path.resolve(__dirname, 'plugins/button.js'), name: 'zero-button' }
   ],
   stores: [
-    { file: 'button.js', name: 'zero-button-store' }
+    { path: Path.resolve(__dirname, 'stores/button.js'), name: 'zero-button-store' }
   ]
 }

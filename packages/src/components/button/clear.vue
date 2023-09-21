@@ -62,7 +62,6 @@ const props = defineProps({
   &:not([disabled="true"]) {
     &:hover {
       .button-content {
-        transition: 150ms ease-in;
         text-decoration: none;
       }
     }
@@ -97,7 +96,6 @@ const props = defineProps({
 }
 
 .button-content {
-  transition: 150ms ease-out;
   &.hide {
     opacity: 0;
   }

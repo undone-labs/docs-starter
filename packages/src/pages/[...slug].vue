@@ -30,7 +30,7 @@
           <div class="content">
             <MarkdownParser
               id="markdown"
-              :markdown="section.body"
+              :markdown="section.raw"
               :section="content.length > 1 ? section._path.split('/').pop() : ''"
               class="markdown" />
             <ApiInformation
@@ -71,6 +71,7 @@
 
 <script setup>
 // ======================================================================== Data
+const nuxtApp = useNuxtApp()
 const intersectionObserver = ref(null)
 const headerHeight = ref(0)
 const sections = ref([])
@@ -95,19 +96,28 @@ const { data: content } = await useAsyncData('content', () => {
 })
 
 const routePathSplitLength = route.path.split('/').length
+const sectionCount = content.value.length
 
-if (routePathSplitLength < 3 || content.value.length === 0) {
+if (routePathSplitLength < 3 || sectionCount === 0) {
   throw createError({
     statusCode: 404,
     message: 'Looks like the page you\'re looking for doesn\'t exist'
   })
 }
 
+// ======================================================================= Setup
+nuxtApp.$seo(
+  '*',
+  sectionCount === 1 ?
+    content.value[0].metadata :
+    content.value.find(item => item._file.includes('src.md')) || {}
+)
+
 // ==================================================================== Computed
 const headerHeightOffset = computed(() => headerHeight.value * 3)
 
 const pageContent = computed(() => {
-  const array = content.value.filter(item => item._extension === 'md')
+  const array = content.value.filter(item => item._extension === 'md' && !item._file.includes('src.md'))
   array.forEach((mdContent) => {
     const jsonContent = content.value.find(item => item._path === mdContent._path && item._extension === 'json')
     if (jsonContent) { mdContent.apiPreview = jsonContent }

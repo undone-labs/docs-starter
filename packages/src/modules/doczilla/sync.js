@@ -54,6 +54,14 @@ const dirsToCopy = [
       src: '../../docs-base/data',
       dest: '../../data'
     }
+  },
+  {
+    src: '../../../docs/public',
+    dest: '../../public/public',
+    base: { // if directory doesn't exist, use base data
+      src: '../../docs-base/public',
+      dest: '../../public/public'
+    }
   }
 ]
 

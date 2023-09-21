@@ -14,11 +14,6 @@ const baseUrls = {
 
 const frontendPort = 10040
 
-const seo = {
-  siteName: 'Docs Starter',
-  description: 'Get a docs site up and running fast 🚀'
-}
-
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
 module.exports = {
@@ -28,10 +23,7 @@ module.exports = {
     public: {
       siteUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
       frontendUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
-      serverFlag: env,
-      seo: {
-        siteName: seo.siteName
-      }
+      serverFlag: env
     }
   },
   // ////////////////////////////////////////////////////////// Server & Bundler
@@ -64,11 +56,9 @@ module.exports = {
   app: {
     // -------------------------------------------------------------------- head
     head: {
-      title: seo.siteName,
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: seo.description },
         { name: 'msapplication-config', content: '/favicon/dark/browserconfig.xml' }
       ],
       link: [

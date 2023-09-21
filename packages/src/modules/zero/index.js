@@ -24,47 +24,45 @@ const meta = {
   }
 }
 
+const zeroPlugins = [
+  { path: resolve('plugins/seo.js'), name: 'seo' }
+]
+
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////// registerPlugins
-const registerPlugins = (submodule, plugins) => {
+const registerPlugins = (plugins) => {
   if (!plugins) { return }
   plugins.forEach((plugin) => {
-    addPlugin(resolve(`${submodule}/plugins/${plugin.file}`))
+    addPlugin(plugin.path)
   })
 }
 
 // ////////////////////////////////////////////////////////// registerComponents
-const registerComponents = (submodule, components) => {
+const registerComponents = (components) => {
   if (!components) { return }
   components.forEach((component) => {
     addComponent({
       name: component.name,
-      filePath: resolve(`${submodule}/components/${component.file}`)
+      filePath: component.path
     })
   })
 }
 
 // ////////////////////////////////////////////////////////////// registerStores
-const registerStores = (submodule, stores) => {
+const registerStores = (stores) => {
+  if (!stores) { return }
   stores.forEach((store) => {
     addImports({
       name: store.name,
-      from: resolve(`${submodule}/stores/${store.file}`)
+      from: store.path
     })
-  })
-}
-
-// //////////////////////////////////////////////////////////////////// runHooks
-const runHooks = (nuxt) => {
-  nuxt.hook('content:context', (contentContext) => {
-    contentContext.transformers.push(resolve('nuxt-content-transformers/output-raw-markdown.js'))
   })
 }
 
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
-const setup = async (options, nuxt) => {
+const setup = async () => {
   const modulePath = `${resolve()}/components`
   const submodules = Fs.readdirSync(modulePath)
   const len = submodules.length
@@ -73,12 +71,12 @@ const setup = async (options, nuxt) => {
     const path = `${modulePath}/${submodule}`
     if (Fs.statSync(path).isDirectory()) {
       const config = await import(`${path}/index.js`)
-      registerPlugins(`components/${submodule}`, config.plugins)
-      registerStores(`components/${submodule}`, config.stores)
-      registerComponents(`components/${submodule}`, config.components)
+      registerPlugins(config.plugins)
+      registerStores(config.stores)
+      registerComponents(config.components)
     }
   }
-  runHooks(nuxt)
+  registerPlugins(zeroPlugins)
 }
 
 // ////////////////////////////////////////////////////////////////////// Export

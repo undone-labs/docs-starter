@@ -1,6 +1,8 @@
+import Path from 'path'
+
 export default {
   components: [
-    { file: 'dropdown.vue', name: 'ZeroDropdown' }
+    { path: Path.resolve(__dirname, 'components/dropdown.vue'), name: 'ZeroDropdown' }
   ],
   plugins: [],
   stores: []
