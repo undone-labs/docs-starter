@@ -156,8 +156,11 @@ const parseMarkdownStringToJson = (string) => {
 
 // //////////////////////////////////////////////////////////////////////// walk
 const walk = (dir, split, next) => {
-  let level = dir.split(split).pop().slice(1)
-  level = level === '' ? 0 : level.split('/').length
+  let levelPath = dir.split(split)
+  levelPath = levelPath.length === 2 ? levelPath.pop().slice(1) : `${split}${levelPath.pop()}`
+  const level = levelPath === '' ? 0 : levelPath.split('/').length
+  console.log(dir)
+  console.log(levelPath, level)
   Fs.readdirSync(dir, { withFileTypes: true }).forEach(file => {
     const dirPath = Path.join(dir, file.name)
     const isDirectory = Fs.statSync(dirPath).isDirectory()
@@ -172,9 +175,9 @@ const walk = (dir, split, next) => {
         name: file.name.split('.md')[0],
         ext: Path.extname(file.name).toLowerCase(),
         level,
-        levelPath: dir.split(split).pop(),
-        topLevelSlug: dir.split(split).pop().slice(1).split('/')[0],
-        parentSlug: dir.split(split).pop().slice(1).split('/').pop()
+        levelPath: levelPath,
+        topLevelSlug: levelPath.slice(1).split('/')[0],
+        parentSlug: levelPath.slice(1).split('/').pop()
       })
   })
 }
@@ -195,8 +198,8 @@ const compileDirContentForAlgoliaIndexing = () => {
       sections.forEach(section => {
         records.push({
           objectID: file.level < 2 ?
-            `${fileLevelPath}/${fileName}#${slugify(section.heading)}` :
-            `${fileLevelPath}#${slugify(section.heading)}?${file.name}`,
+            `/${fileLevelPath}/${fileName}#${slugify(section.heading)}` :
+            `/${fileLevelPath}#${slugify(section.heading)}?${file.name}`,
           sidebarHeading: unslugify(topLevelSlug, 'capitalize-all'),
           entryName: unslugify(
             file.level < 2 ? fileName : parentSlug,
