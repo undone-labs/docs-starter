@@ -10,7 +10,7 @@ const theme = ref(Settings.theme || 'light')
 const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
-const searchModalActive = ref(false)
+const searchModalActive = ref(true)
 const displayThemeToggle = ref(Settings.displayThemeToggle)
 
 // ///////////////////////////////////////////////////////////////////// Actions

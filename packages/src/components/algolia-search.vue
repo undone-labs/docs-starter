@@ -2,19 +2,19 @@
   <div
     :class="['search-modal', { active: searchModalActive }]"
     @click.self="closeModal">
-    <ais-instant-search :index-name="indexName" :search-client="algolia">
+    <AisInstantSearch :index-name="indexName" :search-client="algolia">
 
-      <ais-search-box
+      <AisSearchBox
         :class="{ focused: searchFocused }"
         @focus="searchBoxFocus"
         @blur="searchBoxBlur" />
 
       <div class="results-container">
-        <ais-hits>
+        <AisHits>
           <template #default="{ items }">
             <AlgoliaHitsList :hits="items" />
           </template>
-        </ais-hits>
+        </AisHits>
       </div>
 
       <div class="toolbar-bottom">
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-    </ais-instant-search>
+    </AisInstantSearch>
   </div>
 </template>
 

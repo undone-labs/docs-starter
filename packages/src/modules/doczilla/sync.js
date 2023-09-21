@@ -159,8 +159,6 @@ const walk = (dir, split, next) => {
   let levelPath = dir.split(split)
   levelPath = levelPath.length === 2 ? levelPath.pop().slice(1) : `${split}${levelPath.pop()}`
   const level = levelPath === '' ? 0 : levelPath.split('/').length
-  console.log(dir)
-  console.log(levelPath, level)
   Fs.readdirSync(dir, { withFileTypes: true }).forEach(file => {
     const dirPath = Path.join(dir, file.name)
     const isDirectory = Fs.statSync(dirPath).isDirectory()
@@ -176,8 +174,8 @@ const walk = (dir, split, next) => {
         ext: Path.extname(file.name).toLowerCase(),
         level,
         levelPath: levelPath,
-        topLevelSlug: levelPath.slice(1).split('/')[0],
-        parentSlug: levelPath.slice(1).split('/').pop()
+        topLevelSlug: levelPath.split('/')[0],
+        parentSlug: levelPath.split('/').pop()
       })
   })
 }
