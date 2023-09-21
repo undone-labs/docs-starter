@@ -53,8 +53,8 @@ const activeLinkMarkerPosition = computed(() => {
 watch(activeSection, (section) => {
   linkElement.value = document.querySelector(
     section.sectionId ?
-      `[link-id=${section.id}][link-section-id=${section.sectionId}]` :
-      `[link-id=${section.id}]`
+      `[link-id=${section.id}][link-section-id="${section.sectionId}"]` :
+      `[link-id="${section.id}"]`
   )
   if (!section || !linkElement.value) { return false }
   activeLinkMarkerHeight.value = linkElement.value.offsetHeight

@@ -133,7 +133,7 @@ watch(route, async route => {
     clearTimeout(navigatedByRouteDebounce.value)
   }, 100)
   navigatedByRoute.value = true
-  generalStore.setActiveSection(route.hash.slice(1))
+  generalStore.setActiveSection({ id: route.hash.slice(1) })
   if (process.client) {
     await nextTick(() => {
       const linksExist = generalStore.compileMagellanLinks()
@@ -176,7 +176,7 @@ const intersectionObserveHeadings = () => {
     const sectionId = entry.target.getAttribute('section')
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
     const hash = window.location.hash.slice(1)
-    let activeSection = hash
+    // let activeSection = { id: entryId }
     // let activePath
     // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
     /**
@@ -184,9 +184,14 @@ const intersectionObserveHeadings = () => {
      * This does not fire if navigating via the magellan nav.
      */
     if (intersectingTop && !navigatedByRoute.value) {
+      // console.log(entryId, sectionId)
+      // console.log(entry)
       if (entryId !== hash) {
         // activePath = `${route.path}#${entryId}`
-        activeSection = sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
+        // activeSection =
+        generalStore.setActiveSection(
+          sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
+        )
       } else {
         // const index = sections.value.findIndex(section => section.id === entryId)
         // if (index !== 0) {
@@ -196,12 +201,12 @@ const intersectionObserveHeadings = () => {
         // } else {
         //   activeSection = false
         // }
+        // generalStore.setActiveSection(activeSection)
       }
     }
-    if (!navigatedByRoute.value && activeSection) {
-      // history.replaceState({}, null, activePath)
-      generalStore.setActiveSection(activeSection)
-    }
+    // if (!navigatedByRoute.value && !intersectingTop && activeSection) {
+    //   history.replaceState({}, null, activePath)
+    // }
   }, {
     rootMargin: `${-headerHeightOffset.value}px 0px 0px 0px`
   })
@@ -222,10 +227,10 @@ const detectPageScrolledToEdgesOfViewport = () => {
       const bodyHeight = document.body.offsetHeight
       if (y <= headerHeight.value) {
         // history.replaceState({}, null, route.path)
-        generalStore.setActiveSection(false)
+        // generalStore.setActiveSection(false)
       } else if (y + viewportHeight >= bodyHeight) {
         // history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
-        generalStore.setActiveSection(lastMagellanNavItemId)
+        generalStore.setActiveSection({ id: lastMagellanNavItemId })
       }
     }
     scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)
