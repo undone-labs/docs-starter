@@ -16,7 +16,7 @@
           <li
             v-for="hit in item.hits"
             :key="hit">
-            <nuxt-link :to="`/${hit.objectID}`">
+            <nuxt-link :to="hit.objectID" @click="handleClick">
               <div class="hit-container">
                 <IconHash class="icon hash" />
                 <div class="content">
@@ -49,6 +49,8 @@ const props = defineProps({
     default: () => []
   }
 })
+
+const generalStore = useGeneralStore()
 
 // ==================================================================== Computed
 const headings = computed(() => {
@@ -100,6 +102,14 @@ const formatMatchingContent = (string, hit) => {
     }
   }
   return hit.entrySection
+}
+
+/**
+ * @method handleClick
+ */
+
+const handleClick = () => {
+  generalStore.setSearchModalActive(false)
 }
 </script>
 

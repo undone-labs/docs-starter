@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-// ====================================================================== Import
+// ===================================================================== Imports
 import { storeToRefs } from 'pinia'
 import { renderToString } from 'vue/server-renderer'
 import {
