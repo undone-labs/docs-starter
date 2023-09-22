@@ -10,8 +10,6 @@ const theme = ref(Settings.theme || 'light')
 const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
-const searchModalActive = ref(false)
-const searchActiveHit = ref(false)
 const displayThemeToggle = ref(Settings.displayThemeToggle)
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -52,20 +50,9 @@ const setActiveLinkMarkerHeight = () => {
   }
 }
 
-// //////////////////////////////////////////////////////// setSearchModalActive
-const setSearchModalActive = (state) => {
-  document.body.classList[state ? 'add' : 'remove']('no-scroll')
-  searchModalActive.value = state
-}
-
 // //////////////////////////////////////////////////////////////// setClipboard
 const setClipboard = (text) => {
   clipboard.value = text
-}
-
-// //////////////////////////////////////////////////////////////// setActiveHit
-const setActiveHit = (hitObjectID) => {
-  searchActiveHit.value = hitObjectID
 }
 
 // ////////////////////////////////////////////////////////////////////// Export
@@ -76,8 +63,6 @@ export const useGeneralStore = defineStore('general', () => ({
   theme,
   activeSection,
   magellanLinks,
-  searchModalActive,
-  searchActiveHit,
   activeLinkMarkerHeight,
   displayThemeToggle,
   // ----- actions
@@ -85,7 +70,5 @@ export const useGeneralStore = defineStore('general', () => ({
   setActiveSection,
   compileMagellanLinks,
   setActiveLinkMarkerHeight,
-  setClipboard,
-  setSearchModalActive,
-  setActiveHit
+  setClipboard
 }))

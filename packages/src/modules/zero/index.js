@@ -63,7 +63,7 @@ const registerStores = (stores) => {
 // /////////////////////////////////////////////////////////////////////// Setup
 // -----------------------------------------------------------------------------
 const setup = async () => {
-  const modulePath = `${resolve()}/components`
+  const modulePath = `${resolve()}/modules`
   const submodules = Fs.readdirSync(modulePath)
   const len = submodules.length
   for (let i = 0; i < len; i++) {

@@ -37,7 +37,7 @@
         <IconGithub />
       </ZeroButton>
 
-      <ButtonSearch />
+      <ButtonAlgoliaSearch />
 
       <DropdownSelector :options="languageOptions" />
 

@@ -1,7 +1,7 @@
 <template>
   <div class="layout default">
 
-    <AlgoliaSearch v-if="!disableAlgolia" />
+    <AlgoliaModal />
 
     <SiteHeader />
 
@@ -32,8 +32,6 @@ if (process.client && window.matchMedia('(prefers-color-scheme: dark)').matches)
 }
 
 const generalStore = useGeneralStore()
-const runtimeConfig = useRuntimeConfig()
-const disableAlgolia = runtimeConfig.public.algolia.disable
 
 // ======================================================================== Data
 const { theme } = storeToRefs(generalStore)
