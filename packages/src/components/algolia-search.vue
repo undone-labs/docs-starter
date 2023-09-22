@@ -18,18 +18,18 @@
       </div>
 
       <div class="toolbar-bottom">
-        <!-- <div class="tip">
+        <div class="tip">
           <IconReturn class="icon return" />
           <span class="tip-text">to select</span>
-        </div> -->
-        <!-- <div class="tip">
+        </div>
+        <div class="tip">
           <IconNavigate class="icon navigate" />
           <span class="tip-text">to navigate</span>
-        </div> -->
-        <!-- <div class="tip">
+        </div>
+        <div class="tip">
           <IconEscape class="icon escape" />
           <span class="tip-text">to close</span>
-        </div> -->
+        </div>
         <div class="tip algolia-logo">
           <span class="tip-text">search by</span>
           <IconAlgolia class="icon algolia" />
@@ -55,7 +55,7 @@ import {
 const runtimeConfig = useRuntimeConfig()
 const generalStore = useGeneralStore()
 const { searchModalActive } = storeToRefs(generalStore)
-const keyCommandEventListenerFunction = ref(null)
+const keyCommandEventListener = ref(null)
 const searchFocused = ref(false)
 const route = useRoute()
 const indexName = runtimeConfig.public.algolia.indexName
@@ -122,16 +122,27 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  keyCommandEventListenerFunction.value = (e) => {
-    if (e.metaKey && (e.key === 'k' || e.keyCode === 75)) {
+  /**
+   * up/down/enter is handled in algolia-hits-list.vue
+   */
+  keyCommandEventListener.value = (e) => {
+    const key = e.key
+    const code = e.code
+    const keyCode = e.keyCode
+    const meta = e.metaKey || key === 'Meta' || code === 'MetaLeft' || code === 'MetaRight' || keyCode === 91 || keyCode === 93
+    const k = key === 'k' || code === 'KeyK' || keyCode === 75
+    const esc = key === 'Escape' || code === 'Escape' || keyCode === 27
+    if (meta && k) {
       generalStore.setSearchModalActive(true)
+    } else if (esc && searchModalActive.value) {
+      generalStore.setSearchModalActive(false)
     }
   }
-  window.addEventListener('keydown', keyCommandEventListenerFunction.value)
+  window.addEventListener('keydown', keyCommandEventListener.value)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', keyCommandEventListenerFunction.value)
+  window.removeEventListener('keydown', keyCommandEventListener.value)
 })
 
 // ===================================================================== Methods
@@ -295,8 +306,8 @@ const searchBoxBlur = () => { searchFocused.value = false }
 .toolbar-bottom {
   display: flex;
   flex-direction: row;
-  // justify-content: space-between;
-  justify-content: flex-end;
+  justify-content: space-between;
+  // justify-content: flex-end;
   height: toRem(54);
   width: 100%;
   padding: toRem(10) toRem(20);

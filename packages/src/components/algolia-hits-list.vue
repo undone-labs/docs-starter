@@ -12,22 +12,23 @@
           {{ item.heading }}
         </div>
 
-        <ul class="hits-list">
-          <li
+        <div class="hits-list">
+          <nuxt-link
             v-for="hit in item.hits"
-            :key="hit">
-            <nuxt-link :to="hit.objectID" @click="handleClick">
-              <div class="hit-container">
-                <IconHash class="icon hash" />
-                <div class="content">
-                  <span class="hit-title" v-html="getHitTitle(hit)"></span>
-                  <span class="hit-path">{{ `${hit.entryName}` }}</span>
-                </div>
-                <IconReturn class="icon action" />
+            :key="hit"
+            :to="hit.objectID"
+            @mouseenter="generalStore.setActiveHit(hit.objectID)"
+            @click="handleClick">
+            <div :class="['hit-container', { active: hit.objectID === searchActiveHit }]">
+              <IconHash class="icon hash" />
+              <div class="content">
+                <span class="hit-title" v-html="getHitTitle(hit)"></span>
+                <span class="hit-path">{{ `${hit.entryName}` }}</span>
               </div>
-            </nuxt-link>
-          </li>
-        </ul>
+              <IconReturn class="icon action" />
+            </div>
+          </nuxt-link>
+        </div>
 
       </section>
     </template>
@@ -41,6 +42,9 @@
 </template>
 
 <script setup>
+// ===================================================================== Imports
+import { storeToRefs } from 'pinia'
+
 // ======================================================================== Data
 const props = defineProps({
   hits: {
@@ -51,6 +55,8 @@ const props = defineProps({
 })
 
 const generalStore = useGeneralStore()
+const { searchActiveHit, searchModalActive } = storeToRefs(generalStore)
+const keyCommandEventListener = ref(null)
 
 // ==================================================================== Computed
 const headings = computed(() => {
@@ -66,7 +72,65 @@ const headings = computed(() => {
   return array
 })
 
+const filteredHitList = computed(() => {
+  return headings.value.reduce((acc, group) => {
+    acc = acc.concat(group.hits)
+    return acc
+  }, [])
+})
+
 const resultsFound = computed(() => headings.value.length > 0)
+
+// ======================================================================= Hooks
+onMounted(() => {
+  /**
+   * cmd+k/esc is handled in algolia-search.vue
+   */
+  keyCommandEventListener.value = (e) => {
+    const key = e.key
+    const code = e.code
+    const keyCode = e.keyCode
+    const meta = e.metaKey || key === 'Meta' || code === 'MetaLeft' || code === 'MetaRight' || keyCode === 91 || keyCode === 93
+    const up = key === 'ArrowUp' || code === 'ArrowUp' || keyCode === 38
+    const down = key === 'ArrowDown' || code === 'ArrowDown' || keyCode === 40
+    const enter = key === 'Enter' || code === 'Enter' || keyCode === 13
+    const ctrl = e.ctrlKey || key === 'Control' || code === 'ControlLeft' || code === 'ControlRight' || keyCode === 17
+    const shift = e.shiftKey || key === 'Shift' || code === 'ShiftLeft' || code === 'ShiftRight' || keyCode === 16
+    if (up || down) {
+      if (searchModalActive.value) { e.preventDefault() }
+      const list = filteredHitList.value
+      let currentIndex = filteredHitList.value.findIndex(hit => hit.objectID === searchActiveHit.value)
+      let nextIndex
+      if (currentIndex === -1) {
+        nextIndex = down ? 0 : nextIndex = filteredHitList.value.length - 1
+      } else if (down && currentIndex < filteredHitList.value.length - 1) {
+        nextIndex = currentIndex += 1
+      } else if (up && currentIndex !== 0) {
+        nextIndex = currentIndex -= 1
+      }
+      if (nextIndex !== undefined) {
+        generalStore.setActiveHit(list[nextIndex].objectID)
+      }
+    } else if (enter && searchActiveHit.value) {
+      generalStore.setSearchModalActive(false)
+      if (meta || ctrl) { // cmd+enter → open in new tab | ctrl+enter → open in new tab and switch to tab
+        navigateTo(searchActiveHit.value, { open: { target: '_blank' } } )
+      } else if (shift) { // shift+enter → open in new window
+        navigateTo(searchActiveHit.value, {
+          open: { target: '_blank' },
+          windowFeatures: { popup: true }
+        })
+      } else { // enter → open in same window
+        navigateTo(searchActiveHit.value)
+      }
+    }
+  }
+  window.addEventListener('keydown', keyCommandEventListener.value)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', keyCommandEventListener.value)
+})
 
 // ===================================================================== Methods
 /**
@@ -128,7 +192,8 @@ const handleClick = () => {
   border-radius: 10px;
   background-color: var(--algolia__hit__background-color);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
-  &:hover {
+  &:hover,
+  &.active {
     background-color: var(--link-color);
     .hit-title,
     .hit-path {

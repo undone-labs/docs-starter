@@ -11,6 +11,7 @@ const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
 const searchModalActive = ref(true)
+const searchActiveHit = ref(false)
 const displayThemeToggle = ref(Settings.displayThemeToggle)
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -62,6 +63,11 @@ const setClipboard = (text) => {
   clipboard.value = text
 }
 
+// //////////////////////////////////////////////////////////////// setActiveHit
+const setActiveHit = (hitObjectID) => {
+  searchActiveHit.value = hitObjectID
+}
+
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
 export const useGeneralStore = defineStore('general', () => ({
@@ -71,6 +77,7 @@ export const useGeneralStore = defineStore('general', () => ({
   activeSection,
   magellanLinks,
   searchModalActive,
+  searchActiveHit,
   activeLinkMarkerHeight,
   displayThemeToggle,
   // ----- actions
@@ -79,5 +86,6 @@ export const useGeneralStore = defineStore('general', () => ({
   compileMagellanLinks,
   setActiveLinkMarkerHeight,
   setClipboard,
-  setSearchModalActive
+  setSearchModalActive,
+  setActiveHit
 }))
