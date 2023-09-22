@@ -8,6 +8,6 @@ export default {
     { path: Path.resolve(__dirname, 'plugins/button.js'), name: 'zero-button' }
   ],
   stores: [
-    { path: Path.resolve(__dirname, 'stores/button.js'), name: 'zero-button-store' }
+    { path: Path.resolve(__dirname, 'stores/index.js'), name: 'useZeroButtonStore' }
   ]
 }

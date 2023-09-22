@@ -1,4 +1,4 @@
-console.log('📦 [module] @undone-labs/nuxt-module-zero-components')
+console.log('📦 [module] @undone-labs/nuxt-module-zero')
 
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------

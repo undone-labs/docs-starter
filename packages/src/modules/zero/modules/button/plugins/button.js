@@ -1,8 +1,8 @@
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
-import CloneDeep from 'lodash.cloneDeep'
+import CloneDeep from 'lodash.clonedeep'
 import { defineNuxtPlugin } from '#imports'
-import { useZeroButtonStore } from '../stores/button.js'
+import { useZeroButtonStore } from '../stores/index.js'
 
 // ////////////////////////////////////////////////////////////// [Class] Button
 // -----------------------------------------------------------------------------

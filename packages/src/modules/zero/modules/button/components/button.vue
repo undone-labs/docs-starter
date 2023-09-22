@@ -5,7 +5,7 @@
     :href="tag === 'a' ? to : undefined"
     :disabled="disabled || loading"
     :target="target"
-    :class="['button', { selected }]"
+    :class="['button', { selected }, { disabled }]"
     @click="clickHandler($event)">
 
     <slot :loading="loading" />
