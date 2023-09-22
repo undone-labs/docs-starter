@@ -175,7 +175,7 @@ const intersectionObserveHeadings = () => {
     const entryId = entry.target.id
     const sectionId = entry.target.getAttribute('section')
     const intersectingTop = entry.boundingClientRect.top <= headerHeightOffset.value
-    const hash = window.location.hash.slice(1)
+    // const hash = window.location.hash.slice(1)
     // let activeSection = { id: entryId }
     // let activePath
     // console.log('→', entryId, route.path, intersectingTop, navigatedByRoute.value, entry.intersectionRatio, entry.isIntersecting)
@@ -186,23 +186,26 @@ const intersectionObserveHeadings = () => {
     if (intersectingTop && !navigatedByRoute.value) {
       // console.log(entryId, sectionId)
       // console.log(entry)
-      if (entryId !== hash) {
-        // activePath = `${route.path}#${entryId}`
-        // activeSection =
-        generalStore.setActiveSection(
-          sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
-        )
-      } else {
-        // const index = sections.value.findIndex(section => section.id === entryId)
-        // if (index !== 0) {
-        //   const current = sections.value[index - 1]
-        //   activePath = `${route.path}#${current.id}`
-        //   activeSection = current.id
-        // } else {
-        //   activeSection = false
-        // }
-        // generalStore.setActiveSection(activeSection)
-      }
+      generalStore.setActiveSection(
+        sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
+      )
+      // if (entryId !== hash) {
+      //   // activePath = `${route.path}#${entryId}`
+      //   // activeSection =
+      //   // generalStore.setActiveSection(
+      //   //   sectionId !== '' ? { id: entryId, sectionId } : { id: entryId }
+      //   // )
+      // } else {
+      //   // const index = sections.value.findIndex(section => section.id === entryId)
+      //   // if (index !== 0) {
+      //   //   const current = sections.value[index - 1]
+      //   //   activePath = `${route.path}#${current.id}`
+      //   //   activeSection = current.id
+      //   // } else {
+      //   //   activeSection = false
+      //   // }
+      //   // generalStore.setActiveSection(activeSection)
+      // }
     }
     // if (!navigatedByRoute.value && !intersectingTop && activeSection) {
     //   history.replaceState({}, null, activePath)
@@ -220,7 +223,9 @@ const intersectionObserveHeadings = () => {
  */
 const detectPageScrolledToEdgesOfViewport = () => {
   if (sections.value.length) {
-    const lastMagellanNavItemId = sections.value.slice(-1).pop().id
+    const lastMagellanNavItem = sections.value.slice(-1).pop()
+    const lastMagellanNavItemId = lastMagellanNavItem.id
+    const lastMagellanNavItemSectionId = lastMagellanNavItem.getAttribute('section')
     const scrollHandler = () => {
       const y = window.scrollY
       const viewportHeight = window.innerHeight
@@ -230,7 +235,11 @@ const detectPageScrolledToEdgesOfViewport = () => {
         // generalStore.setActiveSection(false)
       } else if (y + viewportHeight >= bodyHeight) {
         // history.replaceState({}, null, `${route.path}#${lastMagellanNavItemId}`)
-        generalStore.setActiveSection({ id: lastMagellanNavItemId })
+        generalStore.setActiveSection(
+          lastMagellanNavItemSectionId !== '' ?
+            { id: lastMagellanNavItemId, sectionId: lastMagellanNavItemSectionId } :
+            { id: lastMagellanNavItemId }
+        )
       }
     }
     scrollWindowEventListenerFunction.value = useThrottle(scrollHandler, 100)

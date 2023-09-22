@@ -1,5 +1,6 @@
 <template>
   <button
+    v-if="!disableAlgolia"
     class="search-button"
     @click="handleClick">
 
@@ -42,6 +43,8 @@ const emit = defineEmits(['clicked'])
 
 // ======================================================================== Data
 const generalStore = useGeneralStore()
+const runtimeConfig = useRuntimeConfig()
+const disableAlgolia = runtimeConfig.public.algolia.disable
 
 // ===================================================================== Methods
 const handleClick = () => {

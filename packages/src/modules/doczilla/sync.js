@@ -237,14 +237,16 @@ async function syncContentDirOnFileChange () {
   deleteTargetDirs()
   copySrcDirToTargetDir()
   const nuxtConfig = require(Path.resolve(__dirname, '../../data/nuxt.config.js'))
-  try {
-    await createAlgoliaIndex(
-      nuxtConfig,
-      compileDirContentForAlgoliaIndexing()
-    )
-  } catch (e) {
-    console.log('================================== syncContentDirOnFileChange')
-    console.log(e)
+  if (!nuxtConfig.algolia.disable) {
+    try {
+      await createAlgoliaIndex(
+        nuxtConfig,
+        compileDirContentForAlgoliaIndexing()
+      )
+    } catch (e) {
+      console.log('================================== syncContentDirOnFileChange')
+      console.log(e)
+    }
   }
 }
 syncContentDirOnFileChange()

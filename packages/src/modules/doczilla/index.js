@@ -60,6 +60,7 @@ const registerCustomComponents = (nuxt) => {
 // ///////////////////////////////////////////// addEntriesToPublicRuntimeConfig
 const addEntriesToPublicRuntimeConfig = (nuxt) => {
   nuxt.options.runtimeConfig.public.algolia.indexName = nuxt.options.algolia.indexName
+  nuxt.options.runtimeConfig.public.algolia.disable = nuxt.options.algolia.disable || false
 }
 
 // /////////////////////////////////////////////////////////////////////// Setup
