@@ -22,11 +22,11 @@ import { storeToRefs } from 'pinia'
 if (process.client && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   useHead({
     meta: [
-      { name: 'msapplication-config', content: '/favicon/light/browserconfig.xml' }
+      { name: 'msapplication-config', content: '/public/favicon/light/browserconfig.xml' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon/light/favicon-96x96.png' },
-      { rel: 'manifest', href: '/favicon/light/manifest.json' }
+      { rel: 'icon', type: 'image/x-icon', href: '/public/favicon/light/favicon-96x96.png' },
+      { rel: 'manifest', href: '/public/favicon/light/manifest.json' }
     ]
   })
 }

@@ -59,11 +59,11 @@ module.exports = {
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'msapplication-config', content: '/favicon/dark/browserconfig.xml' }
+        { name: 'msapplication-config', content: '/public/favicon/dark/browserconfig.xml' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon/dark/favicon-96x96.png' },
-        { rel: 'manifest', href: '/favicon/dark/manifest.json' }
+        { rel: 'icon', type: 'image/x-icon', href: '/public/favicon/dark/favicon-96x96.png' },
+        { rel: 'manifest', href: '/public/favicon/dark/manifest.json' }
       ]
     }
   },
