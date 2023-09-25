@@ -3,11 +3,7 @@
 
     <!-- ============================================================== Logo -->
     <NuxtLink to="/docs" class="logo-link">
-      <component
-        :is="useResolveDoczillaComponent('logo')"
-        v-if="useResolveDoczillaComponent('logo')"
-        class="logo" />
-      <Logo v-else class="logo" />
+      <component :is="useResolveDoczillaComponent('site-logo')" class="logo" />
     </NuxtLink>
 
     <!-- ========================================================= Nav links -->
