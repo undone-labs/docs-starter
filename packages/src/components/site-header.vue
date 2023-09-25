@@ -61,7 +61,7 @@ const { data: content } = await useAsyncData('content', () => {
   }).find()
 })
 
-let routeActive = ref(undefined)
+const routeActive = ref(undefined)
 
 if (content.value.length > 0) {
   routeActive.value = content.value[0]._file.includes('docs') ? '/docs' : undefined
