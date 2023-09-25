@@ -168,6 +168,7 @@
     margin: 0;
     padding-left: toRem(36);
     border-left: toRem(5) solid var(--background-color__secondary);
+    transition: border-color 500ms;
     &:not(:first-child) {
       margin-top: 2rem;
     }
