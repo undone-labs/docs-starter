@@ -33,7 +33,7 @@ cp -v ~/.ssh/localhost_cert.pem ~/.ssh/localhost_key.pem .
 
 ### `.env` file
 
-Place the following `.env` file into the root of your repo. This file is .gitignored.
+Place the following `.env` file into the `src` directory of your repo. This file is .gitignored.
 
 ```bash
 # ---------------------------------------------------------------------- General

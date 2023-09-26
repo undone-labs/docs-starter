@@ -14,6 +14,12 @@
     + ul, + ol {
       margin-top: 2rem;
     }
+    code {
+      margin: 0 toRem(6);
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
 
   h1 {
@@ -252,33 +258,39 @@
   .can-copy-url {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     position: relative;
     &:hover {
       .copy-heading-button {
-        display: flex;
-        animation: shrink-bounce 200ms cubic-bezier(0.4, 0, 0.23, 1);
+        transition: 150ms ease-in;
+        opacity: 1;
       }
     }
     .copy-heading-button {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       position: absolute;
-      top: 13px;
+      top: toRem(5);
       right: 100%;
-      padding: 0 0.5rem;
-      cursor: pointer;
-      z-index: 20;
-      @include tiny {
-        display: flex;
+      font-size: 100%;
+      line-height: 1;
+      padding-right: toRem(8);
+      color: var(--link-color);
+      opacity: 0;
+      transition: 150ms ease-out;
+      &:hover {
+        transition: 150ms ease-in;
+        color: var(--link-color);
       }
-    }
-    svg {
-      width: 1.25rem;
-      path {
-        fill: var(--theme-color);
-        transition: 500ms;
+      &[data-tooltip] {
+        &:hover {
+          &:before,
+          &:after {
+            transform: translate(calc(-50% - #{toRem(4)}), 0);
+          }
+        }
+        &:before,
+        &:after {
+          transform: translate(calc(-50% - #{toRem(4)}), 0.5rem);
+        }
       }
     }
     h1, h2, h3, h4, h5, h6 {
