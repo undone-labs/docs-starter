@@ -10,7 +10,7 @@ const theme = ref(Settings.theme || 'light')
 const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
-const displayThemeToggle = ref(Settings.displayThemeToggle)
+const themeToggleVisible = ref(Settings.themeToggleVisible)
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
@@ -64,7 +64,7 @@ export const useGeneralStore = defineStore('general', () => ({
   activeSection,
   magellanLinks,
   activeLinkMarkerHeight,
-  displayThemeToggle,
+  themeToggleVisible,
   // ----- actions
   setTheme,
   setActiveSection,
