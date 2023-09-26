@@ -1,0 +1,34 @@
+{
+  "query_parameters": {
+    "displayThemeToggle": {
+      "type": "string",
+      "description": "Toggle the visibility of the theme toggle component in the site header"
+    },
+    "theme": {
+      "type": "string",
+      "description": "Set the default theme | `light` or `dark`"
+    }
+  },
+  "sliders": [
+    {
+      "slides": [
+        {
+          "language": "json",
+          "tab": "Example Settings File",
+          "content": {
+            "displayThemeToggle": true,
+            "theme": "light"
+          }
+        },
+        {
+          "language": "json",
+          "tab": "Schema",
+          "content": {
+            "displayThemeToggle": "boolean",
+            "theme": "string"
+          }
+        }
+      ]
+    }
+  ]
+}

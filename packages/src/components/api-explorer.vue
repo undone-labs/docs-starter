@@ -97,11 +97,10 @@ const setActiveSlideContent = (index, slide, key) => {
   padding: 0 toRem(18);
   margin-bottom: toRem(9);
   .monospace {
-    font-family: $font_Mono;
-    font-size: toRem(14);
-    font-weight: 500;
-    line-height: leading(21, 14);
+    @include inlineCode;
+    font-size: toRem(16);
     color: var(--theme-color);
+    background-color: transparent;
     transition: color 500ms;
     &:not(:last-child) {
       margin-right: toRem(7);
@@ -109,6 +108,8 @@ const setActiveSlideContent = (index, slide, key) => {
   }
   .http-code,
   .response-code {
+    font-size: toRem(14);
+    font-weight: 500;
     color: var(--api-explorer__http-status-code__color);
     padding: toRem(3) toRem(7);
     padding-bottom: toRem(1);
@@ -176,8 +177,9 @@ const setActiveSlideContent = (index, slide, key) => {
 }
 
 .code-block {
-  @include codeBlock;
-  font-family: $font_Mono;
-  white-space: break-spaces;
+  @include blockCode;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
 }
 </style>

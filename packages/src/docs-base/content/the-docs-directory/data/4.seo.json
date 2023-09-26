@@ -1,0 +1,42 @@
+{
+  "query_parameters": {
+    "title": {
+      "type": "string",
+      "description": "Site title, page-specific and visible in online search results"
+    },
+    "description": {
+      "type": "string",
+      "description": "Site description, visible in online search results"
+    },
+    "siteName": {
+      "type": "string",
+      "description": "Similar to `title` but more general, also used in schema.org"
+    },
+    "ogImage": {
+      "type": "string",
+      "description": "Open Graph image url"
+    }
+  },
+  "sliders": [
+    {
+      "slides": [
+        {
+          "language": "json",
+          "tab": "Example Settings File",
+          "content": {
+            "displayThemeToggle": true,
+            "theme": "light"
+          }
+        },
+        {
+          "language": "json",
+          "tab": "Schema",
+          "content": {
+            "displayThemeToggle": "boolean",
+            "theme": "string"
+          }
+        }
+      ]
+    }
+  ]
+}

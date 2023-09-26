@@ -1,6 +1,4 @@
-# Docs Starter
-
-This repo is set up as a GitHub Template, making it easy to spin up your own copy. Click on "Use this template" above. Once you're up and running, you'll need to do a few things to get started:
+This repo is set up as a GitHub Template, making it easy to spin up your own copy. Navigate to the [@undone-labs/docs-starter repo](https://github.com/undone-labs/docs-starter) and click on "Use this template". Once you're up and running, you'll need to do a few things to get started:
 
 ### Base setup
 
@@ -45,5 +43,13 @@ ALGOLIA_API_KEY=<api_key>
 ALGOLIA_INDEX_ID=<index_id>
 ```
 
-For more information about the Algolia env variables, read the [Algolia docs](/welcome/algolia-search)
+For more information about the Algolia env variables, read the [Algolia docs](@TODO)
 
+### Run in local development mode
+
+```bash
+npm run dev
+```
+
+### Run in production mode
+<!-- # @TODO -->

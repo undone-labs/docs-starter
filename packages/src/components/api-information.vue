@@ -18,7 +18,10 @@
             {{ header.type }}
           </div>
         </div>
-        <MarkdownParser :markdown="header.description" class="description" />
+        <MarkdownParser
+          v-if="header.description"
+          :markdown="header.description"
+          class="description" />
       </div>
     </div>
 
@@ -39,7 +42,10 @@
             {{ parameter.type }}
           </div>
         </div>
-        <MarkdownParser :markdown="parameter.description" class="description" />
+        <MarkdownParser
+          v-if="parameter.description"
+          :markdown="parameter.description"
+          class="description" />
       </div>
     </div>
 
@@ -65,7 +71,10 @@
               </div>
             </td>
             <td>
-              <MarkdownParser :markdown="description" class="description" />
+              <MarkdownParser
+                v-if="description"
+                :markdown="description"
+                class="description" />
             </td>
           </tr>
         </tbody>

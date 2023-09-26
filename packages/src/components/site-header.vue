@@ -44,12 +44,12 @@
 
 <script setup>
 // ===================================================================== Imports
-import Navigation from '@/data/navigation'
+import Header from '@/data/header'
 
 // ======================================================================== Data
-const links = Navigation.header
-const githubUrl = Navigation.toolbar.github_url
-const languageOptions = Navigation.toolbar.language_options
+const links = Header.navigation
+const githubUrl = Header.toolbar.github_url
+const languageOptions = Header.toolbar.language_options
 
 const route = useRoute()
 const contentPath = `/docs/content${route.path}`

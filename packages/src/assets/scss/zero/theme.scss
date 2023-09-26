@@ -26,11 +26,6 @@ body {
   transition: background-color 500ms;
 }
 
-pre,
-code {
-  font-family: $font_Mono;
-}
-
 .page {
   padding-top: $bodyOffsetTop;
   background-color: var(--background-color);

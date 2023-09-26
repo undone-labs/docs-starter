@@ -65,6 +65,11 @@ const isCurrentRoute = (path) => {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .section {
+  &:first-of-type {
+    .title {
+      padding-top: 0;
+    }
+  }
   &:not(:first-of-type) {
     padding-top: 1rem;
   }

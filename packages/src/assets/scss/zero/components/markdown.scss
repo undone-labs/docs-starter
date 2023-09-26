@@ -100,25 +100,17 @@
     transition: border-color 500ms;
   }
 
-  pre,
-  code {
-    background-color: var(--code__block__background-color);
-    padding: toRem(30) toRem(29) toRem(22) toRem(29);
-    margin-bottom: 1.25rem;
-    border-radius: 0.625rem;
-    font-size: 0.75rem;
-    transition: background-color 500ms, color 500ms;
-  }
-
-  pre code {
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
+  pre {
+    @include blockCode;
+    code {
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+    }
   }
 
   code {
     @include inlineCode;
-    white-space: break-spaces;
   }
 
   // ===================================================================== Lists
