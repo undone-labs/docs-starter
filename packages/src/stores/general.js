@@ -36,7 +36,7 @@ const compileMagellanLinks = () => {
       hash: `#${item.id}`,
       id: item.id,
       sectionId: item.getAttribute('section'),
-      text: item.textContent
+      text: item.textContent.replace('#', '')
     })
     return acc
   }, [])
