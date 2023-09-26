@@ -1,4 +1,5 @@
 {
-  "themeToggleVisible": false,
+  "themeToggleVisible": true,
+  "languageSelectorVisible": true,
   "theme": "light"
 }

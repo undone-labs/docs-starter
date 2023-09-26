@@ -1,8 +1,12 @@
 {
   "query_parameters": {
     "themeToggleVisible": {
-      "type": "string",
+      "type": "boolean",
       "description": "Toggle the visibility of the theme toggle component in the site header"
+    },
+    "languageSelectorVisible": {
+      "type": "boolean",
+      "description": "Toggle the visibility of the language selector dropdown in the site header"
     },
     "theme": {
       "type": "string",

@@ -11,6 +11,7 @@ const activeSection = ref(false)
 const activeLinkMarkerHeight = ref(0)
 const magellanLinks = ref([])
 const themeToggleVisible = ref(Settings.themeToggleVisible)
+const languageSelectorVisible = ref(Settings.languageSelectorVisible)
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
@@ -65,6 +66,7 @@ export const useGeneralStore = defineStore('general', () => ({
   magellanLinks,
   activeLinkMarkerHeight,
   themeToggleVisible,
+  languageSelectorVisible,
   // ----- actions
   setTheme,
   setActiveSection,

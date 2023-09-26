@@ -12,3 +12,11 @@
       fill="#181818" />
   </svg>
 </template>
+
+<style lang="scss" scoped>
+path,
+rect {
+  transition: fill 500ms;
+  fill: var(--theme-color);
+}
+</style>
