@@ -34,7 +34,7 @@ As well, all content must live in a subdirectory. For example, `docs/content/wel
 
 💡 File slugs (ex: `subdirectory-single-nesting`) are converted into `Proper Case` and used to generate page headings. In this case, the heading would be `Subdirectory Single Nesting`.
 
-‼️ Only 2 levels of directory nesting is supported. If 3 levels are detected, the build script will throw an error and the site will not generate correctly.
+❗️ Only 2 levels of directory nesting is supported. If 3 levels are detected, the build script will throw an error and the site will not generate correctly.
 
 #### Single-nesting
 

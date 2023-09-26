@@ -23,6 +23,6 @@ sitemap: {
 }
 ```
 
-‼️ When editing, do not remove the existing block, only add to it
+❗️ When editing, do not remove the existing block, only add to it
 
 The sitemap is generated using the `nuxt-simple-sitemap` package and all customization documentation can be found [here](https://nuxtseo.com/sitemap/getting-started/installation)

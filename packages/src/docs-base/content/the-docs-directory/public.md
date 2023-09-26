@@ -2,7 +2,7 @@
 
 In the top-level `docs` directory, create a `docs/public` subdirectory. The name is strict. The dev server will watch this directory for changes and auto-restart when they are detected. All filetypes are supported.
 
-‼️ Files placed into this directory will become _publicly accessible_, nested under a `/public/<filename>` URL
+❗️ Files placed into this directory will become _publicly accessible_, nested under a `/public/<filename>` URL
 
 For the most part, this directory will be used to contain image assets that are used in markdown content. The open graph image as well as the favicon should be placed here as well.
 

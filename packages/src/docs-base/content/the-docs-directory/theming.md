@@ -22,4 +22,4 @@ Font imports, mixins and typography-related declarations can be put here.
 
 Here we can define or modify SCSS variables, general mixins and site-wide utilities.
 
-‼️ This file should NOT contain any styling (classes or IDs). It should only contain variables, functions, mixins, etc.
+❗️ This file should NOT contain any styling (classes or IDs). It should only contain variables, functions, mixins, etc.
