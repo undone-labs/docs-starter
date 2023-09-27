@@ -18,6 +18,8 @@ const seo = (key, override = {}) => {
     for (const key in entry) {
       if (override.hasOwnProperty(key) && entry[key].includes(`|${key}|`)) {
         entry[key] = entry[key].replaceAll(`|${key}|`, override[key])
+      } else if (defaults.hasOwnProperty(key)) {
+        entry[key] = defaults[key]
       }
     }
     entry = Object.assign({ schemaOrgData: {} }, defaults, entry)
