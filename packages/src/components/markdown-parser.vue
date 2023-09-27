@@ -92,7 +92,7 @@ renderer.code = function (code, language) {
     hljs.highlight(code, { language }).value :
     hljs.highlightAuto(code).value
   return `
-    <div class="code-wrapper">
+    <div class="code-wrapper" data-language="${language}">
       <button class="copy-button" data-type="code">
         Copy
       </button>

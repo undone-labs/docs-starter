@@ -35,7 +35,8 @@
           <div
             v-for="slide in slider.slides"
             :key="`slide-${slide.id}`"
-            :class="['code-wrapper', { active: slide.id === activeSlides[slide.sliderId] }]">
+            :class="['code-wrapper', { active: slide.id === activeSlides[slide.sliderId] }]"
+            :data-language="slide.language">
             <button
               class="copy-button"
               @click="copyText(slide.id, slide.highlighted)">
