@@ -1,5 +1,6 @@
 {
   "query_parameters": {
+    "_section_heading": "Parameters",
     "title": {
       "type": "string",
       "description": "Section title"

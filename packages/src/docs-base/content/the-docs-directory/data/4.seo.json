@@ -1,5 +1,6 @@
 {
   "query_parameters": {
+    "_section_heading": "Parameters",
     "title": {
       "type": "string",
       "description": "Site title, page-specific and visible in online search results. Strings wrapped with pipes (ex: `|title|`) will be parsed and matched to frontmatter strings with keys of the same name."

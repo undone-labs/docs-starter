@@ -4,55 +4,59 @@
     <!-- =========================================================== headers -->
     <div v-if="headers" class="headers section">
       <div class="heading">
-        Headers
+        {{ getHeading('headers', headers) }}
       </div>
-      <div
-        v-for="(header, key) in props.headers"
-        :key="key"
-        class="entry">
-        <div class="metadata">
-          <div class="key">
-            {{ key }}
+      <template v-for="(header, key) in props.headers">
+        <div
+          v-if="key !== '_section_heading'"
+          :key="key"
+          class="entry">
+          <div class="metadata">
+            <div class="key">
+              {{ key }}
+            </div>
+            <div class="type">
+              {{ header.type }}
+            </div>
           </div>
-          <div class="type">
-            {{ header.type }}
-          </div>
+          <MarkdownParser
+            v-if="header.description"
+            :markdown="header.description"
+            class="description" />
         </div>
-        <MarkdownParser
-          v-if="header.description"
-          :markdown="header.description"
-          class="description" />
-      </div>
+      </template>
     </div>
 
     <!-- ================================================== query parameters -->
     <div v-if="queryParameters" class="query-parameters section">
       <div class="heading">
-        Query Parameters
+        {{ getHeading('query_parameters', queryParameters) }}
       </div>
-      <div
-        v-for="(parameter, key) in props.queryParameters"
-        :key="key"
-        class="entry">
-        <div class="metadata">
-          <div class="key">
-            {{ key }}
+      <template v-for="(parameter, key) in props.queryParameters">
+        <div
+          v-if="key !== '_section_heading'"
+          :key="key"
+          class="entry">
+          <div class="metadata">
+            <div class="key">
+              {{ key }}
+            </div>
+            <div class="type">
+              {{ parameter.type }}
+            </div>
           </div>
-          <div class="type">
-            {{ parameter.type }}
-          </div>
+          <MarkdownParser
+            v-if="parameter.description"
+            :markdown="parameter.description"
+            class="description" />
         </div>
-        <MarkdownParser
-          v-if="parameter.description"
-          :markdown="parameter.description"
-          class="description" />
-      </div>
+      </template>
     </div>
 
     <!-- ==================================================== response codes -->
     <div v-if="responseCodes" class="response-codes section">
       <div class="heading">
-        HTTP Response Status Codes
+        {{ getHeading('response_codes', responseCodes) }}
       </div>
       <table class="table">
         <thead>
@@ -62,21 +66,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(description, code) in props.responseCodes"
-            :key="code">
-            <td>
-              <div class="http-code">
-                {{ code }}
-              </div>
-            </td>
-            <td>
-              <MarkdownParser
-                v-if="description"
-                :markdown="description"
-                class="description" />
-            </td>
-          </tr>
+          <template v-for="(description, code) in props.responseCodes">
+            <tr
+              v-if="key !== '_section_heading'"
+              :key="code">
+              <td>
+                <div class="http-code">
+                  {{ code }}
+                </div>
+              </td>
+              <td>
+                <MarkdownParser
+                  v-if="description"
+                  :markdown="description"
+                  class="description" />
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
@@ -103,6 +109,20 @@ const props = defineProps({
     default: undefined
   }
 })
+
+// ==================================================================== Headings
+/**
+ * @method getHeading
+ */
+
+const getHeading = (key, section) => {
+  const map = {
+    headers: "Headers",
+    query_parameters: "Query Parameters",
+    response_codes: "HTTP Response Status Codes"
+  }
+  return section._section_heading || map[key]
+}
 </script>
 
 <style lang="scss" scoped>

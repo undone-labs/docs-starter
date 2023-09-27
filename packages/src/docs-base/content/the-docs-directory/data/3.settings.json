@@ -1,5 +1,6 @@
 {
   "query_parameters": {
+    "_section_heading": "Parameters",
     "themeToggleVisible": {
       "type": "boolean",
       "description": "Toggle the visibility of the theme toggle component in the site header"

@@ -1,5 +1,6 @@
 {
   "query_parameters": {
+    "_section_heading": "Parameters",
     "disable": {
       "type": "boolean",
       "description": "Default `true`. If set to `false`, Algolia is disabled entirely."
