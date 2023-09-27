@@ -3,7 +3,7 @@
     "_section_heading": "Parameters",
     "disable": {
       "type": "boolean",
-      "description": "Default `true`. If set to `false`, Algolia is disabled entirely."
+      "description": "Default `false`. If set to `false`, Algolia is disabled entirely."
     },
     "apiKey": {
       "type": "string"
