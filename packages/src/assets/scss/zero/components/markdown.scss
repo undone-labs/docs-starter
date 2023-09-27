@@ -62,43 +62,6 @@
     @include p1Link;
   }
 
-  h1.heading-anchor > a,
-  h2.heading-anchor > a,
-  h3.heading-anchor > a,
-  h4.heading-anchor > a,
-  h5.heading-anchor > a,
-  h6.heading-anchor > a {
-    @include h2;
-    display: block;
-    margin-bottom: toRem(20);
-    color: var(--theme-color);
-    transition: color 500ms;
-  }
-
-  h1.heading-anchor > a {
-    @include h1;
-  }
-
-  h2.heading-anchor > a {
-    @include h2;
-  }
-
-  h3.heading-anchor > a {
-    @include h3;
-  }
-
-  h4.heading-anchor > a {
-    @include h4;
-  }
-
-  h5.heading-anchor > a {
-    @include h5;
-  }
-
-  h6.heading-anchor > a {
-    @include h6;
-  }
-
   // =================================================================== General
   hr {
     margin-bottom: 2rem;
@@ -106,6 +69,7 @@
     transition: border-color 500ms;
   }
 
+  // ====================================================================== Code
   pre {
     @include blockCode;
     code {
@@ -255,18 +219,18 @@
   }
 
   // ============================================================= Heading Links
-  .can-copy-url {
+  .heading-anchor {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     position: relative;
     &:hover {
-      .copy-heading-button {
+      .copy-button {
         transition: 150ms ease-in;
         opacity: 1;
       }
     }
-    .copy-heading-button {
+    .copy-button {
       position: absolute;
       top: toRem(5);
       right: 100%;

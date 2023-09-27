@@ -21,25 +21,28 @@
 
       <div class="slider">
 
-        <div
-          v-if="activeSlideContent[i]"
-          class="slider-tabs">
+        <div class="slider-tabs">
           <div
-            v-for="(slide, j) in slider.slides"
-            :key="`slide-${i}-${j}`"
-            :class="['tab', { active: `slide-${i}-${j}` === activeSlideContent[i].key }]"
-            @click="setActiveSlideContent(i, slide, `slide-${i}-${j}`)">
+            v-for="slide in slider.slides"
+            :key="`tab-${slide.id}`"
+            :class="['tab', { active: slide.id === activeSlides[slide.sliderId] }]"
+            @click="setActiveSlide(slide)">
             {{ slide.tab }}
           </div>
         </div>
 
         <div class="slide-content">
-          <pre>
-            <code
-              v-if="activeSlideContent[i]"
-              :class="['code-block', `language-${activeSlideContent[i].language}`]"
-              v-html="activeSlideContent[i].highlighted"></code>
-          </pre>
+          <div
+            v-for="slide in slider.slides"
+            :key="`slide-${slide.id}`"
+            :class="['code-wrapper', { active: slide.id === activeSlides[slide.sliderId] }]">
+            <button
+              class="copy-button"
+              @click="copyText(slide.id, slide.highlighted)">
+              {{ copiedCodeBlock === slide.id ? 'Copied!' : 'Copy' }}
+            </button>
+            <pre><code class="code-block" v-html="slide.highlighted"></code></pre>
+          </div>
         </div>
 
       </div>
@@ -65,29 +68,43 @@ const props = defineProps({
 })
 
 // ======================================================================== Data
-const activeSlideContent = ref([])
-
-// ======================================================================= Hooks
-onMounted(() => {
-  hljs.registerLanguage('javascript', javascript)
-  hljs.registerLanguage('json', json)
-  hljs.registerLanguage('curl', hljsCurl)
-  props.sliders.forEach((slider, i) => {
-    setActiveSlideContent(i, slider.slides[0], `slide-${i}-0`)
-  })
-})
+const generalStore = useGeneralStore()
+const activeSlides = ref({})
+const copiedCodeBlock = ref(null)
 
 // ===================================================================== Methods
-const setActiveSlideContent = (index, slide, key) => {
-  const content = typeof slide.content === 'object' ?
-    JSON.stringify(slide.content, undefined, 2).trim() :
-    slide.content
-  activeSlideContent.value[index] = {
-    language: slide.language,
-    highlighted: hljs.highlight(content, { language: slide.language }).value,
-    key
-  }
+/**
+ * @method setActiveSlide
+ */
+const setActiveSlide = (slide) => {
+  activeSlides.value[slide.sliderId] = slide.id
 }
+
+/**
+ * @method copyText
+ */
+const copyText = (id, text) => {
+  useAddTextToClipboard(text)
+  generalStore.setClipboard(text)
+  copiedCodeBlock.value = id
+}
+
+// ======================================================================= Hooks
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('json', json)
+hljs.registerLanguage('curl', hljsCurl)
+props.sliders.forEach(slider => {
+  const sliderId = useUuid().v4()
+  slider.slides.forEach(slide => {
+    const content = typeof slide.content === 'object' ?
+      JSON.stringify(slide.content, undefined, 2).trim() :
+      slide.content.trim()
+    slide.id = useUuid().v4()
+    slide.sliderId = sliderId
+    slide.highlighted = hljs.highlight(content, { language: slide.language }).value
+  })
+  setActiveSlide(slider.slides[0])
+})
 </script>
 
 <style lang="scss" scoped>
@@ -163,7 +180,7 @@ const setActiveSlideContent = (index, slide, key) => {
     position: absolute;
     top: calc(100% - 0.5px);
     left: toRem(24);
-    width: calc(100% - toRem(48));
+    width: calc(100% - #{toRem(48)});
   }
   &.active {
     &:after {
@@ -181,5 +198,17 @@ const setActiveSlideContent = (index, slide, key) => {
   margin: 0;
   padding: 0;
   background-color: transparent;
+}
+
+.copy-button {
+  top: 0;
+  right: 0;
+}
+
+.code-wrapper {
+  display: none;
+  &.active {
+    display: block;
+  }
 }
 </style>

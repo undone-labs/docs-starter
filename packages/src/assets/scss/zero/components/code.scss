@@ -1,3 +1,33 @@
+// ================================================================== Code block
+.code-wrapper {
+  position: relative;
+  &:hover {
+    .copy-button {
+      transition: 150ms ease-in;
+      opacity: 1;
+    }
+  }
+  .copy-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: toRem(6) toRem(7);
+    font-size: toRem(12);
+    line-height: 1;
+    color: var(--theme-color);
+    background-color: var(--background-color__secondary);
+    border-radius: toRem(4);
+    opacity: 0;
+    transition: 150ms ease-out;
+    &:hover {
+      transition: 150ms ease-in;
+      color: var(--theme-color__inverted);
+      background-color: var(--link-color);
+    }
+  }
+}
+
+// ====================================================================== Themes
 html {
   // ///////////////////////////////////////////////////// [theme] Atom One Dark
   // https://raw.githubusercontent.com/highlightjs/highlight.js/main/src/styles/atom-one-dark.css

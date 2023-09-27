@@ -33,7 +33,8 @@ const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
 const baseURL = `${runtimeConfig.public.frontendUrl}${route.path}`
 const textCopied = 'Copied!'
-const textNotCopied = 'Click to copy link'
+const textNotCopiedUrl = 'Click to copy link'
+const textNotCopiedCode = 'Copy'
 const generalStore = useGeneralStore()
 let copyButtons = []
 let parsed = null
@@ -70,8 +71,16 @@ renderer.heading = function (text, level) {
     .replace(/^-+/, '') // Trim - from start of text
     .replace(/-+$/, '') // Trim - from end of text
   return `
-    <h${level} id="${escapedText}" section="${props.section}" class="can-copy-url heading-anchor">
-      <button class="copy-heading-button" hash="${escapedText}" data-tooltip="Click to copy link" data-tooltip-theme="light">#</button>
+    <h${level}
+      id="${escapedText}"
+      section="${props.section}"
+      class="heading-anchor">
+      <button
+        class="copy-button"
+        data-hash="${escapedText}"
+        data-tooltip="Click to copy link"
+        data-tooltip-theme="light"
+        data-type="heading">#</button>
       ${text}
     </h${level}>
   `
@@ -82,7 +91,14 @@ renderer.code = function (code, language) {
   const highlighted = language && languageInstalled ?
     hljs.highlight(code, { language }).value :
     hljs.highlightAuto(code).value
-  return `<pre><code class="code-block">${highlighted}</code></pre>`
+  return `
+    <div class="code-wrapper">
+      <button class="copy-button" data-type="code">
+        Copy
+      </button>
+      <pre><code class="code-block">${highlighted}</code></pre>
+    </div>
+  `
 }
 
 parsed = Kramed(props.markdown, { renderer })
@@ -90,17 +106,22 @@ parsed = Kramed(props.markdown, { renderer })
 // ======================================================================= Hooks
 onMounted(async () => {
   await nextTick(() => {
-    copyButtons = document.getElementsByClassName('copy-heading-button')
+    copyButtons = document.getElementsByClassName('copy-button')
     const len = copyButtons.length
     for (let i = 0; i < len; i++) {
       const button = copyButtons[i]
-      const hash = button.getAttribute('hash')
-      const url = `${baseURL}#${hash}`
+      const hash = button.getAttribute('data-hash')
+      const type = button.getAttribute('data-type')
+      const text = type === 'heading' ? `${baseURL}#${hash}` : button.nextElementSibling.textContent
       button.addEventListener('click', () => {
-        useAddTextToClipboard(url)
-        generalStore.setClipboard(url)
+        useAddTextToClipboard(text)
+        generalStore.setClipboard(text)
         clearCopiedStates()
-        button.setAttribute('data-tooltip', textCopied)
+        if (type === 'heading') {
+          button.setAttribute('data-tooltip', textCopied)
+        } else if (type === 'code') {
+          button.innerText = textCopied
+        }
       })
     }
   })
@@ -113,7 +134,13 @@ onMounted(async () => {
 const clearCopiedStates = () => {
   const len = copyButtons.length
   for (let i = 0; i < len; i++) {
-    copyButtons[i].setAttribute('data-tooltip', textNotCopied)
+    const button = copyButtons[i]
+    const type = button.getAttribute('data-type')
+    if (type === 'heading') {
+      button.setAttribute('data-tooltip', textNotCopiedUrl)
+    } else if (type === 'code') {
+      button.innerText = textNotCopiedCode
+    }
   }
 }
 </script>
