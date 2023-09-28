@@ -73,8 +73,8 @@ $fontAssetPath: 'assets/fonts';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.ttf') format('truetype'),
-       url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.otf') format('opentype');
+  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.ttf') format('truetype');
+       // url('#{$fontAssetPath}/PFDinMono/PFDinMono-Regular.otf') format('opentype');
 }
 
 @font-face {
@@ -82,8 +82,8 @@ $fontAssetPath: 'assets/fonts';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.ttf') format('truetype'),
-       url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.otf') format('opentype');
+  src: url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.ttf') format('truetype');
+       // url('#{$fontAssetPath}/PFDinMono/PFDinMono-Medium.otf') format('opentype');
 }
 
 // ///////////////////////////////////////////////////////// Basic Styles Mixins
