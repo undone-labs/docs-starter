@@ -68,7 +68,7 @@
         <tbody>
           <template v-for="(description, code) in props.responseCodes">
             <tr
-              v-if="key !== '_section_heading'"
+              v-if="code !== '_section_heading'"
               :key="code">
               <td>
                 <div class="http-code">
