@@ -173,6 +173,15 @@ const { activeResult } = storeToRefs(algoliaStore)
   }
 }
 
+:deep(.result-title) {
+  mark {
+    background-color: var(--theme-color);
+    color: var(--theme-color__inverted);
+    padding: 0 toRem(4);
+    margin: 0 toRem(1);
+  }
+}
+
 .content {
   display: flex;
   flex-direction: column;
