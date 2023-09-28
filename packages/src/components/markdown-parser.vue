@@ -89,14 +89,14 @@ renderer.heading = function (text, level) {
 renderer.code = function (code, language) {
   const languageInstalled = hljs.getLanguage(language)
   const highlighted = language && languageInstalled ?
-    hljs.highlight(code, { language }).value :
-    hljs.highlightAuto(code).value
+    hljs.highlight(code, { language }) :
+    hljs.highlightAuto(code)
   return `
-    <div class="code-wrapper" data-language="${language}">
+    <div class="code-wrapper" data-language="${highlighted.language}">
       <button class="copy-button" data-type="code">
         Copy
       </button>
-      <pre><code class="code-block">${highlighted}</code></pre>
+      <pre><code class="code-block">${highlighted.value}</code></pre>
     </div>
   `
 }

@@ -10,7 +10,7 @@
   &:before {
     content: attr(data-language);
     position: absolute;
-    top: 1rem;
+    top: 0;
     right: 1rem;
     padding: toRem(6);
     font-size: toRem(12);
