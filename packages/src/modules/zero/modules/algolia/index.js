@@ -162,7 +162,7 @@ const sync = async () => {
     try {
       await createAlgoliaIndex(
         nuxtConfig,
-        compileDirContentForAlgoliaIndexing(nuxtConfig.algolia.contentDirectoryName)
+        compileDirContentForAlgoliaIndexing(nuxtConfig.algolia.contentDirectoryName || 'content')
       )
     } catch (e) {
       console.log('================================ syncContentDirOnFileChange')

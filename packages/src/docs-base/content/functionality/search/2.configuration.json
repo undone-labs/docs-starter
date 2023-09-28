@@ -14,6 +14,10 @@
     "indexName": {
       "type": "string",
       "description": "The index that Algolia pushes to, matching the index set in the Algolia dashboard"
+    },
+    "contentDirectoryName": {
+      "type": "string",
+      "description": "The `contentDirectoryName` key is very important. If the content directory name is every changed from `docs/content` to `docs/*`, make sure to update this key to the new directory name. The default is `content`."
     }
   },
   "sliders": [
@@ -27,7 +31,8 @@
               "disable": false, // default: false
               "apiKey": "process.env.ALGOLIA_API_KEY",
               "applicationId": "process.env.ALGOLIA_APPLICATION_ID",
-              "indexName": "`${process.env.ALGOLIA_INDEX_ID}__${env}`"
+              "indexName": "`${process.env.ALGOLIA_INDEX_ID}__${env}`",
+              "contentDirectoryName": "content" // default: 'content'
             }
           }
         },
@@ -38,7 +43,8 @@
             "disable": "boolean",
             "apiKey": "string",
             "applicationId": "string",
-            "indexName": "string"
+            "indexName": "string",
+            "contentDirectoryName": "string"
           }
         }
       ]
