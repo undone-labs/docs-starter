@@ -1,3 +1,7 @@
+---
+title: Getting Started
+---
+
 This repo is set up as a GitHub Template, making it easy to spin up your own copy. Navigate to the [@undone-labs/docs-starter repo](https://github.com/undone-labs/docs-starter) and click on "Use this template". Once you're up and running, you'll need to do a few things to get started:
 
 ### Base setup

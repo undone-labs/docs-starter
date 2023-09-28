@@ -1,3 +1,7 @@
+---
+title: Writing Content
+---
+
 ### Directory setup
 
 In the top-level `docs` directory, create a `docs/content` subdirectory. The name is strict. Once created the `@nuxt/content` module will load all the appropriate files and the dev server will watch this directory for changes and auto-restart when they are detected. The following filetypes are supported: `.md`, `.vue` and `.json`.
@@ -76,5 +80,3 @@ Outlined [here](/api-sample/introduction)
 #### Component preview
 
 Outlined [here](/content-sample/preview-a-component)
-
-

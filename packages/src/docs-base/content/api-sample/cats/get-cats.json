@@ -23,16 +23,15 @@
   },
   "sliders": [
     {
-      "rest": {
-        "http_code": "GET",
-        "endpoint": "/api/get-datasets"
+      "metadata": {
+        "tag": "GET",
+        "title": "/api/get-cats"
       },
-      "title": "",
       "slides": [
         {
           "language": "curl",
           "tab": "cURL",
-          "content": "curl https://example.com/api/get-datasets"
+          "content": "curl https://example.com/api/get-cats"
         },
         {
           "language": "javascript",
@@ -42,11 +41,10 @@
       ]
     },
     {
-      "response": {
-        "text": "Response",
-        "http_code": "200"
+      "metadata": {
+        "title": "Response",
+        "tag": "200"
       },
-      "title": "",
       "slides": [
         {
           "language": "json",

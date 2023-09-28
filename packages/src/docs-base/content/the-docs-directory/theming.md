@@ -1,3 +1,7 @@
+---
+title: Theming
+---
+
 ### Directory setup
 
 In the top-level `docs` directory, create a `docs/theme` subdirectory. The name is strict. The theme files are auto-loaded and the dev server will watch this directory for changes and auto-restart when they are detected. The following filetypes are supported: `.scss`. The best course of action when updating the theme would be to copy the base theme from `src/assets/scss/zero` into `docs/theme` and then to modify the required CSS selectors. While not required, it would be best to discard any CSS that was not modified in order to avoid duplicate CSS declarations both aiming to achieve the same thing.

@@ -1,3 +1,7 @@
+---
+title: Introduction
+---
+
 We read docs. A lot. We know a great many docs sites inside and out. Each has features that make it stand out and make the docs experience drastically better, but usually we're left a little wanting. We decided to pull together all the features we found the most useful and put them all into a single docs experience. With careful attention to website layout and typography as well as repo structure, we've come to a pretty happy point. Here's what we have:
 
 - Markdown-driven documentation
@@ -15,8 +19,8 @@ We read docs. A lot. We know a great many docs sites inside and out. Each has fe
 - Easy to customize
 - Written in Nuxt 3 💪
 
-You can see an example of all of these features in action in the following sections:
+You can see an example of some of these features in action in the following sections:
 
-- [Simple markdown](/simple-markdown)
-- [Preview a component](/preview-a-component)
+- [Simple markdown](/content-sample/simple-markdown)
+- [Preview a component](/content-sample/preview-a-component)
 - [API Preview & Overview](/api-sample/introduction)

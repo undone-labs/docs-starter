@@ -1,3 +1,7 @@
+---
+title: Components
+---
+
 ### Directory setup
 
 In the top-level `docs` directory, create a `docs/components` subdirectory. The name is strict. The components are auto-loaded and the dev server will watch this directory for changes and auto-restart when they are detected. The following filetypes are supported: `.vue`. This directory contains components used in the UI. It is not a general components directory for modifications. Its utility is limited to 2 functions:

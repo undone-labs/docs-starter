@@ -1,3 +1,7 @@
+---
+title: Sitemap
+---
+
 A sitemap is generated automatically, directly from the `docs/content` directory and is accessible at the following URL:
 
 ```

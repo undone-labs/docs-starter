@@ -1,16 +1,15 @@
 {
   "sliders": [
     {
-      "rest": {
-        "http_code": "POST",
-        "endpoint": "/api/post-dataset"
+      "metadata": {
+        "tag": "POST",
+        "title": "/api/post-cats"
       },
-      "title": "",
       "slides": [
         {
           "language": "curl",
           "tab": "cURL",
-          "content": "curl https://example.com/api/post-dataset"
+          "content": "curl https://example.com/api/post-cats"
         },
         {
           "language": "javascript",
@@ -20,11 +19,10 @@
       ]
     },
     {
-      "response": {
-        "text": "Response",
-        "http_code": "200"
+      "metadata": {
+        "tag": "Response",
+        "title": "200"
       },
-      "title": "",
       "slides": [
         {
           "language": "json",

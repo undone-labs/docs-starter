@@ -6,16 +6,13 @@
       class="api-slider">
 
       <div class="slider-heading">
-        <div v-if="slider.title" class="title">
-          {{ slider.title }}
-        </div>
-        <div v-if="slider.rest" class="rest">
-          <span class="monospace http-code">{{ slider.rest.http_code }}</span>
-          <span class="monospace endpoint">{{ slider.rest.endpoint }}</span>
-        </div>
-        <div v-if="slider.response" class="response">
-          <span class="monospace text">{{ slider.response.text }}</span>
-          <span class="monospace response-code"> {{ slider.response.http_code }}</span>
+        <div v-if="slider.metadata" class="metadata">
+          <span
+            v-for="(value, key) in slider.metadata"
+            :key="key"
+            :class="['monospace', key]">
+            {{ value }}
+          </span>
         </div>
       </div>
 
@@ -114,34 +111,34 @@ props.sliders.forEach(slider => {
   display: flex;
   padding: 0 toRem(18);
   margin-bottom: toRem(9);
-  .monospace {
-    @include inlineCode;
-    font-size: toRem(16);
-    color: var(--theme-color);
-    background-color: transparent;
-    transition: color 500ms;
-    &:not(:last-child) {
-      margin-right: toRem(7);
-    }
-  }
-  .http-code,
-  .response-code {
-    font-size: toRem(14);
-    font-weight: 500;
-    color: var(--api-explorer__http-status-code__color);
-    padding: toRem(3) toRem(7);
-    padding-bottom: toRem(1);
-    background-color: var(--api-explorer__http-status-code__background-color);
-    border-radius: toRem(2);
-    transition: background-color 500ms, color 500ms;
-  }
 }
 
-.rest,
-.response {
+.metadata {
   display: flex;
   align-items: center;
   font-family: $font_Mono;
+}
+
+.monospace {
+  @include inlineCode;
+  font-size: toRem(16);
+  color: var(--theme-color);
+  background-color: transparent;
+  transition: color 500ms;
+  &:not(:last-child) {
+    margin-right: toRem(7);
+  }
+}
+
+.tag {
+  font-size: toRem(14);
+  font-weight: 500;
+  color: var(--api-explorer__http-status-code__color);
+  padding: toRem(3) toRem(7);
+  padding-bottom: toRem(1);
+  background-color: var(--api-explorer__http-status-code__background-color);
+  border-radius: toRem(2);
+  transition: background-color 500ms, color 500ms;
 }
 
 .slider {

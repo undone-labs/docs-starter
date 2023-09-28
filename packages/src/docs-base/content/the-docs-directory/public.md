@@ -1,3 +1,7 @@
+---
+title: The Public Directory
+---
+
 ### Directory setup
 
 In the top-level `docs` directory, create a `docs/public` subdirectory. The name is strict. The dev server will watch this directory for changes and auto-restart when they are detected. All filetypes are supported.
