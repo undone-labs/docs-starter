@@ -7,32 +7,35 @@
       opacity: 1;
     }
   }
-  &:before {
-    content: attr(data-language);
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    padding: toRem(6);
-    font-size: toRem(12);
-    line-height: 1;
-    font-weight: 500;
-    color: white;
-    border-radius: 0 0 toRem(4) toRem(4);
-    background-color: rgba(white, 0.1);
-    opacity: 0.6;
-    font-family: $font_Mono;
-    transition: color 500ms, background-color 500ms;
+  &[data-language] {
+    &:before {
+      content: attr(data-language);
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      padding: toRem(6);
+      font-size: toRem(12);
+      line-height: 1;
+      font-weight: 500;
+      color: white;
+      border-radius: 0 0 toRem(4) toRem(4);
+      background-color: rgba(white, 0.1);
+      opacity: 0.6;
+      font-family: $font_Mono;
+      transition: color 500ms, background-color 500ms;
+    }
   }
   .copy-button {
     position: absolute;
-    bottom: 1rem;
+    bottom: 0;
     right: 1rem;
     padding: toRem(6) toRem(7);
     font-size: toRem(12);
     line-height: 1;
     color: var(--theme-color);
     background-color: var(--background-color__secondary);
-    border-radius: toRem(4);
+    border-radius: toRem(4) toRem(4) 0 0;
+    border-bottom: 1px solid var(--code__block__background-color);
     opacity: 0;
     transition: 150ms ease-out;
     &:hover {
