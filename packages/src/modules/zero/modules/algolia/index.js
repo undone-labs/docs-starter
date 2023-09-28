@@ -5,6 +5,7 @@ import Fs from 'fs'
 import { loadNuxtConfig } from '@nuxt/kit'
 import AlgoliaSearch from 'algoliasearch'
 import MarkdownParser from 'kramed'
+import { parseFrontMatter } from 'remark-mdc'
 import { parse as NodeHtmlParser } from 'node-html-parser'
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -26,37 +27,12 @@ const unslugify = (slug, type = 'capitalize-first-character') => {
   }
 }
 
-// ///////////////////////////////////////////////////////////////////// slugify
-const slugify = (text, type = 'dash') => {
-  if (type === 'dash') {
-    return text.toString().toLowerCase()
-      .replace(/\s+/g, '-') // Replace spaces with -
-      .replace(/[^\w-]+/g, '') // Remove all non-word chars
-      .replace(/--+/g, '-') // Replace multiple - with single -
-      .replace(/^-+/, '') // Trim - from start of text
-      .replace(/-+$/, '') // Trim - from end of text
-  } else if (type === 'underscore') {
-    return text.toString().toLowerCase()
-      .replace(/\s+/g, '_') // Replace spaces with _
-      .replace(/[^\w_]+/g, '') // Remove all non-word chars
-      .replace(/__+/g, '_') // Replace multiple _ with single _
-      .replace(/^_+/, '') // Trim _ from start of text
-      .replace(/_+$/, '') // Trim _ from end of text
-  } else if (type === 'underscore-no-trim') {
-    return text.toString().toLowerCase()
-      .replace(/\s+/g, '_') // Replace spaces with _
-      .replace(/[^\w_]+/g, '') // Remove all non-word chars
-      .replace(/__+/g, '_') // Replace multiple _ with single _
-  } else {
-    return 'Incompatible "Type" specified. Must be type "dash", "underscore", or "underscore-no-trim". Default is "dash"'
-  }
-}
-
-
 // /////////////////////////////////////////////////// parseMarkdownStringToJson
-const parseMarkdownStringToJson = (fileName, string) => {
+const parseMarkdownStringToJson = (fileName, fileLevelPath, fileLevel, string) => {
+  fileName = fileName.replace(/[0-9]./g, '')
   const sections = []
-  const parsedMarkdown = MarkdownParser(string)
+  const parsedFrontmatter = parseFrontMatter(string)
+  const parsedMarkdown = MarkdownParser(parsedFrontmatter.content)
   const parsedHtml = NodeHtmlParser(parsedMarkdown, {
     blockTextElements: {
       code: true
@@ -68,21 +44,32 @@ const parseMarkdownStringToJson = (fileName, string) => {
   let heading = unslugify(fileName)
   let compiled = {}
   if (!headings.includes(nodes[0].rawTagName)) {
-    compiled = { [heading]: '' }
+    compiled = {
+      [heading]: {
+        content: '',
+        headingId: fileLevel < 2 ? fileName : fileLevelPath.split('/').pop()
+      }
+    }
   }
   for (let i = 0; i < len; i++) {
     const node = nodes[i]
+    const content = node.textContent
     if (headings.includes(node.rawTagName)) {
-      heading = node.textContent
-      compiled[heading] = ''
-    } else if (node.textContent && node.textContent !== '') {
-      compiled[heading] += node.textContent
+      heading = content
+      compiled[heading] = {
+        content: '',
+        headingId: node.id
+      }
+    } else if (content && content !== '') {
+      compiled[heading].content += content
     }
   }
   Object.keys(compiled).forEach(key => {
     sections.push({
       heading: key,
-      content: compiled[key]
+      headingId: compiled[key].headingId,
+      fileName,
+      content: `${compiled[key].content}`
     })
   })
   return sections
@@ -119,23 +106,24 @@ const compileDirContentForAlgoliaIndexing = (contentDirectoryName) => {
   const records = []
   walk(Path.resolve(__dirname, `../../../../docs/${contentDirectoryName}`), contentDirectoryName, file => {
     const filePath = file.path
-    if (file.ext === '.md') {
+    if (file.ext === '.md' && file.name !== 'src') {
       const sections = parseMarkdownStringToJson(
         file.name,
+        file.levelPath,
+        file.level,
         Fs.readFileSync(filePath, 'utf-8')
       )
       const topLevelSlug = file.topLevelSlug
       const parentSlug = file.parentSlug
       const fileLevelPath = file.levelPath
-      const fileName = file.name
       sections.forEach(section => {
         records.push({
           objectID: file.level < 2 ?
-            `/${fileLevelPath}/${fileName}#${slugify(section.heading)}` :
-            `/${fileLevelPath}#${slugify(section.heading)}?${file.name}`,
+            `/${fileLevelPath}/${section.fileName}#${section.headingId}` :
+            `/${fileLevelPath}#${section.headingId}`,
           sidebarHeading: unslugify(topLevelSlug, 'capitalize-all'),
           entryName: unslugify(
-            file.level < 2 ? fileName : parentSlug,
+            file.level < 2 ? section.fileName : parentSlug,
             'capitalize-all'
           ),
           entrySection: section.heading,
@@ -159,7 +147,7 @@ const createAlgoliaIndex = async (nuxtConfig, records) => {
       ]
     })
     const objectIDs = await index.saveObjects(records)
-    console.log(`The following records have been added/updated to Algolia index [${indexName}]:`)
+    console.log(`The following records have been added/updated to the Algolia index [${indexName}]:`)
     console.log(objectIDs)
   } catch (e) {
     console.log('========================================== createAlgoliaIndex')
