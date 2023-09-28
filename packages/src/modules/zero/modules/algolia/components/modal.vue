@@ -6,6 +6,7 @@
     <AisInstantSearch :index-name="indexName" :search-client="algolia">
 
       <AisSearchBox
+        ref="searchInput"
         :class="{ focused: searchFocused }"
         @focus="searchBoxFocus"
         @blur="searchBoxBlur" />
@@ -53,6 +54,7 @@ const algoliaStore = useZeroAlgoliaStore()
 const { modalActive } = storeToRefs(algoliaStore)
 const keyCommandEventListener = ref(null)
 const searchFocused = ref(false)
+const searchInput = ref(null)
 const route = useRoute()
 const indexName = runtimeConfig.public.algolia.indexName
 const disableAlgolia = runtimeConfig.public.algolia.disable
@@ -109,6 +111,14 @@ const { data: algoliaState } = await useAsyncData('algolia-state', async () => {
 // ==================================================================== Watchers
 watch(route, () => {
   if (modalActive.value) { closeModal() }
+})
+
+watch(modalActive, (active) => {
+  if (active) {
+    setTimeout(() => {
+      document.querySelector('.ais-SearchBox-input').focus()
+    }, 300)
+  }
 })
 
 // ======================================================================= Hooks
