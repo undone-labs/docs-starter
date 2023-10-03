@@ -22,7 +22,6 @@ module.exports = {
   runtimeConfig: {
     public: {
       siteUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
-      frontendUrl: env === 'development' ? `${baseUrls[env]}:${frontendPort}` : baseUrls[env],
       serverFlag: env
     }
   },
