@@ -1,12 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "concurrently --prefix-colors=yellow,green --names=⚡️,nuxt --prefix=name \"npm run sync\" \"nuxt dev --no-clear --https\"",
+    "build": "nuxi build",
+    "dev": "concurrently --prefix-colors=yellow,green --names=⚡️,nuxi --prefix=name \"npm run sync\" \"nuxi dev --no-clear --https\"",
     "sync": "nodemon modules/doczilla/sync.js --watch ../docs --watch modules/doczilla/sync.js --watch docs-base -e md,vue,json,scss,js",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "generate": "node modules/doczilla/sync.js && nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare",
     "upgrade-nuxt": "nuxi upgrade --force"
   },
   "overrides": {
